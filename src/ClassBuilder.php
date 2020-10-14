@@ -148,6 +148,12 @@ class ClassBuilder {
         return $this;
     }
 
+    public function classExtends($name) {
+        $this->generator->setExtendedClass($name);
+
+        return $this;
+    }
+
     /**
      * compile
      *

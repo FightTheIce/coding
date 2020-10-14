@@ -2,10 +2,10 @@
 
 $path = 'src/TraitBuilder.php';
 
-$obj = new FightTheIce\Coding\ClassBuilder("fake", "fake", "fake");
+$obj = new FightTheIce\Coding\TraitBuilder("fake", "fake", "fake");
 
-$class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\ClassBuilder', 'ClassBuilder', 'This class is responsible interacting with Laminas\Code\Generator\ClassGenerator');
-$class->uses('Laminas\Code\Generator\ClassGenerator');
+$class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\TraitBuilder', 'ClassBuilder', 'This class is responsible interacting with Laminas\Code\Generator\TraitGenerator');
+$class->uses('Laminas\Code\Generator\TraitGenerator');
 $class->newProperty('generator', null, 'protected', 'Generator Object')
     ->newProperty('describer', null, 'protected', 'Describer Object')
     ->newProperty('properties', array(), 'protected', 'Properties to generate')
@@ -39,10 +39,6 @@ $method = $class->newMethod('uses', 'public', 'Add a use statement');
 $method->newRequiredParameter('name', 'string', 'Name of class')
     ->newOptionalParameter('alias', null, '?string', 'Alias')
     ->getBodyFromObj($obj, 'uses');
-
-$method = $class->newMethod('classExtends', 'public', 'Should this class extend an existing one')
-    ->newRequiredParameter('name', 'string', 'Name of parent class')
-    ->getBodyFromObj($obj, 'classExtends');
 
 $method = $class->newMethod('compile', 'public', 'Compile data');
 $method->getBodyFromObj($obj, 'compile');
