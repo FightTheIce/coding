@@ -1,0 +1,20 @@
+{
+    "name": "fighttheice/coding",
+    "description": "Project Generation",
+    "require": {
+        "laminas/laminas-code": "^3.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "William Knauss",
+            "email": "william.knauss@kingdom.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["src"]
+    }
+}
