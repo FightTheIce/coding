@@ -4,7 +4,7 @@ $path = 'src/TraitBuilder.php';
 
 $obj = new FightTheIce\Coding\TraitBuilder("fake", "fake", "fake");
 
-$class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\TraitBuilder', 'ClassBuilder', 'This class is responsible interacting with Laminas\Code\Generator\TraitGenerator');
+$class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\TraitBuilder', 'TraitBuilder', 'This class is responsible interacting with Laminas\Code\Generator\TraitGenerator');
 $class->uses('Laminas\Code\Generator\TraitGenerator');
 $class->newProperty('generator', null, 'protected', 'Generator Object')
     ->newProperty('describer', null, 'protected', 'Describer Object')
