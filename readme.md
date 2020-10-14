@@ -38,6 +38,52 @@ To code a class use the following as a template (pysdo code)
 	//set the body of the method
 	$method->setBody('return $this;');
 ################################################################################################################
+	//compile our results
+	$class_generator->compile();
+
 	//generate the contents of your class
 	$contents = $class_generator->getGenerator()->generate();
+```
+
+The above will result in 
+```php
+namespace My\Name\Space;
+
+use Some\Other\Somewhere\Class;
+use Some\Other\Class as ShortName;
+
+/**
+ * My Awesome Class
+ *
+ * This is a really long class description
+ *
+ * @namespace My\Name\Space
+ */
+class AwesomeClass
+{
+
+    /**
+     * mypropertyname
+     *
+     * Long Description
+     *
+     * @access protected
+     */
+    public $mypropertyname = 'defaultValue';
+
+    /**
+     * methodName
+     *
+     * Long Description of method
+     *
+     * @access public
+     * @param parametername - Description
+     */
+    public function methodName(string $parametername)
+    {
+        return $this;
+    }
+
+
+}
 ```
