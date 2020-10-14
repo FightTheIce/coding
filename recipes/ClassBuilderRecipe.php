@@ -1,6 +1,6 @@
 <?php
 
-$path = 'src/TraitBuilder.php';
+$path = 'src/ClassBuilder.php';
 
 $obj = new FightTheIce\Coding\ClassBuilder("fake", "fake", "fake");
 

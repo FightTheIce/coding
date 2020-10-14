@@ -148,7 +148,15 @@ class ClassBuilder {
         return $this;
     }
 
-    public function classExtends($name) {
+    /**
+     * classExtends
+     *
+     * Should this class extend an existing one
+     *
+     * @access public
+     * @param name - Name of parent class
+     */
+    public function classExtends(string $name) {
         $this->generator->setExtendedClass($name);
 
         return $this;
