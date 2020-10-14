@@ -4,6 +4,8 @@ This allows a developer to code PHP by using PHP. This "framework" is very opini
 
 It also contains minimal functionality again don't use it.
 
+This project is built on top of "laminas/laminas-code".
+
 ## Installation
 ```bash
 $ composer require fighttheice/coding
@@ -14,6 +16,7 @@ $ composer require fighttheice/coding
 To code a class use the following as a template (pysdo code)
 
 ```php
+<?php
 	//kick off a class generator
 	$class_generator = new FightTheIce\Coding\ClassBuilder('My\Name\Space\AwesomeClass','My Awesome Class','This is a really long class description');
 
