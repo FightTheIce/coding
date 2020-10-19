@@ -6,7 +6,7 @@ $obj = new FightTheIce\Coding\TraitBuilder("fake", "fake", "fake");
 
 $class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\TraitBuilder', 'TraitBuilder', 'This class is responsible interacting with Laminas\Code\Generator\TraitGenerator');
 $class->uses('Laminas\Code\Generator\TraitGenerator');
-$class->newProperty('generator', null, 'protected', 'Generator Object')
+$class->newProperty('generator', null, 'protected', 'Generator Object', true)
     ->newProperty('describer', null, 'protected', 'Describer Object')
     ->newProperty('properties', array(), 'protected', 'Properties to generate')
     ->newProperty('methods', array(), 'protected', 'Methods to generate');
@@ -43,7 +43,9 @@ $method->newRequiredParameter('name', 'string', 'Name of class')
 $method = $class->newMethod('compile', 'public', 'Compile data');
 $method->getBodyFromObj($obj, 'compile');
 
+/*
 $method = $class->newMethod('getGenerator', 'public', 'Returns the class generator');
 $method->getBodyFromObj($obj, 'getGenerator');
+ */
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
