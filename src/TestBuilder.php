@@ -69,7 +69,7 @@ class TestBuilder {
         $x[0]     = 'Tests';
         $testName = $blah . '\\' . implode('\\', $x);
 
-        $this->test = new ClassBuilder($testName, $this->name, 'Testing of ' . $this->name);
+        $this->test = new ClassBuilder($testName . '\\Test', $this->name, 'Testing of ' . $this->name);
         $this->test->classExtends('\PHPUnit\Framework\TestCase');
     }
 
