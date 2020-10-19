@@ -5,14 +5,6 @@ namespace FightTheIce\Coding;
 use Laminas\Code\Generator\DocBlockGenerator;
 use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
 
-/**
- * Describer
- *
- * This class is responsible for interacting with the Laminas docblock generator.
- *
- * @namespace FightTheIce\Coding
- * @author William Knauss
- */
 class Describer {
 
     /**

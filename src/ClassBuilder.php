@@ -4,13 +4,6 @@ namespace FightTheIce\Coding;
 
 use Laminas\Code\Generator\ClassGenerator;
 
-/**
- * ClassBuilder
- *
- * This class is responsible interacting with Laminas\Code\Generator\ClassGenerator
- *
- * @namespace FightTheIce\Coding
- */
 class ClassBuilder {
 
     /**
@@ -52,6 +45,17 @@ class ClassBuilder {
     protected $methods = [
 
     ];
+
+    /**
+     * getGenerator
+     *
+     * Get the property generator
+     *
+     * @access public
+     */
+    public function getGenerator() {
+        return $this->generator;
+    }
 
     /**
      * __construct
@@ -102,8 +106,9 @@ class ClassBuilder {
      * @param dv - default value of property
      * @param access - access level
      * @param long - Long Description of property
+     * @param getMethod - Should we generate a getProperty method
      */
-    public function newProperty(string $name, $dv, string $access, string $long) {
+    public function newProperty(string $name, $dv, string $access, string $long, bool $getMethod = false) {
         if (isset($this->properties[$name])) {
             throw new \ErrorException('This property already exists!');
         }
@@ -131,7 +136,7 @@ class ClassBuilder {
      */
     public function newMethod(string $name, string $access, string $long) {
         if (isset($this->methods[$name])) {
-            throw new \ErrorException('The method already exists!');
+            throw new \ErrorException('The method already exists! [' . $name . ']');
         }
 
         $this->methods[$name] = new MethodBuilder($name, $access, $long);
@@ -185,19 +190,6 @@ class ClassBuilder {
         }
 
         return $this;
-    }
-
-    /**
-     * getGenerator
-     *
-     * Returns the class generator
-     *
-     * @access public
-     */
-    public function getGenerator() {
-        $this->generator->setDocBlock($this->describer->getGenerator());
-
-        return $this->generator;
     }
 
 }

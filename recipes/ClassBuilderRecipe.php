@@ -6,7 +6,7 @@ $obj = new FightTheIce\Coding\ClassBuilder("fake", "fake", "fake");
 
 $class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\ClassBuilder', 'ClassBuilder', 'This class is responsible interacting with Laminas\Code\Generator\ClassGenerator');
 $class->uses('Laminas\Code\Generator\ClassGenerator');
-$class->newProperty('generator', null, 'protected', 'Generator Object')
+$class->newProperty('generator', null, 'protected', 'Generator Object', true)
     ->newProperty('describer', null, 'protected', 'Describer Object')
     ->newProperty('properties', array(), 'protected', 'Properties to generate')
     ->newProperty('methods', array(), 'protected', 'Methods to generate');
@@ -27,6 +27,7 @@ $method->newRequiredParameter('name', 'string', 'Name of property')
     ->newRequiredParameterUnknown('dv', 'default value of property')
     ->newRequiredParameter('access', 'string', 'access level')
     ->newRequiredParameter('long', 'string', 'Long Description of property')
+    ->newOptionalParameter('getMethod', false, 'bool', 'Should we generate a getProperty method')
     ->getBodyFromObj($obj, 'newProperty');
 
 $method = $class->newMethod('newMethod', 'public', 'Generate a new method');
@@ -47,7 +48,8 @@ $method = $class->newMethod('classExtends', 'public', 'Should this class extend 
 $method = $class->newMethod('compile', 'public', 'Compile data');
 $method->getBodyFromObj($obj, 'compile');
 
+/*
 $method = $class->newMethod('getGenerator', 'public', 'Returns the class generator');
 $method->getBodyFromObj($obj, 'getGenerator');
-
+ */
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
