@@ -54,6 +54,30 @@ class ClassBuilder {
     ];
 
     /**
+     * __construct
+     *
+     * Class Construct
+     *
+     * @access public
+     * @param name - A string containg the class name
+     * @param short - A string containing the short description of the class
+     * @param long - A string containing the long description of the class
+     */
+    public function __construct(string $name, string $short, string $long) {
+        $this->generator = new ClassGenerator();
+        $this->describer = new Describer($short, $long);
+
+        $x = explode('\\', $name);
+        if (count($x) > 1) {
+            $blah = array_pop($x);
+            $ns   = implode('\\', $x);
+            $this->describer->tag('namespace', $ns);
+        }
+
+        $this->generator->setName($name);
+    }
+
+    /**
      * getGenerator
      *
      * Get the property generator
@@ -95,30 +119,6 @@ class ClassBuilder {
      */
     public function getMethods() {
         return $this->methods;
-    }
-
-    /**
-     * __construct
-     *
-     * Class Construct
-     *
-     * @access public
-     * @param name - A string containg the class name
-     * @param short - A string containing the short description of the class
-     * @param long - A string containing the long description of the class
-     */
-    public function __construct(string $name, string $short, string $long) {
-        $this->generator = new ClassGenerator();
-        $this->describer = new Describer($short, $long);
-
-        $x = explode('\\', $name);
-        if (count($x) > 1) {
-            $blah = array_pop($x);
-            $ns   = implode('\\', $x);
-            $this->describer->tag('namespace', $ns);
-        }
-
-        $this->generator->setName($name);
     }
 
     /**

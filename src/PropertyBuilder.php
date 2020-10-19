@@ -32,17 +32,6 @@ class PropertyBuilder {
     protected $describer = null;
 
     /**
-     * getDescriber
-     *
-     * Get the property describer
-     *
-     * @access public
-     */
-    public function getDescriber() {
-        return $this->describer;
-    }
-
-    /**
      * __construct
      *
      * Class Construct
@@ -78,6 +67,17 @@ class PropertyBuilder {
         default:
             throw new \ErrorException('Access type: [' . $access . '] is invalid!');
         }
+    }
+
+    /**
+     * getDescriber
+     *
+     * Get the property describer
+     *
+     * @access public
+     */
+    public function getDescriber() {
+        return $this->describer;
     }
 
     /**

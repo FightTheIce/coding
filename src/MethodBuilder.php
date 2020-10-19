@@ -35,17 +35,6 @@ class MethodBuilder {
     protected $describer = null;
 
     /**
-     * getDescriber
-     *
-     * Get the property describer
-     *
-     * @access public
-     */
-    public function getDescriber() {
-        return $this->describer;
-    }
-
-    /**
      * __construct
      *
      * Class Construct
@@ -78,6 +67,17 @@ class MethodBuilder {
         default:
             throw new \ErrorException('Access level: [' . $access . '] is invalid!');
         }
+    }
+
+    /**
+     * getDescriber
+     *
+     * Get the property describer
+     *
+     * @access public
+     */
+    public function getDescriber() {
+        return $this->describer;
     }
 
     /**
