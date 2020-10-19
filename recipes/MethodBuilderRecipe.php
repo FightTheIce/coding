@@ -9,17 +9,14 @@ $class->uses('Laminas\Code\Generator\MethodGenerator')
     ->uses('Laminas\Code\Generator\ParameterGenerator')
     ->uses('Laminas\Code\Generator\ValueGenerator')
     ->uses('Laminas\Code\Reflection\ClassReflection')
-    ->newProperty('generator', null, 'protected', 'Generator Object')
-    ->newProperty('describer', null, 'protected', 'Describer Object');
+    ->newProperty('generator', null, 'protected', 'Generator Object', true)
+    ->newProperty('describer', null, 'protected', 'Describer Object', true);
 
 $method = $class->newMethod('__construct', 'public', 'Class Construct');
 $method->newRequiredParameter('name', 'string', 'A string containing the method name')
     ->newRequiredParameter('access', 'string', 'The access level')
     ->newRequiredParameter('long', 'string', 'The long description')
     ->getBodyFromObj($obj, '__construct');
-
-$method = $class->newMethod('getGenerator', 'public', 'Returns the generator object')
-    ->getBodyFromObj($obj, 'getGenerator');
 
 $method = $class->newMethod('newRequiredParameter', 'public', 'Add a required parameter')
     ->newRequiredParameter('name', 'string', 'Name of parameter')

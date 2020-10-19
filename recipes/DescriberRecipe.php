@@ -8,7 +8,7 @@ $class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\Describer', 'De
 $class->addClassTag('author', 'William Knauss');
 $class->uses('Laminas\Code\Generator\DocBlockGenerator')
     ->uses('Laminas\Code\Generator\DocBlock\Tag\GenericTag');
-$class->newProperty('generator', null, 'protected', 'The generator object - Laminas\Code\Generator\DocBlockGenerator');
+$class->newProperty('generator', null, 'protected', 'The generator object - Laminas\Code\Generator\DocBlockGenerator', true);
 
 $method = $class->newMethod("__construct", "public", "Class Construct")
     ->newOptionalParameter("short", "", "string", "A string containing the short description")
@@ -27,8 +27,5 @@ $method = $class->newMethod('tag', 'public', 'DocBlock Tag Generator')
     ->newRequiredParameter('name', 'string', 'Tag Name')
     ->newRequiredParameter('value', 'string', 'Tag Value')
     ->getBodyFromObj($obj, 'tag');
-
-$method = $class->newMethod('getGenerator', 'public', 'Returns the generator object')
-    ->getBodyFromObj($obj, 'getGenerator');
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
