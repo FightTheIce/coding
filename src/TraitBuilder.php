@@ -4,6 +4,13 @@ namespace FightTheIce\Coding;
 
 use Laminas\Code\Generator\TraitGenerator;
 
+/**
+ * TraitBuilder
+ *
+ * This class is responsible interacting with Laminas\Code\Generator\TraitGenerator
+ *
+ * @namespace FightTheIce\Coding
+ */
 class TraitBuilder {
 
     /**

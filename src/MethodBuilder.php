@@ -7,6 +7,13 @@ use Laminas\Code\Generator\ParameterGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;
 
+/**
+ * MethodBuilder
+ *
+ * This class is responsible for generating methods
+ *
+ * @namespace FightTheIce\Coding
+ */
 class MethodBuilder {
 
     /**

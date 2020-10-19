@@ -4,6 +4,13 @@ namespace FightTheIce\Coding;
 
 use Laminas\Code\Generator\PropertyGenerator;
 
+/**
+ * PropertyBuilder
+ *
+ * This class is responsible for generating properties
+ *
+ * @namespace FightTheIce\Coding
+ */
 class PropertyBuilder {
 
     /**

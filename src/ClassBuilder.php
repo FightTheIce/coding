@@ -4,6 +4,13 @@ namespace FightTheIce\Coding;
 
 use Laminas\Code\Generator\ClassGenerator;
 
+/**
+ * ClassBuilder
+ *
+ * This class is responsible interacting with Laminas\Code\Generator\ClassGenerator
+ *
+ * @namespace FightTheIce\Coding
+ */
 class ClassBuilder {
 
     /**
