@@ -7,9 +7,9 @@
 /infectionlog.json
 /infectionlog.txt
 /.phpunit.result.cache
-/.DS_Store
-/Thumb.db
-/Thumbs.db
+.DS_Store
+Thumb.db
+Thumbs.db
 /php.save
 /.phpunit.results.cache
 /test.php
