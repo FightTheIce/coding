@@ -25,6 +25,17 @@ class Describer {
     protected $generator = null;
 
     /**
+     * getGenerator
+     *
+     * Get the property generator
+     *
+     * @access public
+     */
+    public function getGenerator() {
+        return $this->generator;
+    }
+
+    /**
      * __construct
      *
      * Class Construct
@@ -87,17 +98,6 @@ class Describer {
         $this->generator->setTag($tag);
 
         return $this;
-    }
-
-    /**
-     * getGenerator
-     *
-     * Returns the generator object
-     *
-     * @access public
-     */
-    public function getGenerator() {
-        return $this->generator;
     }
 
 }

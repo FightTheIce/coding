@@ -65,6 +65,39 @@ class ClassBuilder {
     }
 
     /**
+     * getDescriber
+     *
+     * Get the property describer
+     *
+     * @access public
+     */
+    public function getDescriber() {
+        return $this->describer;
+    }
+
+    /**
+     * getProperties
+     *
+     * Get the property properties
+     *
+     * @access public
+     */
+    public function getProperties() {
+        return $this->properties;
+    }
+
+    /**
+     * getMethods
+     *
+     * Get the property methods
+     *
+     * @access public
+     */
+    public function getMethods() {
+        return $this->methods;
+    }
+
+    /**
      * __construct
      *
      * Class Construct

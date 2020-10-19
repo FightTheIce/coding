@@ -32,6 +32,17 @@ class PropertyBuilder {
     protected $describer = null;
 
     /**
+     * getDescriber
+     *
+     * Get the property describer
+     *
+     * @access public
+     */
+    public function getDescriber() {
+        return $this->describer;
+    }
+
+    /**
      * __construct
      *
      * Class Construct
@@ -72,7 +83,7 @@ class PropertyBuilder {
     /**
      * getGenerator
      *
-     * Returns the generator object
+     * Returns the class generator
      *
      * @access public
      */

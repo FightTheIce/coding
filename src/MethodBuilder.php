@@ -35,6 +35,17 @@ class MethodBuilder {
     protected $describer = null;
 
     /**
+     * getDescriber
+     *
+     * Get the property describer
+     *
+     * @access public
+     */
+    public function getDescriber() {
+        return $this->describer;
+    }
+
+    /**
      * __construct
      *
      * Class Construct
@@ -67,19 +78,6 @@ class MethodBuilder {
         default:
             throw new \ErrorException('Access level: [' . $access . '] is invalid!');
         }
-    }
-
-    /**
-     * getGenerator
-     *
-     * Returns the generator object
-     *
-     * @access public
-     */
-    public function getGenerator() {
-        $this->generator->setDocBlock($this->describer->getGenerator());
-
-        return $this->generator;
     }
 
     /**
@@ -183,6 +181,19 @@ class MethodBuilder {
         $body   = $method->getBody();
 
         $this->setBody($body);
+    }
+
+    /**
+     * getGenerator
+     *
+     * Returns the class generator
+     *
+     * @access public
+     */
+    public function getGenerator() {
+        $this->generator->setDocBlock($this->describer->getGenerator());
+
+        return $this->generator;
     }
 
 }

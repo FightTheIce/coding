@@ -9,7 +9,7 @@ $class->uses('Laminas\Code\Generator\MethodGenerator')
     ->uses('Laminas\Code\Generator\ParameterGenerator')
     ->uses('Laminas\Code\Generator\ValueGenerator')
     ->uses('Laminas\Code\Reflection\ClassReflection')
-    ->newProperty('generator', null, 'protected', 'Generator Object', true)
+    ->newProperty('generator', null, 'protected', 'Generator Object')
     ->newProperty('describer', null, 'protected', 'Describer Object', true);
 
 $method = $class->newMethod('__construct', 'public', 'Class Construct');
@@ -44,5 +44,8 @@ $method = $class->newMethod('getBodyFromObj', 'public', 'Get the contents of an 
     ->newRequiredParameterUnknown('obj', 'Object that we can grab it from')
     ->newRequiredParameter('method', 'string', 'Method Name')
     ->getBodyFromObj($obj, 'getBodyFromObj');
+
+$method = $class->newMethod('getGenerator', 'public', 'Returns the class generator');
+$method->getBodyFromObj($obj, 'getGenerator');
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
