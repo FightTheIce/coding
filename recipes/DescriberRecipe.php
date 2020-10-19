@@ -28,4 +28,4 @@ $method = $class->newMethod('tag', 'public', 'DocBlock Tag Generator')
     ->newRequiredParameter('value', 'string', 'Tag Value')
     ->getBodyFromObj($obj, 'tag');
 
-file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
+file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());

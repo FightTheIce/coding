@@ -45,7 +45,7 @@ $method = $class->newMethod('classExtends', 'public', 'Should this class extend 
     ->newRequiredParameter('name', 'string', 'Name of parent class')
     ->getBodyFromObj($obj, 'classExtends');
 
-$method = $class->newMethod('compile', 'public', 'Compile data');
-$method->getBodyFromObj($obj, 'compile');
+$method = $class->newMethod('generate', 'public', 'Generate the class data')
+    ->getBodyFromObj($obj, 'generate');
 
-file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
+file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());

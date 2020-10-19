@@ -43,4 +43,4 @@ $method->newRequiredParameter('name', 'string', 'Name of class')
 $method = $class->newMethod('compile', 'public', 'Compile data');
 $method->getBodyFromObj($obj, 'compile');
 
-file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
+file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());

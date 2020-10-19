@@ -48,4 +48,4 @@ $method = $class->newMethod('getBodyFromObj', 'public', 'Get the contents of an 
 $method = $class->newMethod('getGenerator', 'public', 'Returns the class generator');
 $method->getBodyFromObj($obj, 'getGenerator');
 
-file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->compile()->getGenerator()->generate());
+file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());

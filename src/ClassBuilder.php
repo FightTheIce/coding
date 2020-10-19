@@ -214,13 +214,13 @@ class ClassBuilder {
     }
 
     /**
-     * compile
+     * generate
      *
-     * Compile data
+     * Generate the class data
      *
      * @access public
      */
-    public function compile() {
+    public function generate() {
         $this->generator->setDocBlock($this->describer->getGenerator());
 
         //does a _construct method exists?
@@ -238,7 +238,7 @@ class ClassBuilder {
             $this->generator->addMethodFromGenerator($obj->getGenerator());
         }
 
-        return $this;
+        return $this->generator->generate();
     }
 
 }
