@@ -103,7 +103,7 @@ class ClassBuilder {
      * @param access - access level
      * @param long - Long Description of property
      */
-    public function newProperty(string $name, $dv, string $access, string $long, $getMethod = false) {
+    public function newProperty(string $name, $dv, string $access, string $long) {
         if (isset($this->properties[$name])) {
             throw new \ErrorException('This property already exists!');
         }

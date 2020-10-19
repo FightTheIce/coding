@@ -54,6 +54,17 @@ class TraitBuilder {
     ];
 
     /**
+     * getGenerator
+     *
+     * Get the property generator
+     *
+     * @access public
+     */
+    public function getGenerator() {
+        return $this->generator;
+    }
+
+    /**
      * __construct
      *
      * Class Construct
@@ -165,19 +176,6 @@ class TraitBuilder {
         }
 
         return $this;
-    }
-
-    /**
-     * getGenerator
-     *
-     * Returns the class generator
-     *
-     * @access public
-     */
-    public function getGenerator() {
-        $this->generator->setDocBlock($this->describer->getGenerator());
-
-        return $this->generator;
     }
 
 }
