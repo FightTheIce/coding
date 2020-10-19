@@ -49,6 +49,24 @@ class PropertyBuilder {
 
         $this->describer = new Describer($name, $long);
         $this->describer->tag('access', $access);
+
+        $access = trim(strtoupper($access));
+        switch ($access) {
+        case 'PROTECTED':
+            $this->generator->setVisibility(PropertyGenerator::VISIBILITY_PROTECTED);
+            break;
+
+        case 'PRIVATE':
+            $this->generator->setVisibility(PropertyGenerator::VISIBILITY_PRIVATE);
+            break;
+
+        case 'PUBLIC':
+            $this->generator->setVisibility(PropertyGenerator::VISIBILITY_PUBLIC);
+            break;
+
+        default:
+            throw new \ErrorException('Access type: [' . $access . '] is invalid!');
+        }
     }
 
     /**
