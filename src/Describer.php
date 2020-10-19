@@ -22,7 +22,7 @@ class Describer {
      *
      * @access protected
      */
-    public $generator = null;
+    protected $generator = null;
 
     /**
      * __construct

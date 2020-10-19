@@ -20,7 +20,7 @@ class ClassBuilder {
      *
      * @access protected
      */
-    public $generator = null;
+    protected $generator = null;
 
     /**
      * describer
@@ -29,7 +29,7 @@ class ClassBuilder {
      *
      * @access protected
      */
-    public $describer = null;
+    protected $describer = null;
 
     /**
      * properties
@@ -38,7 +38,7 @@ class ClassBuilder {
      *
      * @access protected
      */
-    public $properties = [
+    protected $properties = [
 
     ];
 
@@ -49,7 +49,7 @@ class ClassBuilder {
      *
      * @access protected
      */
-    public $methods = [
+    protected $methods = [
 
     ];
 

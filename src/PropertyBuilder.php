@@ -20,7 +20,7 @@ class PropertyBuilder {
      *
      * @access protected
      */
-    public $generator = null;
+    protected $generator = null;
 
     /**
      * describer
@@ -29,7 +29,7 @@ class PropertyBuilder {
      *
      * @access protected
      */
-    public $describer = null;
+    protected $describer = null;
 
     /**
      * __construct

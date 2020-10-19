@@ -23,7 +23,7 @@ class MethodBuilder {
      *
      * @access protected
      */
-    public $generator = null;
+    protected $generator = null;
 
     /**
      * describer
@@ -32,7 +32,7 @@ class MethodBuilder {
      *
      * @access protected
      */
-    public $describer = null;
+    protected $describer = null;
 
     /**
      * __construct
