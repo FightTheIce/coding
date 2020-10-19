@@ -181,6 +181,8 @@ class ClassBuilder {
      * @access public
      */
     public function compile() {
+        $this->generator->setDocBlock($this->describer->getGenerator());
+
         foreach ($this->properties as $name => $obj) {
             $this->generator->addPropertyFromGenerator($obj->getGenerator());
         }
