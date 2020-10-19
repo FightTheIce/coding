@@ -36,14 +36,17 @@ $class_generator->newProperty('myotherproperty','defaultValue','protected','Long
 //add a new method to our class
 $method = $class_generator->newMethod('methodName','public','Long Description of method');
 
-//add a required parameter 
+//add a required parameter  with known data type
 $method->newRequiredParameter('parametername','string','Description');
 
 //add a required parameter with an unknown data type
 $method->newRequiredParameterUnknown('requiredparameterunknowndatatype', 'Description');
 
-//add a optional parameter
-$method->newOptionalParameter('optionalparameter', array(), 'string', 'Described Parameter');
+//add a optional parameter with known data type
+$method->newOptionalParameter('optionalparameter', array(), 'array', 'Described Parameter');
+
+//add a optional parameter unknown data type
+$method->newOptionalParameter('optionalparameterunknown', null, 'Described Parameter');
 
 //set the body of the method
 $method->setBody('return $this;');
@@ -106,13 +109,13 @@ class AwesomeClass
      * @param parametername - Description
      * @param requiredparameterunknowndatatype - Description
      * @param optionalparameter - Described Parameter
+     * @param optionalparameterunknown - Described Parameter
      */
-    public function methodName(string $parametername, $requiredparameterunknowndatatype, string $optionalparameter = [])
+    public function methodName(string $parametername, $requiredparameterunknowndatatype, array $optionalparameter = [], $optionalparameterunknown = null)
     {
         return $this;
     }
 
 
 }
-
 ```

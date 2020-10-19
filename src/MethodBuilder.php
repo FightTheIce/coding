@@ -148,6 +148,32 @@ class MethodBuilder {
     }
 
     /**
+     * newOptionalParameter
+     *
+     * Add a new optional parameter
+     *
+     * @access public
+     * @param name - Name of optional parameter
+     * @param dv - default value of property
+     * @param type - The data type for this parameter
+     * @param desc - Description of parameter
+     */
+    public function newOptionalParameterUnknown(string $name, $dv, string $desc) {
+        if (is_null($dv)) {
+            $dv = new ValueGenerator(null, ValueGenerator::TYPE_NULL);
+        }
+
+        $param = new ParameterGenerator($name, null, $dv);
+
+        $this->generator->setParameter($param);
+        $param->omitDefaultValue(false);
+
+        $this->describer->tag('param', $name . ' - ' . $desc);
+
+        return $this;
+    }
+
+    /**
      * setBody
      *
      * Set the method body

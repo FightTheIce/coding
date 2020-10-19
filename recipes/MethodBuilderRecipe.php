@@ -36,6 +36,12 @@ $method = $class->newMethod('newOptionalParameter', 'public', 'Add a new optiona
     ->newRequiredParameter('desc', 'string', 'Description of parameter')
     ->getBodyFromObj($obj, 'newOptionalParameter');
 
+$method = $class->newMethod('newOptionalParameterUnknown', 'public', 'Add a new optional parameter')
+    ->newRequiredParameter('name', 'string', 'Name of optional parameter')
+    ->newRequiredParameterUnknown('dv', 'default value of property')
+    ->newRequiredParameter('desc', 'string', 'Description of parameter')
+    ->getBodyFromObj($obj, 'newOptionalParameterUnknown');
+
 $method = $class->newMethod('setBody', 'public', 'Set the method body')
     ->newRequiredParameter('body', 'string', 'Body contents')
     ->getBodyFromObj($obj, 'setBody');
