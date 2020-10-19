@@ -29,3 +29,6 @@ $method = $class->newMethod('tag', 'public', 'DocBlock Tag Generator')
     ->getBodyFromObj($obj, 'tag');
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
+
+$test = new FightTheIce\Coding\TestBuilder($class);
+file_put_contents('tests/DescriberTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

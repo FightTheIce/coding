@@ -20,3 +20,6 @@ $method = $class->newMethod('getGenerator', 'public', 'Returns the class generat
 $method->getBodyFromObj($obj, 'getGenerator');
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
+
+$test = new FightTheIce\Coding\TestBuilder($class);
+file_put_contents('tests/PropertyBuilderTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

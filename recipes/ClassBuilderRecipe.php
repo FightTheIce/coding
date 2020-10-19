@@ -49,3 +49,6 @@ $method = $class->newMethod('generate', 'public', 'Generate the class data')
     ->getBodyFromObj($obj, 'generate');
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
+
+$test = new FightTheIce\Coding\TestBuilder($class);
+file_put_contents('tests/ClassBuilderTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());
