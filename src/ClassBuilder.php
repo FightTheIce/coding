@@ -223,6 +223,13 @@ class ClassBuilder {
     public function compile() {
         $this->generator->setDocBlock($this->describer->getGenerator());
 
+        //does a _construct method exists?
+        //if it does we always want this to be the first method
+        if (isset($this->methods['__construct'])) {
+            $this->generator->addMethodFromGenerator($this->methods['__construct']->getGenerator());
+            unset($this->methods['__construct']);
+        }
+
         foreach ($this->properties as $name => $obj) {
             $this->generator->addPropertyFromGenerator($obj->getGenerator());
         }
