@@ -103,12 +103,18 @@ class ClassBuilder {
      * @param access - access level
      * @param long - Long Description of property
      */
-    public function newProperty(string $name, $dv, string $access, string $long) {
+    public function newProperty(string $name, $dv, string $access, string $long, $getMethod = false) {
         if (isset($this->properties[$name])) {
             throw new \ErrorException('This property already exists!');
         }
 
         $this->properties[$name] = new PropertyBuilder($name, $dv, $access, $long);
+
+        if ($getMethod == true) {
+            $getName = ucfirst(strtolower(trim($name)));
+            $method  = $this->newMethod('get' . $getName, 'public', 'Get the property ' . $name);
+            $method->setBody('return $this->' . $name . ';');
+        }
 
         return $this;
     }
