@@ -46,7 +46,7 @@ $method->newRequiredParameterUnknown('requiredparameterunknowndatatype', 'Descri
 $method->newOptionalParameter('optionalparameter', array(), 'array', 'Described Parameter');
 
 //add a optional parameter unknown data type
-$method->newOptionalParameter('optionalparameterunknown', null, 'Described Parameter');
+$method->newOptionalParameterUnknown('optionalparameterunknown', null, 'Described Parameter');
 
 //set the body of the method
 $method->setBody('return $this;');
@@ -118,4 +118,5 @@ class AwesomeClass
 
 
 }
+
 ```
