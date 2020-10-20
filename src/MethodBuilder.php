@@ -220,5 +220,4 @@ class MethodBuilder {
 
         return $this->generator;
     }
-
 }

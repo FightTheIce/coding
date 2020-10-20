@@ -188,5 +188,4 @@ class TestBuilder {
 
         return $this->test->generate();
     }
-
 }

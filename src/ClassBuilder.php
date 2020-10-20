@@ -243,5 +243,4 @@ class ClassBuilder {
 
         return $this->generator->generate();
     }
-
 }
