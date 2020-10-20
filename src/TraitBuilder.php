@@ -193,13 +193,13 @@ class TraitBuilder {
     }
 
     /**
-     * compile
+     * generate
      *
      * Compile data
      *
      * @access public
      */
-    public function compile() {
+    public function generate() {
         foreach ($this->properties as $name => $obj) {
             $this->generator->addPropertyFromGenerator($obj->getGenerator());
         }
@@ -208,7 +208,7 @@ class TraitBuilder {
             $this->generator->addMethodFromGenerator($obj->getGenerator());
         }
 
-        return $this;
+        return $this->generator->generate();
     }
 
 }

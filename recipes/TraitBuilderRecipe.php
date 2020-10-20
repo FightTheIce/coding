@@ -40,8 +40,8 @@ $method->newRequiredParameter('name', 'string', 'Name of class')
     ->newOptionalParameter('alias', null, '?string', 'Alias')
     ->getBodyFromObj($obj, 'uses');
 
-$method = $class->newMethod('compile', 'public', 'Compile data');
-$method->getBodyFromObj($obj, 'compile');
+$method = $class->newMethod('generate', 'public', 'Compile data');
+$method->getBodyFromObj($obj, 'generate');
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 

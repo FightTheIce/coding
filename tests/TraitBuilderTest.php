@@ -258,15 +258,15 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * test_TraitBuilder_hasMethod_compile
+     * test_TraitBuilder_hasMethod_generate
      *
      * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
-     * compile
+     * generate
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_compile() {
-        $this->assertTrue(method_exists($this->obj, 'compile'));
+    public function test_TraitBuilder_hasMethod_generate() {
+        $this->assertTrue(method_exists($this->obj, 'generate'));
     }
 
 }
