@@ -6,7 +6,8 @@ $obj = new FightTheIce\Coding\MethodBuilder("fake", "public", "fake");
 
 $class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\MethodBuilder', 'MethodBuilder', 'This class is responsible for generating methods');
 $class->uses('Laminas\Code\Generator\MethodGenerator')
-    ->uses('Laminas\Code\Generator\ParameterGenerator')
+//->uses('Laminas\Code\Generator\ParameterGenerator')
+    ->uses('FightTheIce\Coding\Generator\ParameterGenerator')
     ->uses('Laminas\Code\Generator\ValueGenerator')
     ->uses('Laminas\Code\Reflection\ClassReflection')
     ->newProperty('generator', null, 'protected', 'Generator Object')

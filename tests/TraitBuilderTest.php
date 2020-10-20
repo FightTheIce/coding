@@ -28,7 +28,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\TraitBuilder("trait", "short", "long");
+        $this->obj = new \FightTheIce\Coding\TraitBuilder("traitname", "short", "long");
     }
 
     /**
@@ -168,7 +168,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder___construct_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TraitBuilder();
+        $test = $this->obj->__construct();
     }
 
     /**
@@ -192,7 +192,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder_addClassTag_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TraitBuilder();
+        $test = $this->obj->addClassTag();
     }
 
     /**
@@ -216,7 +216,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder_newProperty_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TraitBuilder();
+        $test = $this->obj->newProperty();
     }
 
     /**
@@ -240,7 +240,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder_newMethod_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TraitBuilder();
+        $test = $this->obj->newMethod();
     }
 
     /**
@@ -264,7 +264,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder_uses_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TraitBuilder();
+        $test = $this->obj->uses();
     }
 
     /**

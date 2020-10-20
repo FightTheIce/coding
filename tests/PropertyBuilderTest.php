@@ -28,7 +28,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\PropertyBuilder("propertyname", "", "public", "long");
+        $this->obj = new \FightTheIce\Coding\PropertyBuilder("propertyname", '', "public", "long");
     }
 
     /**
@@ -109,7 +109,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_PropertyBuilder___construct_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\PropertyBuilder();
+        $test = $this->obj->__construct();
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace FightTheIce\Coding;
 
 use FightTheIce\Coding\Generator\ParameterGenerator;
-//use Laminas\Code\Generator\ParameterGenerator;
 use Laminas\Code\Generator\MethodGenerator;
 use Laminas\Code\Generator\ValueGenerator;
 use Laminas\Code\Reflection\ClassReflection;

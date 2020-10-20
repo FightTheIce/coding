@@ -9,8 +9,7 @@ namespace FightTheIce\Tests\Coding\Describer;
  *
  * @namespace FightTheIce\Tests\Coding\Describer
  */
-class Test extends \PHPUnit\Framework\TestCase
-{
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -28,9 +27,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access protected
      */
-    protected function setUp() : void
-    {
-        $this->obj = new \FightTheIce\Coding\Describer();
+    protected function setUp(): void{
+        $this->obj = new \FightTheIce\Coding\Describer("short", "long");
     }
 
     /**
@@ -40,8 +38,7 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access protected
      */
-    protected function tearDown() : void
-    {
+    protected function tearDown(): void {
     }
 
     /**
@@ -51,8 +48,7 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function getObj()
-    {
+    public function getObj() {
         return $this->obj;
     }
 
@@ -63,9 +59,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_hasAttribute_generator()
-    {
-        $this->assertClassHasAttribute('generator',\FightTheIce\Coding\Describer::class);
+    public function test_Describer_hasAttribute_generator() {
+        $this->assertClassHasAttribute('generator', \FightTheIce\Coding\Describer::class);
     }
 
     /**
@@ -76,9 +71,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_hasMethod_getGenerator()
-    {
-        $this->assertTrue(method_exists($this->obj,'getGenerator'));
+    public function test_Describer_hasMethod_getGenerator() {
+        $this->assertTrue(method_exists($this->obj, 'getGenerator'));
     }
 
     /**
@@ -89,9 +83,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_hasMethod___construct()
-    {
-        $this->assertTrue(method_exists($this->obj,'__construct'));
+    public function test_Describer_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
     }
 
     /**
@@ -102,9 +95,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_hasMethod_short()
-    {
-        $this->assertTrue(method_exists($this->obj,'short'));
+    public function test_Describer_hasMethod_short() {
+        $this->assertTrue(method_exists($this->obj, 'short'));
     }
 
     /**
@@ -114,8 +106,7 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_short_noparams()
-    {
+    public function test_Describer_short_noparams() {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->short();
     }
@@ -128,9 +119,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_hasMethod_long()
-    {
-        $this->assertTrue(method_exists($this->obj,'long'));
+    public function test_Describer_hasMethod_long() {
+        $this->assertTrue(method_exists($this->obj, 'long'));
     }
 
     /**
@@ -140,8 +130,7 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_long_noparams()
-    {
+    public function test_Describer_long_noparams() {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->long();
     }
@@ -153,9 +142,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_hasMethod_tag()
-    {
-        $this->assertTrue(method_exists($this->obj,'tag'));
+    public function test_Describer_hasMethod_tag() {
+        $this->assertTrue(method_exists($this->obj, 'tag'));
     }
 
     /**
@@ -165,11 +153,9 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_Describer_tag_noparams()
-    {
+    public function test_Describer_tag_noparams() {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->tag();
     }
-
 
 }

@@ -168,7 +168,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder___construct_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder();
+        $test = $this->obj->__construct();
     }
 
     /**
@@ -192,7 +192,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_addClassTag_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder();
+        $test = $this->obj->addClassTag();
     }
 
     /**
@@ -216,7 +216,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_newProperty_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder();
+        $test = $this->obj->newProperty();
     }
 
     /**
@@ -240,7 +240,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_newMethod_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder();
+        $test = $this->obj->newMethod();
     }
 
     /**
@@ -264,7 +264,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_uses_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder();
+        $test = $this->obj->uses();
     }
 
     /**
@@ -288,7 +288,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_classExtends_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder();
+        $test = $this->obj->classExtends();
     }
 
     /**

@@ -28,7 +28,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\MethodBuilder("methodname", "public", "long");
+        $this->obj = new \FightTheIce\Coding\MethodBuilder("methodname", "public", "short", "long");
     }
 
     /**
@@ -109,7 +109,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder___construct_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\MethodBuilder();
+        $test = $this->obj->__construct();
     }
 
     /**
@@ -133,7 +133,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_newRequiredParameter_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\MethodBuilder();
+        $test = $this->obj->newRequiredParameter();
     }
 
     /**
@@ -157,7 +157,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_newRequiredParameterUnknown_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\MethodBuilder();
+        $test = $this->obj->newRequiredParameterUnknown();
     }
 
     /**
@@ -181,7 +181,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_newOptionalParameter_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\MethodBuilder();
+        $test = $this->obj->newOptionalParameter();
     }
 
     /**
@@ -205,7 +205,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_newOptionalParameterUnknown_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\MethodBuilder();
+        $test = $this->obj->newOptionalParameterUnknown();
     }
 
     /**
@@ -229,7 +229,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_setBody_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\MethodBuilder();
+        $test = $this->obj->setBody();
     }
 
     /**
@@ -253,7 +253,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_getBodyFromObj_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\MethodBuilder();
+        $test = $this->obj->getBodyFromObj();
     }
 
     /**
