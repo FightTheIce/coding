@@ -28,7 +28,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\Describer();
+        $this->obj = new \FightTheIce\Coding\Describer("short", "long");
     }
 
     /**
