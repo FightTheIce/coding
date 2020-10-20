@@ -117,14 +117,10 @@ class TestBuilder {
         return $this->test;
     }
 
-    public function buildSetup(string $setup) {
-        $this->setup = $setup;
-    }
-
     /**
      * generate
      *
-     * Generate
+     * Generate the test suite
      *
      * @access public
      */
@@ -199,4 +195,17 @@ class TestBuilder {
 
         return $this->test->generate();
     }
+
+    /**
+     * buildSetup
+     *
+     * Builds the Test setUp method
+     *
+     * @access public
+     * @param setup - Setup methodlogy
+     */
+    public function buildSetup(string $setup) {
+        $this->setup = $setup;
+    }
+
 }

@@ -58,4 +58,5 @@ $method->getBodyFromObj($obj, 'getGenerator');
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
 $test = new FightTheIce\Coding\TestBuilder($class);
+$test->buildSetup('$this->obj = new \FightTheIce\Coding\MethodBuilder("method","public","long");');
 file_put_contents('tests/MethodBuilderTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

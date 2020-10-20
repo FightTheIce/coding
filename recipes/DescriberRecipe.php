@@ -31,4 +31,5 @@ $method = $class->newMethod('tag', 'public', 'DocBlock Tag Generator')
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
 $test = new FightTheIce\Coding\TestBuilder($class);
+$test->buildSetup('$this->obj = new \FightTheIce\Coding\Describer("short","long");');
 file_put_contents('tests/DescriberTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

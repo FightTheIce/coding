@@ -46,4 +46,5 @@ $method->getBodyFromObj($obj, 'compile');
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
 $test = new FightTheIce\Coding\TestBuilder($class);
+$test->buildSetup('$this->obj = new \FightTheIce\Coding\TraitBuilder("trait","short","long");');
 file_put_contents('tests/TraitBuilderTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

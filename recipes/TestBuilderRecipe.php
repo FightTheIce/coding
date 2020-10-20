@@ -26,4 +26,5 @@ $method = $class->newMethod('buildSetup', 'public', 'Builds the Test setUp metho
 file_put_contents('src/TestBuilder.php', '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
 $test = new FightTheIce\Coding\TestBuilder($class);
+$test->buildSetup('$this->obj = new \FightTheIce\Coding\TestBuilder((new \FightTheIce\Coding\ClassBuilder("class","short","long")));');
 file_put_contents('tests/TestBuilderTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

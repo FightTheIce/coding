@@ -32,16 +32,6 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * tearDown
-     *
-     * Teardown the test
-     *
-     * @access protected
-     */
-    protected function tearDown(): void {
-    }
-
-    /**
      * getObj
      *
      * Get the property obj
@@ -178,6 +168,30 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TestBuilder_hasMethod_generate() {
         $this->assertTrue(method_exists($this->obj, 'generate'));
+    }
+
+    /**
+     * test_TestBuilder_hasMethod_buildSetup
+     *
+     * Testing that class FightTheIce\Coding\TestBuilder has a method by the name of:
+     * buildSetup
+     *
+     * @access public
+     */
+    public function test_TestBuilder_hasMethod_buildSetup() {
+        $this->assertTrue(method_exists($this->obj, 'buildSetup'));
+    }
+
+    /**
+     * test_TestBuilder_buildSetup_noparams
+     *
+     * Testing method buildSetup with no params
+     *
+     * @access public
+     */
+    public function test_TestBuilder_buildSetup_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = $this->obj->buildSetup();
     }
 
 }
