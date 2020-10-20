@@ -167,9 +167,9 @@ class TestBuilder {
                 if ($countParams > 0) {
                     $requiredParams = false;
                     foreach ($parameters as $param) {
-                        $dv = $param->getDefaultValue();
-                        if (empty($dv)) {
+                        if ($param->hasDefaultValue() == true) {
                             $requiredParams = true;
+                            break;
                         }
                     }
 
@@ -179,7 +179,7 @@ class TestBuilder {
                         $method     = $this->test->newMethod($methodName, 'public', 'Testing method ' . $name . ' with no params');
 
                         $content = '$this->expectException(\ArgumentCountError::class);' . PHP_EOL;
-                        $content = $content . '$test = new \\' . $this->name . '();';
+                        $content = $content . '$test = $this->obj->' . $name . '();';
                         $method->setBody($content);
                     }
                 }
