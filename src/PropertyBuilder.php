@@ -92,4 +92,5 @@ class PropertyBuilder {
 
         return $this->generator;
     }
+
 }

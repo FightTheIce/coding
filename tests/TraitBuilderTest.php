@@ -32,16 +32,6 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * tearDown
-     *
-     * Teardown the test
-     *
-     * @access protected
-     */
-    protected function tearDown(): void {
-    }
-
-    /**
      * getObj
      *
      * Get the property obj

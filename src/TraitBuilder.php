@@ -210,4 +210,5 @@ class TraitBuilder {
 
         return $this;
     }
+
 }
