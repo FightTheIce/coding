@@ -117,6 +117,10 @@ class TestBuilder {
         return $this->test;
     }
 
+    public function buildSetup(string $setup) {
+        $this->setup = $setup;
+    }
+
     /**
      * generate
      *
@@ -125,14 +129,21 @@ class TestBuilder {
      * @access public
      */
     public function generate() {
-        //setup
         $method = $this->test->newMethod('setUp', 'protected', 'Setup the test');
-        $method->setBody('$this->obj = new \\' . $this->name . '();');
+        if (!empty($this->setup)) {
+            $method->setBody($this->setup);
+        } else {
+            //setup
+
+            $method->setBody('$this->obj = new \\' . $this->name . '();');
+        }
         $method->getGenerator()->setReturnType('void');
 
+        /*
         //teardown
         $method = $this->test->newMethod('tearDown', 'protected', 'Teardown the test');
         $method->getGenerator()->setReturnType('void');
+         */
 
         $this->test->newProperty('obj', null, 'protected', 'Class Obj', 'The class object');
 

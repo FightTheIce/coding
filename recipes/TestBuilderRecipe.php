@@ -16,8 +16,12 @@ $method = $class->newMethod('__construct', 'public', 'Class Construct', 'The cla
 $method->newRequiredParameter('builder', '\FightTheIce\Coding\ClassBuilder', 'The generated class builder')
     ->getBodyFromObj($obj, '__construct');
 
-$method = $class->newMethod('generate', 'public', 'Generate', 'Generate the test suite');
+$method = $class->newMethod('generate', 'public', 'Generate the test suite');
 $method->getBodyFromObj($obj, 'generate');
+
+$method = $class->newMethod('buildSetup', 'public', 'Builds the Test setUp method')
+    ->newRequiredParameter('setup', 'string', 'Setup methodlogy')
+    ->getBodyFromObj($obj, 'buildSetup');
 
 file_put_contents('src/TestBuilder.php', '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
