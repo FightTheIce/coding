@@ -9,8 +9,7 @@ namespace FightTheIce\Coding;
  *
  * @namespace FightTheIce\Coding
  */
-class TestBuilder
-{
+class TestBuilder {
 
     /**
      * class
@@ -56,23 +55,22 @@ class TestBuilder
      * @access public
      * @param builder - The generated class builder
      */
-    public function __construct(\FightTheIce\Coding\ClassBuilder $builder)
-    {
+    public function __construct(\FightTheIce\Coding\ClassBuilder $builder) {
         $this->class = $builder;
-                $this->name  = $this->class->getGenerator()->getName();
-                $ns          = $this->class->getGenerator()->getNamespaceName();
-                if (!empty($ns)) {
-                    $this->name = $ns . '\\' . $this->name;
-                }
-                $this->shortName = $this->class->getGenerator()->getName();
+        $this->name  = $this->class->getGenerator()->getName();
+        $ns          = $this->class->getGenerator()->getNamespaceName();
+        if (!empty($ns)) {
+            $this->name = $ns . '\\' . $this->name;
+        }
+        $this->shortName = $this->class->getGenerator()->getName();
 
-                $x        = explode('\\', $this->name);
-                $blah     = $x[0];
-                $x[0]     = 'Tests';
-                $testName = $blah . '\\' . implode('\\', $x);
+        $x        = explode('\\', $this->name);
+        $blah     = $x[0];
+        $x[0]     = 'Tests';
+        $testName = $blah . '\\' . implode('\\', $x);
 
-                $this->test = new ClassBuilder($testName . '\\Test', $this->name, 'Testing of ' . $this->name);
-                $this->test->classExtends('\PHPUnit\Framework\TestCase');
+        $this->test = new ClassBuilder($testName . '\\Test', $this->name, 'Testing of ' . $this->name);
+        $this->test->classExtends('\PHPUnit\Framework\TestCase');
     }
 
     /**
@@ -82,8 +80,7 @@ class TestBuilder
      *
      * @access public
      */
-    public function getClass()
-    {
+    public function getClass() {
         return $this->class;
     }
 
@@ -94,8 +91,7 @@ class TestBuilder
      *
      * @access public
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -106,8 +102,7 @@ class TestBuilder
      *
      * @access public
      */
-    public function getShortname()
-    {
+    public function getShortname() {
         return $this->shortName;
     }
 
@@ -118,8 +113,7 @@ class TestBuilder
      *
      * @access public
      */
-    public function getTest()
-    {
+    public function getTest() {
         return $this->test;
     }
 
@@ -130,68 +124,59 @@ class TestBuilder
      *
      * @access public
      */
-    public function generate()
-    {
+    public function generate() {
         //setup
-                $method = $this->test->newMethod('setUp', 'protected', 'Setup the test');
-                $method->setBody('$this->obj = new \\' . $this->name . '();');
-                $method->getGenerator()->setReturnType('void');
+        $method = $this->test->newMethod('setUp', 'protected', 'Setup the test');
+        $method->setBody('$this->obj = new \\' . $this->name . '();');
+        $method->getGenerator()->setReturnType('void');
 
-                //teardown
-                $method = $this->test->newMethod('tearDown', 'protected', 'Teardown the test');
-                $method->getGenerator()->setReturnType('void');
+        //teardown
+        $method = $this->test->newMethod('tearDown', 'protected', 'Teardown the test');
+        $method->getGenerator()->setReturnType('void');
 
-                $this->test->newProperty('obj', null, 'protected', 'Class Obj', 'The class object');
+        $this->test->newProperty('obj', null, 'protected', 'Class Obj', 'The class object');
 
-                //lets get all the properties first
-                $properties = $this->class->getProperties();
+        //lets get all the properties first
+        $properties = $this->class->getProperties();
 
-                if (count($properties) > 0) {
-                    foreach ($properties as $name => $obj) {
-                        $method = $this->test->newMethod('test_' . $this->shortName . '_hasAttribute_' . $name, 'public', 'Testing that class ' . $this->name . ' has an attribute of: ' . $name);
+        if (count($properties) > 0) {
+            foreach ($properties as $name => $obj) {
+                $method = $this->test->newMethod('test_' . $this->shortName . '_hasAttribute_' . $name, 'public', 'Testing that class ' . $this->name . ' has an attribute of: ' . $name);
 
-                        $content = "this->assertClassHasAttribute('{attribute}',\{class}::class);";
-                        $content = str_replace('{attribute}', $name, $content);
-                        $content = str_replace('{class}', $this->name, $content);
-                        $method->setBody('$' . $content);
-                    }
+                $content = "this->assertClassHasAttribute('{attribute}',\{class}::class);";
+                $content = str_replace('{attribute}', $name, $content);
+                $content = str_replace('{class}', $this->name, $content);
+                $method->setBody('$' . $content);
+            }
+        }
+
+        //lets get all the methods
+        $methods = $this->class->getMethods();
+
+        if (count($methods) > 0) {
+            foreach ($methods as $name => $obj) {
+                $methodName = 'test_' . $this->shortName . '_hasMethod_' . $name;
+                $method     = $this->test->newMethod($methodName, 'public', 'Testing that class ' . $this->name . ' has a method by the name of: ' . $name);
+
+                $content = "this->assertTrue(method_exists(\$this->obj,'" . $name . "'));";
+                $method->setBody('$' . $content);
+
+                //does this method have parameters?
+                $parameters  = $obj->getGenerator()->getParameters();
+                $countParams = count($parameters);
+                if ($countParams > 0) {
+                    //lets generate a test method with no parameters sent
+                    $methodName = 'test_' . $this->shortName . '_' . $name . '_noparams';
+                    $method     = $this->test->newMethod($methodName, 'public', 'Testing method ' . $name . ' with no params');
+
+                    $content = '$this->expectException(\ArgumentCountError::class);' . PHP_EOL;
+                    $content = $content . '$test = new \\' . $this->name . '();';
+                    $method->setBody($content);
                 }
+            }
+        }
 
-                //lets get all the methods
-                $methods = $this->class->getMethods();
-
-                if (count($methods) > 0) {
-                    foreach ($methods as $name => $obj) {
-                        $methodName = 'test_' . $this->shortName . '_hasMethod_' . $name;
-                        $method     = $this->test->newMethod($methodName, 'public', 'Testing that class ' . $this->name . ' has a method by the name of: ' . $name);
-
-                        $content = "this->assertTrue(method_exists(\$this->obj,'" . $name . "'));";
-                        $method->setBody('$' . $content);
-
-                        //does this method have parameters?
-                        $parameters = $obj->getGenerator()->getParameters();
-                        if (count($parameters) > 0) {
-                            //lets generate a few tests for this
-                            $testNo = 1;
-
-                            /*
-                            $this->expectException(\ArgumentCountError::class);
-                            $test = new \FightTheIce\Coding\ClassBuilder();
-                             */
-
-                            //lets generate a test method with no parameters sent
-                            $methodName = 'test_' . $this->shortName . '_' . $name . '_noparams';
-                            $method     = $this->test->newMethod($methodName, 'public', 'Testing init(ing) class' . $this->name . ' with no param values');
-
-                            $content = '$this->expectException(\ArgumentCountError::class);' . PHP_EOL;
-                            $content = $content . '$test = new \\' . $this->name . '();';
-                            $method->setBody($content);
-                        }
-                    }
-                }
-
-                return $this->test->generate();
+        return $this->test->generate();
     }
-
 
 }

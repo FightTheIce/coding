@@ -19,7 +19,7 @@ $method->newRequiredParameter('builder', '\FightTheIce\Coding\ClassBuilder', 'Th
 $method = $class->newMethod('generate', 'public', 'Generate', 'Generate the test suite');
 $method->getBodyFromObj($obj, 'generate');
 
-file_put_contents('src/TestBuilder.php', '<?php' . PHP_EOL . PHP_EOL . $class->generate());
+#file_put_contents('src/TestBuilder.php', '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
 $test = new FightTheIce\Coding\TestBuilder($class);
 file_put_contents('tests/TestBuilderTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

@@ -9,8 +9,7 @@ namespace FightTheIce\Tests\Coding\TestBuilder;
  *
  * @namespace FightTheIce\Tests\Coding\TestBuilder
  */
-class Test extends \PHPUnit\Framework\TestCase
-{
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -28,9 +27,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access protected
      */
-    protected function setUp() : void
-    {
-        $this->obj = new \FightTheIce\Coding\TestBuilder();
+    protected function setUp(): void{
+        $this->obj = new \FightTheIce\Coding\TestBuilder((new \FightTheIce\Coding\ClassBuilder("class", "short", "long")));
     }
 
     /**
@@ -40,8 +38,7 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access protected
      */
-    protected function tearDown() : void
-    {
+    protected function tearDown(): void {
     }
 
     /**
@@ -51,8 +48,7 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function getObj()
-    {
+    public function getObj() {
         return $this->obj;
     }
 
@@ -63,9 +59,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasAttribute_class()
-    {
-        $this->assertClassHasAttribute('class',\FightTheIce\Coding\TestBuilder::class);
+    public function test_TestBuilder_hasAttribute_class() {
+        $this->assertClassHasAttribute('class', \FightTheIce\Coding\TestBuilder::class);
     }
 
     /**
@@ -75,9 +70,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasAttribute_name()
-    {
-        $this->assertClassHasAttribute('name',\FightTheIce\Coding\TestBuilder::class);
+    public function test_TestBuilder_hasAttribute_name() {
+        $this->assertClassHasAttribute('name', \FightTheIce\Coding\TestBuilder::class);
     }
 
     /**
@@ -87,9 +81,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasAttribute_shortName()
-    {
-        $this->assertClassHasAttribute('shortName',\FightTheIce\Coding\TestBuilder::class);
+    public function test_TestBuilder_hasAttribute_shortName() {
+        $this->assertClassHasAttribute('shortName', \FightTheIce\Coding\TestBuilder::class);
     }
 
     /**
@@ -99,9 +92,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasAttribute_test()
-    {
-        $this->assertClassHasAttribute('test',\FightTheIce\Coding\TestBuilder::class);
+    public function test_TestBuilder_hasAttribute_test() {
+        $this->assertClassHasAttribute('test', \FightTheIce\Coding\TestBuilder::class);
     }
 
     /**
@@ -112,9 +104,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasMethod_getClass()
-    {
-        $this->assertTrue(method_exists($this->obj,'getClass'));
+    public function test_TestBuilder_hasMethod_getClass() {
+        $this->assertTrue(method_exists($this->obj, 'getClass'));
     }
 
     /**
@@ -125,9 +116,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasMethod_getName()
-    {
-        $this->assertTrue(method_exists($this->obj,'getName'));
+    public function test_TestBuilder_hasMethod_getName() {
+        $this->assertTrue(method_exists($this->obj, 'getName'));
     }
 
     /**
@@ -138,9 +128,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasMethod_getShortname()
-    {
-        $this->assertTrue(method_exists($this->obj,'getShortname'));
+    public function test_TestBuilder_hasMethod_getShortname() {
+        $this->assertTrue(method_exists($this->obj, 'getShortname'));
     }
 
     /**
@@ -151,9 +140,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasMethod_getTest()
-    {
-        $this->assertTrue(method_exists($this->obj,'getTest'));
+    public function test_TestBuilder_hasMethod_getTest() {
+        $this->assertTrue(method_exists($this->obj, 'getTest'));
     }
 
     /**
@@ -164,20 +152,30 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasMethod___construct()
-    {
-        $this->assertTrue(method_exists($this->obj,'__construct'));
+    public function test_TestBuilder_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
     }
 
     /**
      * test_TestBuilder___construct_noparams
      *
-     * Testing init(ing) classFightTheIce\Coding\TestBuilder with no param values
+     * Testing method __construct with no params
      *
      * @access public
      */
-    public function test_TestBuilder___construct_noparams()
-    {
+    public function test_TestBuilder___construct_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TestBuilder();
+    }
+
+    /**
+     * test_TestBuilder___construct_badparam2
+     *
+     * short desc
+     *
+     * @access public
+     */
+    public function test_TestBuilder___construct_badparam2() {
         $this->expectException(\ArgumentCountError::class);
         $test = new \FightTheIce\Coding\TestBuilder();
     }
@@ -190,10 +188,8 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access public
      */
-    public function test_TestBuilder_hasMethod_generate()
-    {
-        $this->assertTrue(method_exists($this->obj,'generate'));
+    public function test_TestBuilder_hasMethod_generate() {
+        $this->assertTrue(method_exists($this->obj, 'generate'));
     }
-
 
 }
