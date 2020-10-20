@@ -48,6 +48,14 @@ $method = $class->newMethod('classExtends', 'public', 'Should this class extend 
 $method = $class->newMethod('generate', 'public', 'Generate the class data')
     ->getBodyFromObj($obj, 'generate');
 
+$method = $class->newMethod('getMethod', 'public', 'Returns a method object by name');
+$method->newRequiredParameter('name', 'string', 'Name of method');
+$method->getBodyFromObj($obj, 'getMethod');
+
+$method = $class->newMethod('getProperty', 'public', 'Returns a property object by name');
+$method->newRequiredParameter('name', 'string', 'Name of method');
+$method->getBodyFromObj($obj, 'getProperty');
+
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
 $test = new FightTheIce\Coding\TestBuilder($class);
