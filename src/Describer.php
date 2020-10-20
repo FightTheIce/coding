@@ -13,7 +13,8 @@ use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
  * @namespace FightTheIce\Coding
  * @author William Knauss
  */
-class Describer {
+class Describer
+{
 
     /**
      * generator
@@ -33,7 +34,8 @@ class Describer {
      * @param short - A string containing the short description
      * @param long - A string containing the long description
      */
-    public function __construct(string $short = '', string $long = '') {
+    public function __construct(string $short = '', string $long = '')
+    {
         $this->generator = new DocBlockGenerator();
 
         if (!empty($short)) {
@@ -52,7 +54,8 @@ class Describer {
      *
      * @access public
      */
-    public function getGenerator() {
+    public function getGenerator()
+    {
         return $this->generator;
     }
 
@@ -64,7 +67,8 @@ class Describer {
      * @access public
      * @param desc - A string containg the short description
      */
-    public function short(string $desc) {
+    public function short(string $desc)
+    {
         $this->generator->setShortDescription($desc);
 
         return $this;
@@ -78,7 +82,8 @@ class Describer {
      * @access public
      * @param desc - A string containing the long description
      */
-    public function long(string $desc) {
+    public function long(string $desc)
+    {
         $this->generator->setLongDescription($desc);
 
         return $this;
@@ -93,11 +98,11 @@ class Describer {
      * @param name - Tag Name
      * @param value - Tag Value
      */
-    public function tag(string $name, string $value) {
+    public function tag(string $name, string $value)
+    {
         $tag = new GenericTag($name, $value);
         $this->generator->setTag($tag);
 
         return $this;
     }
-
 }

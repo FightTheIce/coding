@@ -9,7 +9,8 @@ namespace FightTheIce\Tests\Coding\PropertyBuilder;
  *
  * @namespace FightTheIce\Tests\Coding\PropertyBuilder
  */
-class Test extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * obj
@@ -27,7 +28,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access protected
      */
-    protected function setUp(): void{
+    protected function setUp(): void
+    {
         $this->obj = new \FightTheIce\Coding\PropertyBuilder("property", "", "protected", "long");
     }
 
@@ -38,7 +40,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function getObj() {
+    public function getObj()
+    {
         return $this->obj;
     }
 
@@ -50,7 +53,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_PropertyBuilder_hasAttribute_generator() {
+    public function test_PropertyBuilder_hasAttribute_generator()
+    {
         $this->assertClassHasAttribute('generator', \FightTheIce\Coding\PropertyBuilder::class);
     }
 
@@ -62,7 +66,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_PropertyBuilder_hasAttribute_describer() {
+    public function test_PropertyBuilder_hasAttribute_describer()
+    {
         $this->assertClassHasAttribute('describer', \FightTheIce\Coding\PropertyBuilder::class);
     }
 
@@ -74,7 +79,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_PropertyBuilder_hasMethod_getDescriber() {
+    public function test_PropertyBuilder_hasMethod_getDescriber()
+    {
         $this->assertTrue(method_exists($this->obj, 'getDescriber'));
     }
 
@@ -86,7 +92,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_PropertyBuilder_hasMethod___construct() {
+    public function test_PropertyBuilder_hasMethod___construct()
+    {
         $this->assertTrue(method_exists($this->obj, '__construct'));
     }
 
@@ -97,7 +104,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_PropertyBuilder___construct_noparams() {
+    public function test_PropertyBuilder___construct_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = new \FightTheIce\Coding\PropertyBuilder();
     }
@@ -110,8 +118,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_PropertyBuilder_hasMethod_getGenerator() {
+    public function test_PropertyBuilder_hasMethod_getGenerator()
+    {
         $this->assertTrue(method_exists($this->obj, 'getGenerator'));
     }
-
 }

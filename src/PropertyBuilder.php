@@ -11,7 +11,8 @@ use Laminas\Code\Generator\PropertyGenerator;
  *
  * @namespace FightTheIce\Coding
  */
-class PropertyBuilder {
+class PropertyBuilder
+{
 
     /**
      * generator
@@ -42,7 +43,8 @@ class PropertyBuilder {
      * @param access - Access level
      * @param long - Long Description
      */
-    public function __construct(string $name, $dv, string $access, string $long) {
+    public function __construct(string $name, $dv, string $access, string $long)
+    {
         $this->generator = new PropertyGenerator();
         $this->generator->setName($name);
         $this->generator->setDefaultValue($dv);
@@ -76,7 +78,8 @@ class PropertyBuilder {
      *
      * @access public
      */
-    public function getDescriber() {
+    public function getDescriber()
+    {
         return $this->describer;
     }
 
@@ -87,10 +90,10 @@ class PropertyBuilder {
      *
      * @access public
      */
-    public function getGenerator() {
+    public function getGenerator()
+    {
         $this->generator->setDocBlock($this->describer->getGenerator());
 
         return $this->generator;
     }
-
 }

@@ -9,7 +9,8 @@ namespace FightTheIce\Tests\Coding\ClassBuilder;
  *
  * @namespace FightTheIce\Tests\Coding\ClassBuilder
  */
-class Test extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * obj
@@ -27,7 +28,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access protected
      */
-    protected function setUp(): void{
+    protected function setUp(): void
+    {
         $this->obj = new \FightTheIce\Coding\ClassBuilder("class", "short", "long");
     }
 
@@ -38,7 +40,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function getObj() {
+    public function getObj()
+    {
         return $this->obj;
     }
 
@@ -50,7 +53,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasAttribute_generator() {
+    public function test_ClassBuilder_hasAttribute_generator()
+    {
         $this->assertClassHasAttribute('generator', \FightTheIce\Coding\ClassBuilder::class);
     }
 
@@ -62,7 +66,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasAttribute_describer() {
+    public function test_ClassBuilder_hasAttribute_describer()
+    {
         $this->assertClassHasAttribute('describer', \FightTheIce\Coding\ClassBuilder::class);
     }
 
@@ -74,7 +79,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasAttribute_properties() {
+    public function test_ClassBuilder_hasAttribute_properties()
+    {
         $this->assertClassHasAttribute('properties', \FightTheIce\Coding\ClassBuilder::class);
     }
 
@@ -85,7 +91,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasAttribute_methods() {
+    public function test_ClassBuilder_hasAttribute_methods()
+    {
         $this->assertClassHasAttribute('methods', \FightTheIce\Coding\ClassBuilder::class);
     }
 
@@ -97,7 +104,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_getGenerator() {
+    public function test_ClassBuilder_hasMethod_getGenerator()
+    {
         $this->assertTrue(method_exists($this->obj, 'getGenerator'));
     }
 
@@ -109,7 +117,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_getDescriber() {
+    public function test_ClassBuilder_hasMethod_getDescriber()
+    {
         $this->assertTrue(method_exists($this->obj, 'getDescriber'));
     }
 
@@ -121,7 +130,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_getProperties() {
+    public function test_ClassBuilder_hasMethod_getProperties()
+    {
         $this->assertTrue(method_exists($this->obj, 'getProperties'));
     }
 
@@ -133,7 +143,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_getMethods() {
+    public function test_ClassBuilder_hasMethod_getMethods()
+    {
         $this->assertTrue(method_exists($this->obj, 'getMethods'));
     }
 
@@ -145,7 +156,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod___construct() {
+    public function test_ClassBuilder_hasMethod___construct()
+    {
         $this->assertTrue(method_exists($this->obj, '__construct'));
     }
 
@@ -156,7 +168,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder___construct_noparams() {
+    public function test_ClassBuilder___construct_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = new \FightTheIce\Coding\ClassBuilder();
     }
@@ -169,7 +182,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_addClassTag() {
+    public function test_ClassBuilder_hasMethod_addClassTag()
+    {
         $this->assertTrue(method_exists($this->obj, 'addClassTag'));
     }
 
@@ -180,7 +194,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_addClassTag_noparams() {
+    public function test_ClassBuilder_addClassTag_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->addClassTag();
     }
@@ -193,7 +208,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_newProperty() {
+    public function test_ClassBuilder_hasMethod_newProperty()
+    {
         $this->assertTrue(method_exists($this->obj, 'newProperty'));
     }
 
@@ -204,7 +220,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_newProperty_noparams() {
+    public function test_ClassBuilder_newProperty_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->newProperty();
     }
@@ -217,7 +234,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_newMethod() {
+    public function test_ClassBuilder_hasMethod_newMethod()
+    {
         $this->assertTrue(method_exists($this->obj, 'newMethod'));
     }
 
@@ -228,7 +246,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_newMethod_noparams() {
+    public function test_ClassBuilder_newMethod_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->newMethod();
     }
@@ -241,7 +260,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_uses() {
+    public function test_ClassBuilder_hasMethod_uses()
+    {
         $this->assertTrue(method_exists($this->obj, 'uses'));
     }
 
@@ -252,7 +272,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_uses_noparams() {
+    public function test_ClassBuilder_uses_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->uses();
     }
@@ -265,7 +286,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_classExtends() {
+    public function test_ClassBuilder_hasMethod_classExtends()
+    {
         $this->assertTrue(method_exists($this->obj, 'classExtends'));
     }
 
@@ -276,7 +298,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_classExtends_noparams() {
+    public function test_ClassBuilder_classExtends_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->classExtends();
     }
@@ -289,7 +312,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_generate() {
+    public function test_ClassBuilder_hasMethod_generate()
+    {
         $this->assertTrue(method_exists($this->obj, 'generate'));
     }
 
@@ -301,7 +325,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_getMethod() {
+    public function test_ClassBuilder_hasMethod_getMethod()
+    {
         $this->assertTrue(method_exists($this->obj, 'getMethod'));
     }
 
@@ -312,7 +337,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_getMethod_noparams() {
+    public function test_ClassBuilder_getMethod_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->getMethod();
     }
@@ -325,7 +351,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_hasMethod_getProperty() {
+    public function test_ClassBuilder_hasMethod_getProperty()
+    {
         $this->assertTrue(method_exists($this->obj, 'getProperty'));
     }
 
@@ -336,9 +363,9 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_ClassBuilder_getProperty_noparams() {
+    public function test_ClassBuilder_getProperty_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->getProperty();
     }
-
 }

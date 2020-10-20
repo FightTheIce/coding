@@ -9,7 +9,8 @@ namespace FightTheIce\Coding;
  *
  * @namespace FightTheIce\Coding
  */
-class TestBuilder {
+class TestBuilder
+{
 
     /**
      * class
@@ -55,7 +56,8 @@ class TestBuilder {
      * @access public
      * @param builder - The generated class builder
      */
-    public function __construct(\FightTheIce\Coding\ClassBuilder $builder) {
+    public function __construct(\FightTheIce\Coding\ClassBuilder $builder)
+    {
         $this->class = $builder;
         $this->name  = $this->class->getGenerator()->getName();
         $ns          = $this->class->getGenerator()->getNamespaceName();
@@ -80,7 +82,8 @@ class TestBuilder {
      *
      * @access public
      */
-    public function getClass() {
+    public function getClass()
+    {
         return $this->class;
     }
 
@@ -91,7 +94,8 @@ class TestBuilder {
      *
      * @access public
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -102,7 +106,8 @@ class TestBuilder {
      *
      * @access public
      */
-    public function getShortname() {
+    public function getShortname()
+    {
         return $this->shortName;
     }
 
@@ -113,7 +118,8 @@ class TestBuilder {
      *
      * @access public
      */
-    public function getTest() {
+    public function getTest()
+    {
         return $this->test;
     }
 
@@ -124,7 +130,8 @@ class TestBuilder {
      *
      * @access public
      */
-    public function generate() {
+    public function generate()
+    {
         $method = $this->test->newMethod('setUp', 'protected', 'Setup the test');
         if (!empty($this->setup)) {
             $method->setBody($this->setup);
@@ -209,8 +216,8 @@ class TestBuilder {
      * @access public
      * @param setup - Setup methodlogy
      */
-    public function buildSetup(string $setup) {
+    public function buildSetup(string $setup)
+    {
         $this->setup = $setup;
     }
-
 }

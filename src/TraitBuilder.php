@@ -11,7 +11,8 @@ use Laminas\Code\Generator\TraitGenerator;
  *
  * @namespace FightTheIce\Coding
  */
-class TraitBuilder {
+class TraitBuilder
+{
 
     /**
      * generator
@@ -63,7 +64,8 @@ class TraitBuilder {
      * @param short - A string containing the short description of the class
      * @param long - A string containing the long description of the class
      */
-    public function __construct(string $name, string $short, string $long) {
+    public function __construct(string $name, string $short, string $long)
+    {
         $this->generator = new TraitGenerator();
         $this->describer = new Describer($short, $long);
 
@@ -84,7 +86,8 @@ class TraitBuilder {
      *
      * @access public
      */
-    public function getGenerator() {
+    public function getGenerator()
+    {
         return $this->generator;
     }
 
@@ -95,7 +98,8 @@ class TraitBuilder {
      *
      * @access public
      */
-    public function getDescriber() {
+    public function getDescriber()
+    {
         return $this->describer;
     }
 
@@ -106,7 +110,8 @@ class TraitBuilder {
      *
      * @access public
      */
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->properties;
     }
 
@@ -117,7 +122,8 @@ class TraitBuilder {
      *
      * @access public
      */
-    public function getMethods() {
+    public function getMethods()
+    {
         return $this->methods;
     }
 
@@ -130,7 +136,8 @@ class TraitBuilder {
      * @param name - A string containing the name of the docblock tag
      * @param value - A string containing the value of the docblock tag
      */
-    public function addClassTag(string $name, string $value) {
+    public function addClassTag(string $name, string $value)
+    {
         $this->describer->tag($name, $value);
 
         return $this;
@@ -147,7 +154,8 @@ class TraitBuilder {
      * @param access - access level
      * @param long - Long Description of property
      */
-    public function newProperty(string $name, $dv, string $access, string $long) {
+    public function newProperty(string $name, $dv, string $access, string $long)
+    {
         if (isset($this->properties[$name])) {
             throw new \ErrorException('This property already exists!');
         }
@@ -167,7 +175,8 @@ class TraitBuilder {
      * @param access - access level
      * @param long - long description
      */
-    public function newMethod(string $name, string $access, string $long) {
+    public function newMethod(string $name, string $access, string $long)
+    {
         if (isset($this->methods[$name])) {
             throw new \ErrorException('The method already exists!');
         }
@@ -186,7 +195,8 @@ class TraitBuilder {
      * @param name - Name of class
      * @param alias - Alias
      */
-    public function uses(string $name,  ? string $alias = null) {
+    public function uses(string $name, ? string $alias = null)
+    {
         $this->generator->addUse($name, $alias);
 
         return $this;
@@ -199,7 +209,8 @@ class TraitBuilder {
      *
      * @access public
      */
-    public function generate() {
+    public function generate()
+    {
         foreach ($this->properties as $name => $obj) {
             $this->generator->addPropertyFromGenerator($obj->getGenerator());
         }
@@ -210,5 +221,4 @@ class TraitBuilder {
 
         return $this->generator->generate();
     }
-
 }

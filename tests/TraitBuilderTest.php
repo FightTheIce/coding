@@ -9,7 +9,8 @@ namespace FightTheIce\Tests\Coding\TraitBuilder;
  *
  * @namespace FightTheIce\Tests\Coding\TraitBuilder
  */
-class Test extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase
+{
 
     /**
      * obj
@@ -27,7 +28,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access protected
      */
-    protected function setUp(): void{
+    protected function setUp(): void
+    {
         $this->obj = new \FightTheIce\Coding\TraitBuilder("trait", "short", "long");
     }
 
@@ -38,7 +40,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function getObj() {
+    public function getObj()
+    {
         return $this->obj;
     }
 
@@ -50,7 +53,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasAttribute_generator() {
+    public function test_TraitBuilder_hasAttribute_generator()
+    {
         $this->assertClassHasAttribute('generator', \FightTheIce\Coding\TraitBuilder::class);
     }
 
@@ -62,7 +66,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasAttribute_describer() {
+    public function test_TraitBuilder_hasAttribute_describer()
+    {
         $this->assertClassHasAttribute('describer', \FightTheIce\Coding\TraitBuilder::class);
     }
 
@@ -74,7 +79,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasAttribute_properties() {
+    public function test_TraitBuilder_hasAttribute_properties()
+    {
         $this->assertClassHasAttribute('properties', \FightTheIce\Coding\TraitBuilder::class);
     }
 
@@ -85,7 +91,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasAttribute_methods() {
+    public function test_TraitBuilder_hasAttribute_methods()
+    {
         $this->assertClassHasAttribute('methods', \FightTheIce\Coding\TraitBuilder::class);
     }
 
@@ -97,7 +104,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_getGenerator() {
+    public function test_TraitBuilder_hasMethod_getGenerator()
+    {
         $this->assertTrue(method_exists($this->obj, 'getGenerator'));
     }
 
@@ -109,7 +117,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_getDescriber() {
+    public function test_TraitBuilder_hasMethod_getDescriber()
+    {
         $this->assertTrue(method_exists($this->obj, 'getDescriber'));
     }
 
@@ -121,7 +130,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_getProperties() {
+    public function test_TraitBuilder_hasMethod_getProperties()
+    {
         $this->assertTrue(method_exists($this->obj, 'getProperties'));
     }
 
@@ -133,7 +143,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_getMethods() {
+    public function test_TraitBuilder_hasMethod_getMethods()
+    {
         $this->assertTrue(method_exists($this->obj, 'getMethods'));
     }
 
@@ -145,7 +156,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod___construct() {
+    public function test_TraitBuilder_hasMethod___construct()
+    {
         $this->assertTrue(method_exists($this->obj, '__construct'));
     }
 
@@ -156,7 +168,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder___construct_noparams() {
+    public function test_TraitBuilder___construct_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = new \FightTheIce\Coding\TraitBuilder();
     }
@@ -169,7 +182,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_addClassTag() {
+    public function test_TraitBuilder_hasMethod_addClassTag()
+    {
         $this->assertTrue(method_exists($this->obj, 'addClassTag'));
     }
 
@@ -180,7 +194,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_addClassTag_noparams() {
+    public function test_TraitBuilder_addClassTag_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->addClassTag();
     }
@@ -193,7 +208,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_newProperty() {
+    public function test_TraitBuilder_hasMethod_newProperty()
+    {
         $this->assertTrue(method_exists($this->obj, 'newProperty'));
     }
 
@@ -204,7 +220,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_newProperty_noparams() {
+    public function test_TraitBuilder_newProperty_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->newProperty();
     }
@@ -217,7 +234,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_newMethod() {
+    public function test_TraitBuilder_hasMethod_newMethod()
+    {
         $this->assertTrue(method_exists($this->obj, 'newMethod'));
     }
 
@@ -228,7 +246,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_newMethod_noparams() {
+    public function test_TraitBuilder_newMethod_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->newMethod();
     }
@@ -241,7 +260,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_uses() {
+    public function test_TraitBuilder_hasMethod_uses()
+    {
         $this->assertTrue(method_exists($this->obj, 'uses'));
     }
 
@@ -252,7 +272,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_uses_noparams() {
+    public function test_TraitBuilder_uses_noparams()
+    {
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->uses();
     }
@@ -265,8 +286,8 @@ class Test extends \PHPUnit\Framework\TestCase {
      *
      * @access public
      */
-    public function test_TraitBuilder_hasMethod_generate() {
+    public function test_TraitBuilder_hasMethod_generate()
+    {
         $this->assertTrue(method_exists($this->obj, 'generate'));
     }
-
 }
