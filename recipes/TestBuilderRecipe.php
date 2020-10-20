@@ -13,7 +13,7 @@ $class->newProperty('class', '', 'protected', 'ClassBuilder Object', true)
     ->newProperty('test', null, 'protected', 'Test Generator', true);
 
 $method = $class->newMethod('__construct', 'public', 'Class Construct', 'The class construct');
-$method->newRequiredParameter('builder', '\ClassBuilder', 'The generated class builder')
+$method->newRequiredParameter('builder', '\FightTheIce\Coding\ClassBuilder', 'The generated class builder')
     ->getBodyFromObj($obj, '__construct');
 
 $method = $class->newMethod('generate', 'public', 'Generate', 'Generate the test suite');
