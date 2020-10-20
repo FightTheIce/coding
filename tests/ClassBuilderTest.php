@@ -1,15 +1,15 @@
 <?php
 
-namespace FightTheIce\Tests\Coding;
+namespace FightTheIce\Tests\Coding\ClassBuilder;
 
 /**
  * FightTheIce\Coding\ClassBuilder
  *
  * Testing of FightTheIce\Coding\ClassBuilder
  *
- * @namespace FightTheIce\Tests\Coding
+ * @namespace FightTheIce\Tests\Coding\ClassBuilder
  */
-class ClassBuilder extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -28,7 +28,7 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\ClassBuilder("classname", "short", "long");
+        $this->obj = new \FightTheIce\Coding\ClassBuilder("class", "short", "long");
     }
 
     /**
@@ -148,6 +148,30 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_ClassBuilder_hasMethod___construct
+     *
+     * Testing that class FightTheIce\Coding\ClassBuilder has a method by the name of:
+     * __construct
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
+     * test_ClassBuilder___construct_noparams
+     *
+     * Testing method __construct with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder___construct_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\ClassBuilder();
+    }
+
+    /**
      * test_ClassBuilder_hasMethod_addClassTag
      *
      * Testing that class FightTheIce\Coding\ClassBuilder has a method by the name of:
@@ -157,6 +181,18 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_hasMethod_addClassTag() {
         $this->assertTrue(method_exists($this->obj, 'addClassTag'));
+    }
+
+    /**
+     * test_ClassBuilder_addClassTag_noparams
+     *
+     * Testing method addClassTag with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_addClassTag_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\ClassBuilder();
     }
 
     /**
@@ -172,6 +208,18 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_ClassBuilder_newProperty_noparams
+     *
+     * Testing method newProperty with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_newProperty_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\ClassBuilder();
+    }
+
+    /**
      * test_ClassBuilder_hasMethod_newMethod
      *
      * Testing that class FightTheIce\Coding\ClassBuilder has a method by the name of:
@@ -181,6 +229,18 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_hasMethod_newMethod() {
         $this->assertTrue(method_exists($this->obj, 'newMethod'));
+    }
+
+    /**
+     * test_ClassBuilder_newMethod_noparams
+     *
+     * Testing method newMethod with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_newMethod_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\ClassBuilder();
     }
 
     /**
@@ -196,6 +256,18 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_ClassBuilder_uses_noparams
+     *
+     * Testing method uses with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_uses_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\ClassBuilder();
+    }
+
+    /**
      * test_ClassBuilder_hasMethod_classExtends
      *
      * Testing that class FightTheIce\Coding\ClassBuilder has a method by the name of:
@@ -208,6 +280,18 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_ClassBuilder_classExtends_noparams
+     *
+     * Testing method classExtends with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_classExtends_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\ClassBuilder();
+    }
+
+    /**
      * test_ClassBuilder_hasMethod_generate
      *
      * Testing that class FightTheIce\Coding\ClassBuilder has a method by the name of:
@@ -217,36 +301,6 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder_hasMethod_generate() {
         $this->assertTrue(method_exists($this->obj, 'generate'));
-    }
-
-    public function test_ClassBuilder__construct_paramcheck1() {
-        $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder();
-    }
-
-    public function test_ClassBuilder__construct_paramcheck2() {
-        $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder('class');
-    }
-
-    public function test_ClassBuilder__construct_paramcheck3() {
-        $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\ClassBuilder('class', 'short');
-    }
-
-    public function test_ClassBuilder__construct_paramcheck4() {
-        $this->expectException(\Error::class);
-        $test = new \FightTheIce\Coding\ClassBuilder(new StdClass(), 'short', 'long');
-    }
-
-    public function test_ClassBuilder__construct_paramcheck5() {
-        $this->expectException(\Error::class);
-        $test = new \FightTheIce\Coding\ClassBuilder('class', new stdClass(), 'long');
-    }
-
-    public function test_ClassBuilder__construct_paramcheck6() {
-        $this->expectException(\Error::class);
-        $test = new \FightTheIce\Coding\ClassBuilder('class', 'short', new stdClass());
     }
 
 }

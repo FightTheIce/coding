@@ -1,15 +1,15 @@
 <?php
 
-namespace FightTheIce\Tests\Coding;
+namespace FightTheIce\Tests\Coding\Describer;
 
 /**
  * FightTheIce\Coding\Describer
  *
  * Testing of FightTheIce\Coding\Describer
  *
- * @namespace FightTheIce\Tests\Coding
+ * @namespace FightTheIce\Tests\Coding\Describer
  */
-class Describer extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -76,6 +76,18 @@ class Describer extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_Describer_hasMethod___construct
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * __construct
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
      * test_Describer_hasMethod_short
      *
      * Testing that class FightTheIce\Coding\Describer has a method by the name of:
@@ -85,6 +97,18 @@ class Describer extends \PHPUnit\Framework\TestCase {
      */
     public function test_Describer_hasMethod_short() {
         $this->assertTrue(method_exists($this->obj, 'short'));
+    }
+
+    /**
+     * test_Describer_short_noparams
+     *
+     * Testing method short with no params
+     *
+     * @access public
+     */
+    public function test_Describer_short_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\Describer();
     }
 
     /**
@@ -100,6 +124,18 @@ class Describer extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_Describer_long_noparams
+     *
+     * Testing method long with no params
+     *
+     * @access public
+     */
+    public function test_Describer_long_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\Describer();
+    }
+
+    /**
      * test_Describer_hasMethod_tag
      *
      * Testing that class FightTheIce\Coding\Describer has a method by the name of: tag
@@ -108,6 +144,18 @@ class Describer extends \PHPUnit\Framework\TestCase {
      */
     public function test_Describer_hasMethod_tag() {
         $this->assertTrue(method_exists($this->obj, 'tag'));
+    }
+
+    /**
+     * test_Describer_tag_noparams
+     *
+     * Testing method tag with no params
+     *
+     * @access public
+     */
+    public function test_Describer_tag_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\Describer();
     }
 
 }

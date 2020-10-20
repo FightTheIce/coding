@@ -165,13 +165,23 @@ class TestBuilder {
                 $parameters  = $obj->getGenerator()->getParameters();
                 $countParams = count($parameters);
                 if ($countParams > 0) {
-                    //lets generate a test method with no parameters sent
-                    $methodName = 'test_' . $this->shortName . '_' . $name . '_noparams';
-                    $method     = $this->test->newMethod($methodName, 'public', 'Testing method ' . $name . ' with no params');
+                    $requiredParams = false;
+                    foreach ($parameters as $param) {
+                        $dv = $param->getDefaultValue();
+                        if (empty($dv)) {
+                            $requiredParams = true;
+                        }
+                    }
 
-                    $content = '$this->expectException(\ArgumentCountError::class);' . PHP_EOL;
-                    $content = $content . '$test = new \\' . $this->name . '();';
-                    $method->setBody($content);
+                    if ($requiredParams == true) {
+                        //lets generate a test method with no parameters sent
+                        $methodName = 'test_' . $this->shortName . '_' . $name . '_noparams';
+                        $method     = $this->test->newMethod($methodName, 'public', 'Testing method ' . $name . ' with no params');
+
+                        $content = '$this->expectException(\ArgumentCountError::class);' . PHP_EOL;
+                        $content = $content . '$test = new \\' . $this->name . '();';
+                        $method->setBody($content);
+                    }
                 }
             }
         }

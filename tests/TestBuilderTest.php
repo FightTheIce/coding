@@ -169,18 +169,6 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * test_TestBuilder___construct_badparam2
-     *
-     * short desc
-     *
-     * @access public
-     */
-    public function test_TestBuilder___construct_badparam2() {
-        $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TestBuilder();
-    }
-
-    /**
      * test_TestBuilder_hasMethod_generate
      *
      * Testing that class FightTheIce\Coding\TestBuilder has a method by the name of:

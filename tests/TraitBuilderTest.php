@@ -1,15 +1,15 @@
 <?php
 
-namespace FightTheIce\Tests\Coding;
+namespace FightTheIce\Tests\Coding\TraitBuilder;
 
 /**
  * FightTheIce\Coding\TraitBuilder
  *
  * Testing of FightTheIce\Coding\TraitBuilder
  *
- * @namespace FightTheIce\Tests\Coding
+ * @namespace FightTheIce\Tests\Coding\TraitBuilder
  */
-class TraitBuilder extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -28,7 +28,7 @@ class TraitBuilder extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\TraitBuilder("name", "short", "long");
+        $this->obj = new \FightTheIce\Coding\TraitBuilder("trait", "short", "long");
     }
 
     /**
@@ -148,6 +148,30 @@ class TraitBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_TraitBuilder_hasMethod___construct
+     *
+     * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
+     * __construct
+     *
+     * @access public
+     */
+    public function test_TraitBuilder_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
+     * test_TraitBuilder___construct_noparams
+     *
+     * Testing method __construct with no params
+     *
+     * @access public
+     */
+    public function test_TraitBuilder___construct_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TraitBuilder();
+    }
+
+    /**
      * test_TraitBuilder_hasMethod_addClassTag
      *
      * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
@@ -157,6 +181,18 @@ class TraitBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder_hasMethod_addClassTag() {
         $this->assertTrue(method_exists($this->obj, 'addClassTag'));
+    }
+
+    /**
+     * test_TraitBuilder_addClassTag_noparams
+     *
+     * Testing method addClassTag with no params
+     *
+     * @access public
+     */
+    public function test_TraitBuilder_addClassTag_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TraitBuilder();
     }
 
     /**
@@ -172,6 +208,18 @@ class TraitBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_TraitBuilder_newProperty_noparams
+     *
+     * Testing method newProperty with no params
+     *
+     * @access public
+     */
+    public function test_TraitBuilder_newProperty_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TraitBuilder();
+    }
+
+    /**
      * test_TraitBuilder_hasMethod_newMethod
      *
      * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
@@ -184,6 +232,18 @@ class TraitBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_TraitBuilder_newMethod_noparams
+     *
+     * Testing method newMethod with no params
+     *
+     * @access public
+     */
+    public function test_TraitBuilder_newMethod_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TraitBuilder();
+    }
+
+    /**
      * test_TraitBuilder_hasMethod_uses
      *
      * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
@@ -193,6 +253,18 @@ class TraitBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder_hasMethod_uses() {
         $this->assertTrue(method_exists($this->obj, 'uses'));
+    }
+
+    /**
+     * test_TraitBuilder_uses_noparams
+     *
+     * Testing method uses with no params
+     *
+     * @access public
+     */
+    public function test_TraitBuilder_uses_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TraitBuilder();
     }
 
     /**

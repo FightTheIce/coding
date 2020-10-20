@@ -1,15 +1,15 @@
 <?php
 
-namespace FightTheIce\Tests\Coding;
+namespace FightTheIce\Tests\Coding\MethodBuilder;
 
 /**
  * FightTheIce\Coding\MethodBuilder
  *
  * Testing of FightTheIce\Coding\MethodBuilder
  *
- * @namespace FightTheIce\Tests\Coding
+ * @namespace FightTheIce\Tests\Coding\MethodBuilder
  */
-class MethodBuilder extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -28,7 +28,7 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\MethodBuilder("methodname", "public", "long desc");
+        $this->obj = new \FightTheIce\Coding\MethodBuilder("methodname", "public", "long");
     }
 
     /**
@@ -89,6 +89,30 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_MethodBuilder_hasMethod___construct
+     *
+     * Testing that class FightTheIce\Coding\MethodBuilder has a method by the name of:
+     * __construct
+     *
+     * @access public
+     */
+    public function test_MethodBuilder_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
+     * test_MethodBuilder___construct_noparams
+     *
+     * Testing method __construct with no params
+     *
+     * @access public
+     */
+    public function test_MethodBuilder___construct_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\MethodBuilder();
+    }
+
+    /**
      * test_MethodBuilder_hasMethod_newRequiredParameter
      *
      * Testing that class FightTheIce\Coding\MethodBuilder has a method by the name of:
@@ -98,6 +122,18 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_hasMethod_newRequiredParameter() {
         $this->assertTrue(method_exists($this->obj, 'newRequiredParameter'));
+    }
+
+    /**
+     * test_MethodBuilder_newRequiredParameter_noparams
+     *
+     * Testing method newRequiredParameter with no params
+     *
+     * @access public
+     */
+    public function test_MethodBuilder_newRequiredParameter_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\MethodBuilder();
     }
 
     /**
@@ -113,6 +149,18 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_MethodBuilder_newRequiredParameterUnknown_noparams
+     *
+     * Testing method newRequiredParameterUnknown with no params
+     *
+     * @access public
+     */
+    public function test_MethodBuilder_newRequiredParameterUnknown_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\MethodBuilder();
+    }
+
+    /**
      * test_MethodBuilder_hasMethod_newOptionalParameter
      *
      * Testing that class FightTheIce\Coding\MethodBuilder has a method by the name of:
@@ -122,6 +170,18 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_hasMethod_newOptionalParameter() {
         $this->assertTrue(method_exists($this->obj, 'newOptionalParameter'));
+    }
+
+    /**
+     * test_MethodBuilder_newOptionalParameter_noparams
+     *
+     * Testing method newOptionalParameter with no params
+     *
+     * @access public
+     */
+    public function test_MethodBuilder_newOptionalParameter_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\MethodBuilder();
     }
 
     /**
@@ -137,6 +197,18 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_MethodBuilder_newOptionalParameterUnknown_noparams
+     *
+     * Testing method newOptionalParameterUnknown with no params
+     *
+     * @access public
+     */
+    public function test_MethodBuilder_newOptionalParameterUnknown_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\MethodBuilder();
+    }
+
+    /**
      * test_MethodBuilder_hasMethod_setBody
      *
      * Testing that class FightTheIce\Coding\MethodBuilder has a method by the name of:
@@ -149,6 +221,18 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_MethodBuilder_setBody_noparams
+     *
+     * Testing method setBody with no params
+     *
+     * @access public
+     */
+    public function test_MethodBuilder_setBody_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\MethodBuilder();
+    }
+
+    /**
      * test_MethodBuilder_hasMethod_getBodyFromObj
      *
      * Testing that class FightTheIce\Coding\MethodBuilder has a method by the name of:
@@ -158,6 +242,18 @@ class MethodBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_MethodBuilder_hasMethod_getBodyFromObj() {
         $this->assertTrue(method_exists($this->obj, 'getBodyFromObj'));
+    }
+
+    /**
+     * test_MethodBuilder_getBodyFromObj_noparams
+     *
+     * Testing method getBodyFromObj with no params
+     *
+     * @access public
+     */
+    public function test_MethodBuilder_getBodyFromObj_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\MethodBuilder();
     }
 
     /**

@@ -1,15 +1,15 @@
 <?php
 
-namespace FightTheIce\Tests\Coding;
+namespace FightTheIce\Tests\Coding\PropertyBuilder;
 
 /**
  * FightTheIce\Coding\PropertyBuilder
  *
  * Testing of FightTheIce\Coding\PropertyBuilder
  *
- * @namespace FightTheIce\Tests\Coding
+ * @namespace FightTheIce\Tests\Coding\PropertyBuilder
  */
-class PropertyBuilder extends \PHPUnit\Framework\TestCase {
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -28,7 +28,7 @@ class PropertyBuilder extends \PHPUnit\Framework\TestCase {
      * @access protected
      */
     protected function setUp(): void{
-        $this->obj = new \FightTheIce\Coding\PropertyBuilder("property", '', 'protected', 'long desc');
+        $this->obj = new \FightTheIce\Coding\PropertyBuilder("propertyname", "", "public", "long");
     }
 
     /**
@@ -86,6 +86,30 @@ class PropertyBuilder extends \PHPUnit\Framework\TestCase {
      */
     public function test_PropertyBuilder_hasMethod_getDescriber() {
         $this->assertTrue(method_exists($this->obj, 'getDescriber'));
+    }
+
+    /**
+     * test_PropertyBuilder_hasMethod___construct
+     *
+     * Testing that class FightTheIce\Coding\PropertyBuilder has a method by the name
+     * of: __construct
+     *
+     * @access public
+     */
+    public function test_PropertyBuilder_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
+     * test_PropertyBuilder___construct_noparams
+     *
+     * Testing method __construct with no params
+     *
+     * @access public
+     */
+    public function test_PropertyBuilder___construct_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\PropertyBuilder();
     }
 
     /**
