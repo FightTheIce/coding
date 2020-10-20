@@ -38,8 +38,8 @@ class Describer {
      * Class Construct
      *
      * @access public
-     * @param short - A string containing the short description
-     * @param long - A string containing the long description
+     * @param string $short A string containing the short description
+     * @param string $long A string containing the long description
      */
     public function __construct(string $short = '', string $long = '') {
         $this->generator = new DocBlockGenerator();
@@ -70,7 +70,7 @@ class Describer {
      * DocBlock short description
      *
      * @access public
-     * @param desc - A string containg the short description
+     * @param string $desc A string containg the short description
      */
     public function short(string $desc) {
         $this->generator->setShortDescription($desc);
@@ -84,7 +84,7 @@ class Describer {
      * DocBlock long description
      *
      * @access public
-     * @param desc - A string containing the long description
+     * @param string $desc A string containing the long description
      */
     public function long(string $desc) {
         $this->generator->setLongDescription($desc);
@@ -98,8 +98,8 @@ class Describer {
      * DocBlock Tag Generator
      *
      * @access public
-     * @param name - Tag Name
-     * @param value - Tag Value
+     * @param string $name Tag Name
+     * @param string $value Tag Value
      */
     public function tag(string $name, string $value) {
         $tag = new GenericTag($name, $value);
@@ -114,8 +114,8 @@ class Describer {
      * DocBlock Tag Generator
      *
      * @access public
-     * @param name - Tag Name
-     * @param value - Tag Value
+     * @param string $name Tag Name
+     * @param string $value Tag Value
      */
     public function genericTag(string $name, string $value) {
         return $this->tag($name, $value);
@@ -127,8 +127,8 @@ class Describer {
      * Author Tag Generator
      *
      * @access public
-     * @param name - A string containing the authors name
-     * @param email - A string containing the authors's email address
+     * @param ?string $name A string containing the authors name
+     * @param ?string $email A string containing the authors's email address
      */
     public function authorTag( ? string $name = null,  ? string $email = null) {
         $tag = new AuthorTag($name, $email);
@@ -143,8 +143,8 @@ class Describer {
      * License Tag Generator
      *
      * @access public
-     * @param url - URL
-     * @param name - License Name
+     * @param ?string $url URL
+     * @param ?string $name License Name
      */
     public function licenseTag( ? string $url = null,  ? string $name = null) {
         $tag = new LicenseTag($url, $licenseName);
@@ -159,10 +159,10 @@ class Describer {
      * Method Tag Generator
      *
      * @access public
-     * @param name - Method Name
-     * @param types - Method Types
-     * @param description - Method Description
-     * @param isStatic - Is Method Static?
+     * @param ?string $name Method Name
+     * @param $types Method Types
+     * @param $description Method Description
+     * @param $isStatic Is Method Static?
      */
     public function methodTag( ? string $name = null, $types = [], $description = null, $isStatic = false) {
         $tag = new MethodTag($name, $types, $description, $isStatic);
@@ -177,9 +177,9 @@ class Describer {
      * Param Tag Generator
      *
      * @access public
-     * @param name - Param Name
-     * @param types - Param Types
-     * @param description - Param Description
+     * @param string $name Param Name
+     * @param $types Param Types
+     * @param $description Param Description
      */
     public function paramTag(string $name, $types = [], $description = null) {
         $tag = new ParamTag($name, $types, $description);
@@ -194,9 +194,9 @@ class Describer {
      * Property Tag Generator
      *
      * @access public
-     * @param name - Property name
-     * @param types - Property types
-     * @param description - Property description
+     * @param string $name Property name
+     * @param $types Property types
+     * @param $description Property description
      */
     public function propertyTag(string $name, $types = [], $description = null) {
         $tag = new PropertyTag($name, $types, $description);
@@ -211,8 +211,8 @@ class Describer {
      * Return Tag Generator
      *
      * @access public
-     * @param types - Return Types
-     * @param description - Return Description
+     * @param $types Return Types
+     * @param $description Return Description
      */
     public function returnTag($types = [], $description = null) {
         $tag = new ReturnTag($types, $description);
@@ -227,8 +227,8 @@ class Describer {
      * Throws Tag Generator
      *
      * @access public
-     * @param types - Throws Types
-     * @param description - Throws Description
+     * @param $types Throws Types
+     * @param $description Throws Description
      */
     public function throwsTag($types = [], $description = null) {
         $tag = new ThrowsTag($types, $description);
@@ -243,9 +243,9 @@ class Describer {
      * Var Tag Generator
      *
      * @access public
-     * @param name - Var Name
-     * @param types - Var Types
-     * @param description - Var Description
+     * @param string $name Var Name
+     * @param $types Var Types
+     * @param $description Var Description
      */
     public function varTag(string $name, $types = [], $description = null) {
         $tag = new VarTag($name, $types, $description);

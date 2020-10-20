@@ -14,8 +14,7 @@ use Laminas\Code\Reflection\ClassReflection;
  *
  * @namespace FightTheIce\Coding
  */
-class MethodBuilder
-{
+class MethodBuilder {
 
     /**
      * generator
@@ -45,8 +44,7 @@ class MethodBuilder
      * @param access - The access level
      * @param long - The long description
      */
-    public function __construct(string $name, string $access, string $long)
-    {
+    public function __construct(string $name, string $access, string $long) {
         $this->generator = new MethodGenerator;
         $this->describer = new Describer($name, $long);
         $this->describer->tag('access', trim(strtolower($access)));
@@ -78,8 +76,7 @@ class MethodBuilder
      *
      * @access public
      */
-    public function getDescriber()
-    {
+    public function getDescriber() {
         return $this->describer;
     }
 
@@ -93,14 +90,13 @@ class MethodBuilder
      * @param type - The data type for this parameter
      * @param desc - The description of the parameter
      */
-    public function newRequiredParameter(string $name, $type, string $desc)
-    {
+    public function newRequiredParameter(string $name, $type, string $desc) {
         $param = new ParameterGenerator($name, $type);
         $param->omitDefaultValue(true);
 
         $this->generator->setParameter($param);
 
-        $this->describer->tag('param', $name . ' - ' . $desc);
+        $this->describer->paramTag($name, array($type), $desc);
 
         return $this;
     }
@@ -114,14 +110,13 @@ class MethodBuilder
      * @param name - Name of parameter
      * @param desc - Description of parameter
      */
-    public function newRequiredParameterUnknown(string $name, string $desc)
-    {
+    public function newRequiredParameterUnknown(string $name, string $desc) {
         $param = new ParameterGenerator($name);
         $param->omitDefaultValue(true);
 
         $this->generator->setParameter($param);
 
-        $this->describer->tag('param', $name . ' - ' . $desc);
+        $this->describer->paramTag($name, [], $desc);
 
         return $this;
     }
@@ -137,8 +132,7 @@ class MethodBuilder
      * @param type - The data type for this parameter
      * @param desc - Description of parameter
      */
-    public function newOptionalParameter(string $name, $dv, $type, string $desc)
-    {
+    public function newOptionalParameter(string $name, $dv, $type, string $desc) {
         if (is_null($dv)) {
             $dv = new ValueGenerator(null, ValueGenerator::TYPE_NULL);
         }
@@ -148,7 +142,7 @@ class MethodBuilder
         $this->generator->setParameter($param);
         $param->omitDefaultValue(false);
 
-        $this->describer->tag('param', $name . ' - ' . $desc);
+        $this->describer->paramTag($name, array($type), $desc);
 
         return $this;
     }
@@ -163,8 +157,7 @@ class MethodBuilder
      * @param dv - default value of property
      * @param desc - Description of parameter
      */
-    public function newOptionalParameterUnknown(string $name, $dv, string $desc)
-    {
+    public function newOptionalParameterUnknown(string $name, $dv, string $desc) {
         if (is_null($dv)) {
             $dv = new ValueGenerator(null, ValueGenerator::TYPE_NULL);
         }
@@ -174,7 +167,7 @@ class MethodBuilder
         $this->generator->setParameter($param);
         $param->omitDefaultValue(false);
 
-        $this->describer->tag('param', $name . ' - ' . $desc);
+        $this->describer->paramTag($name, [], $desc);
 
         return $this;
     }
@@ -187,8 +180,7 @@ class MethodBuilder
      * @access public
      * @param body - Body contents
      */
-    public function setBody(string $body)
-    {
+    public function setBody(string $body) {
         $this->generator->setBody($body);
 
         return $this;
@@ -203,8 +195,7 @@ class MethodBuilder
      * @param obj - Object that we can grab it from
      * @param method - Method Name
      */
-    public function getBodyFromObj($obj, string $method)
-    {
+    public function getBodyFromObj($obj, string $method) {
         $class = new ClassReflection($obj);
 
         if ($class->hasMethod($method) == false) {
@@ -224,8 +215,7 @@ class MethodBuilder
      *
      * @access public
      */
-    public function getGenerator()
-    {
+    public function getGenerator() {
         $this->generator->setDocBlock($this->describer->getGenerator());
 
         return $this->generator;
