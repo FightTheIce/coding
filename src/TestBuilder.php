@@ -160,6 +160,10 @@ class TestBuilder {
 
                 $content = "this->assertTrue(method_exists(\$this->obj,'" . $name . "'));";
                 $method->setBody('$' . $content);
+
+                //does this method have parameters?
+                print_r($obj);
+                exit;
             }
         }
 
