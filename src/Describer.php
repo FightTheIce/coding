@@ -3,7 +3,15 @@
 namespace FightTheIce\Coding;
 
 use Laminas\Code\Generator\DocBlockGenerator;
+use Laminas\Code\Generator\DocBlock\Tag\AuthorTag;
 use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
+use Laminas\Code\Generator\DocBlock\Tag\LicenseTag;
+use Laminas\Code\Generator\DocBlock\Tag\MethodTag;
+use Laminas\Code\Generator\DocBlock\Tag\ParamTag;
+use Laminas\Code\Generator\DocBlock\Tag\PropertyTag;
+use Laminas\Code\Generator\DocBlock\Tag\ReturnTag;
+use Laminas\Code\Generator\DocBlock\Tag\ThrowsTag;
+use Laminas\Code\Generator\DocBlock\Tag\VarTag;
 
 /**
  * Describer
@@ -13,8 +21,7 @@ use Laminas\Code\Generator\DocBlock\Tag\GenericTag;
  * @namespace FightTheIce\Coding
  * @author William Knauss
  */
-class Describer
-{
+class Describer {
 
     /**
      * generator
@@ -34,8 +41,7 @@ class Describer
      * @param short - A string containing the short description
      * @param long - A string containing the long description
      */
-    public function __construct(string $short = '', string $long = '')
-    {
+    public function __construct(string $short = '', string $long = '') {
         $this->generator = new DocBlockGenerator();
 
         if (!empty($short)) {
@@ -54,8 +60,7 @@ class Describer
      *
      * @access public
      */
-    public function getGenerator()
-    {
+    public function getGenerator() {
         return $this->generator;
     }
 
@@ -67,8 +72,7 @@ class Describer
      * @access public
      * @param desc - A string containg the short description
      */
-    public function short(string $desc)
-    {
+    public function short(string $desc) {
         $this->generator->setShortDescription($desc);
 
         return $this;
@@ -82,8 +86,7 @@ class Describer
      * @access public
      * @param desc - A string containing the long description
      */
-    public function long(string $desc)
-    {
+    public function long(string $desc) {
         $this->generator->setLongDescription($desc);
 
         return $this;
@@ -98,11 +101,157 @@ class Describer
      * @param name - Tag Name
      * @param value - Tag Value
      */
-    public function tag(string $name, string $value)
-    {
+    public function tag(string $name, string $value) {
         $tag = new GenericTag($name, $value);
         $this->generator->setTag($tag);
 
         return $this;
     }
+
+    /**
+     * genericTag
+     *
+     * DocBlock Tag Generator
+     *
+     * @access public
+     * @param name - Tag Name
+     * @param value - Tag Value
+     */
+    public function genericTag(string $name, string $value) {
+        return $this->tag($name, $value);
+    }
+
+    /**
+     * authorTag
+     *
+     * Author Tag Generator
+     *
+     * @access public
+     * @param name - A string containing the authors name
+     * @param email - A string containing the authors's email address
+     */
+    public function authorTag( ? string $name = null,  ? string $email = null) {
+        $tag = new AuthorTag($name, $email);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * licenseTag
+     *
+     * License Tag Generator
+     *
+     * @access public
+     * @param url - URL
+     * @param name - License Name
+     */
+    public function licenseTag( ? string $url = null,  ? string $name = null) {
+        $tag = new LicenseTag($url, $licenseName);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * methodTag
+     *
+     * Method Tag Generator
+     *
+     * @access public
+     * @param name - Method Name
+     * @param types - Method Types
+     * @param description - Method Description
+     * @param isStatic - Is Method Static?
+     */
+    public function methodTag( ? string $name = null, $types = [], $description = null, $isStatic = false) {
+        $tag = new MethodTag($name, $types, $description, $isStatic);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * paramTag
+     *
+     * Param Tag Generator
+     *
+     * @access public
+     * @param name - Param Name
+     * @param types - Param Types
+     * @param description - Param Description
+     */
+    public function paramTag(string $name, $types = [], $description = null) {
+        $tag = new ParamTag($name, $types, $description);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * propertyTag
+     *
+     * Property Tag Generator
+     *
+     * @access public
+     * @param name - Property name
+     * @param types - Property types
+     * @param description - Property description
+     */
+    public function propertyTag(string $name, $types = [], $description = null) {
+        $tag = new PropertyTag($name, $types, $description);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * returnTag
+     *
+     * Return Tag Generator
+     *
+     * @access public
+     * @param types - Return Types
+     * @param description - Return Description
+     */
+    public function returnTag($types = [], $description = null) {
+        $tag = new ReturnTag($types, $description);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * throwsTag
+     *
+     * Throws Tag Generator
+     *
+     * @access public
+     * @param types - Throws Types
+     * @param description - Throws Description
+     */
+    public function throwsTag($types = [], $description = null) {
+        $tag = new ThrowsTag($types, $description);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
+    /**
+     * varTag
+     *
+     * Var Tag Generator
+     *
+     * @access public
+     * @param name - Var Name
+     * @param types - Var Types
+     * @param description - Var Description
+     */
+    public function varTag(string $name, $types = [], $description = null) {
+        $tag = new VarTag($name, $types, $description);
+        $this->generator->setTag($tag);
+
+        return $this;
+    }
+
 }

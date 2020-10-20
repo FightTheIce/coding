@@ -28,9 +28,9 @@ class Test extends \PHPUnit\Framework\TestCase
      *
      * @access protected
      */
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->obj = new \FightTheIce\Coding\Describer("short", "long");
+        $this->obj = new \FightTheIce\Coding\Describer("short","long");
     }
 
     /**
@@ -54,7 +54,7 @@ class Test extends \PHPUnit\Framework\TestCase
      */
     public function test_Describer_hasAttribute_generator()
     {
-        $this->assertClassHasAttribute('generator', \FightTheIce\Coding\Describer::class);
+        $this->assertClassHasAttribute('generator',\FightTheIce\Coding\Describer::class);
     }
 
     /**
@@ -67,7 +67,7 @@ class Test extends \PHPUnit\Framework\TestCase
      */
     public function test_Describer_hasMethod_getGenerator()
     {
-        $this->assertTrue(method_exists($this->obj, 'getGenerator'));
+        $this->assertTrue(method_exists($this->obj,'getGenerator'));
     }
 
     /**
@@ -80,7 +80,7 @@ class Test extends \PHPUnit\Framework\TestCase
      */
     public function test_Describer_hasMethod___construct()
     {
-        $this->assertTrue(method_exists($this->obj, '__construct'));
+        $this->assertTrue(method_exists($this->obj,'__construct'));
     }
 
     /**
@@ -93,7 +93,7 @@ class Test extends \PHPUnit\Framework\TestCase
      */
     public function test_Describer_hasMethod_short()
     {
-        $this->assertTrue(method_exists($this->obj, 'short'));
+        $this->assertTrue(method_exists($this->obj,'short'));
     }
 
     /**
@@ -119,7 +119,7 @@ class Test extends \PHPUnit\Framework\TestCase
      */
     public function test_Describer_hasMethod_long()
     {
-        $this->assertTrue(method_exists($this->obj, 'long'));
+        $this->assertTrue(method_exists($this->obj,'long'));
     }
 
     /**
@@ -144,7 +144,7 @@ class Test extends \PHPUnit\Framework\TestCase
      */
     public function test_Describer_hasMethod_tag()
     {
-        $this->assertTrue(method_exists($this->obj, 'tag'));
+        $this->assertTrue(method_exists($this->obj,'tag'));
     }
 
     /**
@@ -159,4 +159,175 @@ class Test extends \PHPUnit\Framework\TestCase
         $this->expectException(\ArgumentCountError::class);
         $test = $this->obj->tag();
     }
+
+    /**
+     * test_Describer_hasMethod_genericTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * genericTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_genericTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'genericTag'));
+    }
+
+    /**
+     * test_Describer_genericTag_noparams
+     *
+     * Testing method genericTag with no params
+     *
+     * @access public
+     */
+    public function test_Describer_genericTag_noparams()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $test = $this->obj->genericTag();
+    }
+
+    /**
+     * test_Describer_hasMethod_authorTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * authorTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_authorTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'authorTag'));
+    }
+
+    /**
+     * test_Describer_hasMethod_licenseTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * licenseTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_licenseTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'licenseTag'));
+    }
+
+    /**
+     * test_Describer_hasMethod_methodTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * methodTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_methodTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'methodTag'));
+    }
+
+    /**
+     * test_Describer_hasMethod_paramTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * paramTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_paramTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'paramTag'));
+    }
+
+    /**
+     * test_Describer_paramTag_noparams
+     *
+     * Testing method paramTag with no params
+     *
+     * @access public
+     */
+    public function test_Describer_paramTag_noparams()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $test = $this->obj->paramTag();
+    }
+
+    /**
+     * test_Describer_hasMethod_propertyTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * propertyTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_propertyTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'propertyTag'));
+    }
+
+    /**
+     * test_Describer_propertyTag_noparams
+     *
+     * Testing method propertyTag with no params
+     *
+     * @access public
+     */
+    public function test_Describer_propertyTag_noparams()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $test = $this->obj->propertyTag();
+    }
+
+    /**
+     * test_Describer_hasMethod_returnTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * returnTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_returnTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'returnTag'));
+    }
+
+    /**
+     * test_Describer_hasMethod_throwsTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * throwsTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_throwsTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'throwsTag'));
+    }
+
+    /**
+     * test_Describer_hasMethod_varTag
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * varTag
+     *
+     * @access public
+     */
+    public function test_Describer_hasMethod_varTag()
+    {
+        $this->assertTrue(method_exists($this->obj,'varTag'));
+    }
+
+    /**
+     * test_Describer_varTag_noparams
+     *
+     * Testing method varTag with no params
+     *
+     * @access public
+     */
+    public function test_Describer_varTag_noparams()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $test = $this->obj->varTag();
+    }
+
+
 }
