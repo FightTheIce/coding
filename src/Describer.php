@@ -38,6 +38,7 @@ class Describer {
      * Class Construct
      *
      * @access public
+     * @method __construct() Class Construct
      * @param string $short A string containing the short description
      * @param string $long A string containing the long description
      */
@@ -59,6 +60,7 @@ class Describer {
      * Get the property generator
      *
      * @access public
+     * @method getGenerator() Get the property generator
      */
     public function getGenerator() {
         return $this->generator;
@@ -70,6 +72,7 @@ class Describer {
      * DocBlock short description
      *
      * @access public
+     * @method short() DocBlock short description
      * @param string $desc A string containg the short description
      */
     public function short(string $desc) {
@@ -84,6 +87,7 @@ class Describer {
      * DocBlock long description
      *
      * @access public
+     * @method long() DocBlock long description
      * @param string $desc A string containing the long description
      */
     public function long(string $desc) {
@@ -98,6 +102,7 @@ class Describer {
      * DocBlock Tag Generator
      *
      * @access public
+     * @method tag() DocBlock Tag Generator
      * @param string $name Tag Name
      * @param string $value Tag Value
      */
@@ -114,6 +119,7 @@ class Describer {
      * DocBlock Tag Generator
      *
      * @access public
+     * @method genericTag() DocBlock Tag Generator
      * @param string $name Tag Name
      * @param string $value Tag Value
      */
@@ -127,6 +133,7 @@ class Describer {
      * Author Tag Generator
      *
      * @access public
+     * @method authorTag() Author Tag Generator
      * @param ?string $name A string containing the authors name
      * @param ?string $email A string containing the authors's email address
      */
@@ -143,6 +150,7 @@ class Describer {
      * License Tag Generator
      *
      * @access public
+     * @method licenseTag() License Tag Generator
      * @param ?string $url URL
      * @param ?string $name License Name
      */
@@ -159,6 +167,7 @@ class Describer {
      * Method Tag Generator
      *
      * @access public
+     * @method methodTag() Method Tag Generator
      * @param ?string $name Method Name
      * @param $types Method Types
      * @param $description Method Description
@@ -177,6 +186,7 @@ class Describer {
      * Param Tag Generator
      *
      * @access public
+     * @method paramTag() Param Tag Generator
      * @param string $name Param Name
      * @param $types Param Types
      * @param $description Param Description
@@ -194,6 +204,7 @@ class Describer {
      * Property Tag Generator
      *
      * @access public
+     * @method propertyTag() Property Tag Generator
      * @param string $name Property name
      * @param $types Property types
      * @param $description Property description
@@ -211,6 +222,7 @@ class Describer {
      * Return Tag Generator
      *
      * @access public
+     * @method returnTag() Return Tag Generator
      * @param $types Return Types
      * @param $description Return Description
      */
@@ -227,6 +239,7 @@ class Describer {
      * Throws Tag Generator
      *
      * @access public
+     * @method throwsTag() Throws Tag Generator
      * @param $types Throws Types
      * @param $description Throws Description
      */
@@ -243,6 +256,7 @@ class Describer {
      * Var Tag Generator
      *
      * @access public
+     * @method varTag() Var Tag Generator
      * @param string $name Var Name
      * @param $types Var Types
      * @param $description Var Description

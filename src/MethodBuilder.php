@@ -67,6 +67,8 @@ class MethodBuilder {
         default:
             throw new \ErrorException('Access level: [' . $access . '] is invalid!');
         }
+
+        $this->describer->methodTag($name, [], $long);
     }
 
     /**

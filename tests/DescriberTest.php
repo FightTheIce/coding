@@ -27,6 +27,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * Setup the test
      *
      * @access protected
+     * @method setUp() Setup the test
      */
     protected function setUp() : void
     {
@@ -39,6 +40,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * Get the property obj
      *
      * @access public
+     * @method getObj() Get the property obj
      */
     public function getObj()
     {
@@ -51,6 +53,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing that class FightTheIce\Coding\Describer has an attribute of: generator
      *
      * @access public
+     * @method test_Describer_hasAttribute_generator() Testing that class
+     * FightTheIce\Coding\Describer has an attribute of: generator
      */
     public function test_Describer_hasAttribute_generator()
     {
@@ -64,6 +68,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * getGenerator
      *
      * @access public
+     * @method test_Describer_hasMethod_getGenerator() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: getGenerator
      */
     public function test_Describer_hasMethod_getGenerator()
     {
@@ -77,6 +83,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * __construct
      *
      * @access public
+     * @method test_Describer_hasMethod___construct() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: __construct
      */
     public function test_Describer_hasMethod___construct()
     {
@@ -90,6 +98,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * short
      *
      * @access public
+     * @method test_Describer_hasMethod_short() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: short
      */
     public function test_Describer_hasMethod_short()
     {
@@ -102,6 +112,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing method short with no params
      *
      * @access public
+     * @method test_Describer_short_noparams() Testing method short with no params
      */
     public function test_Describer_short_noparams()
     {
@@ -116,6 +127,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * long
      *
      * @access public
+     * @method test_Describer_hasMethod_long() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: long
      */
     public function test_Describer_hasMethod_long()
     {
@@ -128,6 +141,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing method long with no params
      *
      * @access public
+     * @method test_Describer_long_noparams() Testing method long with no params
      */
     public function test_Describer_long_noparams()
     {
@@ -141,6 +155,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing that class FightTheIce\Coding\Describer has a method by the name of: tag
      *
      * @access public
+     * @method test_Describer_hasMethod_tag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: tag
      */
     public function test_Describer_hasMethod_tag()
     {
@@ -153,6 +169,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing method tag with no params
      *
      * @access public
+     * @method test_Describer_tag_noparams() Testing method tag with no params
      */
     public function test_Describer_tag_noparams()
     {
@@ -167,6 +184,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * genericTag
      *
      * @access public
+     * @method test_Describer_hasMethod_genericTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: genericTag
      */
     public function test_Describer_hasMethod_genericTag()
     {
@@ -179,6 +198,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing method genericTag with no params
      *
      * @access public
+     * @method test_Describer_genericTag_noparams() Testing method genericTag with no
+     * params
      */
     public function test_Describer_genericTag_noparams()
     {
@@ -193,6 +214,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * authorTag
      *
      * @access public
+     * @method test_Describer_hasMethod_authorTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: authorTag
      */
     public function test_Describer_hasMethod_authorTag()
     {
@@ -206,6 +229,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * licenseTag
      *
      * @access public
+     * @method test_Describer_hasMethod_licenseTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: licenseTag
      */
     public function test_Describer_hasMethod_licenseTag()
     {
@@ -219,6 +244,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * methodTag
      *
      * @access public
+     * @method test_Describer_hasMethod_methodTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: methodTag
      */
     public function test_Describer_hasMethod_methodTag()
     {
@@ -232,6 +259,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * paramTag
      *
      * @access public
+     * @method test_Describer_hasMethod_paramTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: paramTag
      */
     public function test_Describer_hasMethod_paramTag()
     {
@@ -244,6 +273,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing method paramTag with no params
      *
      * @access public
+     * @method test_Describer_paramTag_noparams() Testing method paramTag with no
+     * params
      */
     public function test_Describer_paramTag_noparams()
     {
@@ -258,6 +289,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * propertyTag
      *
      * @access public
+     * @method test_Describer_hasMethod_propertyTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: propertyTag
      */
     public function test_Describer_hasMethod_propertyTag()
     {
@@ -270,6 +303,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing method propertyTag with no params
      *
      * @access public
+     * @method test_Describer_propertyTag_noparams() Testing method propertyTag with no
+     * params
      */
     public function test_Describer_propertyTag_noparams()
     {
@@ -284,6 +319,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * returnTag
      *
      * @access public
+     * @method test_Describer_hasMethod_returnTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: returnTag
      */
     public function test_Describer_hasMethod_returnTag()
     {
@@ -297,6 +334,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * throwsTag
      *
      * @access public
+     * @method test_Describer_hasMethod_throwsTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: throwsTag
      */
     public function test_Describer_hasMethod_throwsTag()
     {
@@ -310,6 +349,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * varTag
      *
      * @access public
+     * @method test_Describer_hasMethod_varTag() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: varTag
      */
     public function test_Describer_hasMethod_varTag()
     {
@@ -322,6 +363,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * Testing method varTag with no params
      *
      * @access public
+     * @method test_Describer_varTag_noparams() Testing method varTag with no params
      */
     public function test_Describer_varTag_noparams()
     {
