@@ -303,4 +303,52 @@ class Test extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(method_exists($this->obj, 'generate'));
     }
 
+    /**
+     * test_ClassBuilder_hasMethod_getMethod
+     *
+     * Testing that class FightTheIce\Coding\ClassBuilder has a method by the name of:
+     * getMethod
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_hasMethod_getMethod() {
+        $this->assertTrue(method_exists($this->obj, 'getMethod'));
+    }
+
+    /**
+     * test_ClassBuilder_getMethod_noparams
+     *
+     * Testing method getMethod with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_getMethod_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = $this->obj->getMethod();
+    }
+
+    /**
+     * test_ClassBuilder_hasMethod_getProperty
+     *
+     * Testing that class FightTheIce\Coding\ClassBuilder has a method by the name of:
+     * getProperty
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_hasMethod_getProperty() {
+        $this->assertTrue(method_exists($this->obj, 'getProperty'));
+    }
+
+    /**
+     * test_ClassBuilder_getProperty_noparams
+     *
+     * Testing method getProperty with no params
+     *
+     * @access public
+     */
+    public function test_ClassBuilder_getProperty_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = $this->obj->getProperty();
+    }
+
 }

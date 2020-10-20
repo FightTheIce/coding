@@ -213,22 +213,6 @@ class ClassBuilder {
         return $this;
     }
 
-    public function getMethod(string $name) {
-        if (!isset($this->methods[$name])) {
-            throw new \ErrorException('The method: [' . $name . '] does not exists!');
-        }
-
-        return $this->methods[$name];
-    }
-
-    public function getProperty(string $name) {
-        if (!isset($this->properties[$name])) {
-            throw new \ErrorException('The method: [' . $name . '] does not exists!');
-        }
-
-        return $this->properties[$name];
-    }
-
     /**
      * generate
      *
@@ -259,4 +243,37 @@ class ClassBuilder {
 
         return $this->generator->generate();
     }
+
+    /**
+     * getMethod
+     *
+     * Returns a method object by name
+     *
+     * @access public
+     * @param name - Name of method
+     */
+    public function getMethod(string $name) {
+        if (!isset($this->methods[$name])) {
+            throw new \ErrorException('The method: [' . $name . '] does not exists!');
+        }
+
+        return $this->methods[$name];
+    }
+
+    /**
+     * getProperty
+     *
+     * Returns a property object by name
+     *
+     * @access public
+     * @param name - Name of method
+     */
+    public function getProperty(string $name) {
+        if (!isset($this->properties[$name])) {
+            throw new \ErrorException('The method: [' . $name . '] does not exists!');
+        }
+
+        return $this->properties[$name];
+    }
+
 }
