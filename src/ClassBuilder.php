@@ -10,9 +10,16 @@ use Laminas\Code\Generator\ClassGenerator;
  * This class is responsible interacting with Laminas\Code\Generator\ClassGenerator
  *
  * @namespace FightTheIce\Coding
+ * @author William Knauss
+ * @license  MIT
+ * @method  "NOTHING"
+ * @param  "NOTHING"
+ * @property  "NOTHING"
+ * @return VOID
+ * @throws "ME"
+ * @var SOMETHING
  */
-class ClassBuilder
-{
+class ClassBuilder {
 
     /**
      * generator
@@ -64,8 +71,7 @@ class ClassBuilder
      * @param short - A string containing the short description of the class
      * @param long - A string containing the long description of the class
      */
-    public function __construct(string $name, string $short, string $long)
-    {
+    public function __construct(string $name, string $short, string $long) {
         $this->generator = new ClassGenerator();
         $this->describer = new Describer($short, $long);
 
@@ -86,8 +92,7 @@ class ClassBuilder
      *
      * @access public
      */
-    public function getGenerator()
-    {
+    public function getGenerator() {
         return $this->generator;
     }
 
@@ -98,8 +103,7 @@ class ClassBuilder
      *
      * @access public
      */
-    public function getDescriber()
-    {
+    public function getDescriber() {
         return $this->describer;
     }
 
@@ -110,8 +114,7 @@ class ClassBuilder
      *
      * @access public
      */
-    public function getProperties()
-    {
+    public function getProperties() {
         return $this->properties;
     }
 
@@ -122,8 +125,7 @@ class ClassBuilder
      *
      * @access public
      */
-    public function getMethods()
-    {
+    public function getMethods() {
         return $this->methods;
     }
 
@@ -136,8 +138,7 @@ class ClassBuilder
      * @param name - A string containing the name of the docblock tag
      * @param value - A string containing the value of the docblock tag
      */
-    public function addClassTag(string $name, string $value)
-    {
+    public function addClassTag(string $name, string $value) {
         $this->describer->tag($name, $value);
 
         return $this;
@@ -155,8 +156,7 @@ class ClassBuilder
      * @param long - Long Description of property
      * @param getMethod - Should we generate a getProperty method
      */
-    public function newProperty(string $name, $dv, string $access, string $long, bool $getMethod = false)
-    {
+    public function newProperty(string $name, $dv, string $access, string $long, bool $getMethod = false) {
         if (isset($this->properties[$name])) {
             throw new \ErrorException('This property already exists!');
         }
@@ -182,8 +182,7 @@ class ClassBuilder
      * @param access - access level
      * @param long - long description
      */
-    public function newMethod(string $name, string $access, string $long)
-    {
+    public function newMethod(string $name, string $access, string $long) {
         if (isset($this->methods[$name])) {
             throw new \ErrorException('The method already exists! [' . $name . ']');
         }
@@ -202,8 +201,7 @@ class ClassBuilder
      * @param name - Name of class
      * @param alias - Alias
      */
-    public function uses(string $name, ? string $alias = null)
-    {
+    public function uses(string $name,  ? string $alias = null) {
         $this->generator->addUse($name, $alias);
 
         return $this;
@@ -217,8 +215,7 @@ class ClassBuilder
      * @access public
      * @param name - Name of parent class
      */
-    public function classExtends(string $name)
-    {
+    public function classExtends(string $name) {
         $this->generator->setExtendedClass($name);
 
         return $this;
@@ -231,8 +228,7 @@ class ClassBuilder
      *
      * @access public
      */
-    public function generate()
-    {
+    public function generate() {
         $this->generator->setDocBlock($this->describer->getGenerator());
 
         //does a _construct method exists?
@@ -264,8 +260,7 @@ class ClassBuilder
      * @access public
      * @param name - Name of method
      */
-    public function getMethod(string $name)
-    {
+    public function getMethod(string $name) {
         if (!isset($this->methods[$name])) {
             throw new \ErrorException('The method: [' . $name . '] does not exists!');
         }
@@ -281,8 +276,7 @@ class ClassBuilder
      * @access public
      * @param name - Name of method
      */
-    public function getProperty(string $name)
-    {
+    public function getProperty(string $name) {
         if (!isset($this->properties[$name])) {
             throw new \ErrorException('The method: [' . $name . '] does not exists!');
         }

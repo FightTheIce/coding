@@ -15,187 +15,166 @@ class ClassResolver {
         $this->objNonConstruct = $this->reflection->newInstanceWithoutConstructor($this->reflection->getName());
     }
 
-    public function reflect() {
-        if ($this->reflection->isInternal() == true) {
-            throw new \ErrorException('This is an internal PHP class');
+    public function classMeta() {
+        $results = array(
+            'classname'  => '',
+            'extends'    => '',
+            'implements' => array(),
+            'uses'       => array(
+                'classes'   => array(),
+                'functions' => array(),
+            ),
+            'docblock'   => array(
+                'short' => '',
+                'long'  => '',
+                'tags'  => array(),
+            ),
+        );
+
+        $results['classname'] = $this->reflection->getName();
+
+        $extends = $this->reflection->getParentClass();
+        if ($extends) {
+            $results['extends'] = $this->reflection->getParentClass()->getName();
         }
 
-        $this->classMeta();
-        $this->propertiesMeta();
-        $this->methodsMeta();
+        $interfaces = $this->reflection->getInterfaces();
+        foreach ($interfaces as $interface) {
+            $results['implements'][] = $interface->getName();
+        }
 
-        return $this->reflection;
-    }
+        $uses = $this->reflection->getDeclaringFile()->getUses();
+        foreach ($uses as $use) {
+            $x = explode('\\', $use['use']);
 
-    protected function classMeta() {
-        $name     = $this->reflection->getName();
+            if (count($x) == 1) {
+                if (strtolower($use['use']) == $use['use']) {
+                    $results['uses']['functions'][] = $use['use'];
+                }
+            } else {
+                $results['uses']['classes'][] = array('use' => $use['use'], 'as' => $use['as']);
+            }
+        }
+
         $docblock = $this->reflection->getDocBlock();
-        if ($docblock == false) {
-            $short = '';
-            $long  = '';
-            $tags  = array();
+        if ($docblock) {
+            $results['docblock']['short'] = $docblock->getShortDescription();
+            $results['docblock']['long']  = $docblock->getLongDescription();
+            $results['docblock']['tags']  = $docblock->getTags();
         } else {
-            $short = $docblock->getShortDescription();
-            $long  = $docblock->getLongDescription();
-            $tags  = $docblock->getTags();
-        }
+            $docblock = $this->reflection->getDeclaringFile()->getDocBlock();
 
-        $this->builder[] = '$class = new \FightTheIce\Coding\ClassBuilder("' . $this->reflection->getName() . '","' . $short . '","' . $long . '");';
-        $this->builder[] = '';
-
-        if (count($tags) > 0) {
-            foreach ($tags as $tag) {
-                $content = '';
-                switch (get_class($tag)) {
-                case 'Laminas\Code\Reflection\DocBlock\Tag\GenericTag':
-                    $content = $tag->getContent();
-                    break;
-
-                case 'Laminas\Code\Reflection\DocBlock\Tag\AuthorTag':
-                    $content = $tag->getAuthorName();
-                    break;
-
-                default:
-                    throw new \ErrorException('Unknown tag type: [' . get_class($tag) . ']');
-                }
-                $this->builder[] = '$class->addClassTag("' . $tag->getName() . '","' . $content . '");';
+            if ($docblock) {
+                $results['docblock']['short'] = $docblock->getShortDescription();
+                $results['docblock']['long']  = $docblock->getLongDescription();
+                $results['docblock']['tags']  = $docblock->getTags();
             }
-
-            $this->builder[] = "";
         }
+
+        return $results;
     }
 
-    protected function propertiesMeta() {
+    public function propertiesMeta() {
+        $results = array();
+
         $properties = $this->reflection->getProperties();
-        if (count($properties) > 0) {
-            foreach ($properties as $property) {
-                $property->setAccessible(true);
+        foreach ($properties as $property) {
+            $tmp = array(
+                'name'     => '',
+                'value'    => '',
+                'access'   => '',
+                'docblock' => array(
+                    'short' => '',
+                    'long'  => '',
+                    'tags'  => array(),
+                ),
+            );
 
-                $docblock = $property->getDocBlock();
-                if ($docblock == false) {
-                    $short = '';
-                    $long  = '';
-                    $tags  = array();
+            $property->setAccessible(true);
+
+            $tmp['name'] = $property->getName();
+            $access      = 'UNKNOWN';
+
+            if ($property->isPublic() == true) {
+                $access = 'public';
+            }
+
+            if ($property->isPrivate() == true) {
+                $access = 'private';
+            }
+
+            if ($property->isProtected() == true) {
+                $access = 'protected';
+            }
+            $tmp['access'] = $access;
+
+            $docblock = $property->getDocBlock();
+            if ($docblock) {
+                $tmp['docblock']['short'] = $docblock->getShortDescription();
+                $tmp['docblock']['long']  = $docblock->getLongDescription();
+                $tmp['docblock']['tags']  = $docblock->getTags();
+            }
+
+            $tmp['value'] = $property->getValue($this->objNonConstruct);
+
+            $results[] = $tmp;
+        }
+
+        return $results;
+    }
+
+    public function build() {
+        $builder = array();
+
+        $classMeta = $this->classMeta();
+        $builder[] = '$class = new \FightTheIce\Coding\ClassBuilder("' . $classMeta['classname'] . '","' . $classMeta['docblock']['short'] . '","' . $classMeta['docblock']['long'] . '");';
+
+        $builder[] = "";
+
+        if (!empty($classMeta['uses']['classes'])) {
+            foreach ($classMeta['uses']['classes'] as $meta) {
+                if (empty($meta['as'])) {
+                    $builder[] = '$class->uses("' . $meta['use'] . '");';
                 } else {
-                    $short = $docblock->getShortDescription();
-                    $long  = $docblock->getLongDescription();
-                    $tags  = $docblock->getTags();
-                }
-
-                $access = 'unknown';
-                if ($property->isPublic() == true) {
-                    $access = 'public';
-                }
-
-                if ($property->isPrivate() == true) {
-                    $access = 'private';
-                }
-
-                if ($property->isProtected() == true) {
-                    $access = 'protected';
-                }
-
-                $obj   = $this->reflection->newInstanceWithoutConstructor($this->reflection->getName());
-                $value = $property->getValue($obj);
-
-                switch (trim(strtoupper(gettype($value)))) {
-                case 'ARRAY':
-                    if (empty($value)) {
-                        //this means empty array
-                        $this->builder[] = '$class->newProperty("' . $property->getName() . '",[],"' . $access . '","' . $long . '");';
-                    } else {
-                        throw new \ErrorException('I don\'t know how to handle pre built arrays.');
-                    }
-                    break;
-
-                case 'NULL':
-                    $this->builder[] = '$class->newProperty("' . $property->getName() . '",null,"' . $access . '","' . $long . '");';
-                    break;
+                    $builder[] = '$class->uses("' . $meta['use'] . '","' . $meta['as'] . '");';
                 }
             }
 
-            $this->builder[] = "";
+            $builder[] = "";
         }
-    }
 
-    protected function methodsMeta() {
-        $methods = $this->reflection->getMethods();
-        if (count($methods) > 0) {
-            foreach ($methods as $method) {
-                $docblock = $method->getDocBlock();
-                if ($docblock == false) {
-                    $short = '';
-                    $long  = '';
-                    $tags  = array();
-                } else {
-                    $short = $docblock->getShortDescription();
-                    $long  = $docblock->getLongDescription();
-                    $tags  = $docblock->getTags();
-                }
-
-                $access = 'unknown';
-                if ($method->isPrivate() == true) {
-                    $access = 'public';
-                }
-
-                if ($method->isPrivate() == true) {
-                    $access = 'private';
-                }
-
-                if ($method->isProtected() == true) {
-                    $access = 'protected';
-                }
-
-                $parameters = $method->getParameters();
-                if (count($parameters) > 0) {
-                    foreach ($parameters as $param) {
-                        $name     = $param->getName();
-                        $optional = $param->isOptional();
-                        $type     = $param->getType();
-                        $value    = "ISREALLYEMPTY";
-                        try {
-                            $value = $param->getDefaultValue();
-                        } catch (\Exception $e) {
-                            //ignore this exception
-                        }
-
-                        if ($optional == true) {
-                            //do we have a datatype?
-                            switch ($type) {
-                            case 'string':
-                                //newOptionalParameter(string $name, $dv, $type, string $desc)
-                                $this->builder[] = '$method->addOptionalParameter("' . $name . '","' . $value . '","string","' . $docblock->long . '");';
-                                break;
-
-                            default:
-                                throw new \ErrorException('Unknown DT: [' . $type . ']');
-                            }
-                        } else {
-                            switch ($type) {
-                            case 'string':
-
-                                break;
-
-                            default:
-                                throw new \ErrorException('Unknown DT: [' . $type . ']');
-                                break;
-                            }
-
-                        }
-                        print_r(get_class_methods($param));
-                        echo PHP_EOL;
-                        exit;
-                    }
-                }
-
-                $this->builder[] = '$method = $class->newMethod("' . $method->getName() . '","' . $access . '","' . $long . '");';
+        if (!empty($classMeta['uses']['functions'])) {
+            foreach ($classMeta['uses']['functions'] as $meta) {
+                $builder[] = '$class->uses("function ' . $meta . '");';
             }
 
-            $this->builder[] = "";
+            $builder[] = "";
         }
+
+        if (!empty($classMeta['extends'])) {
+            $builder[] = '$class->classExtends("' . $classMeta['extends'] . '");';
+        }
+
+        if (!empty($classMeta['implements'])) {
+            foreach ($classMeta['implements'] as &$implements) {
+                $implements = "'" . $implements . "'";
+            }
+
+            $data      = 'array(' . implode(',', $classMeta['implements']) . ')';
+            $builder[] = '$class->getGenerator()->setImplementedInterfaces(' . $data . ');';
+            $builder[] = "";
+        }
+
+        $build = '<?php' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $builder);
+        return $build;
     }
 
-    public function getBuilder() {
-        return implode(PHP_EOL, $this->builder) . PHP_EOL;
+    protected function gcm($obj) {
+        print_r(get_class_methods($obj));
+    }
+
+    protected function pexit($obj) {
+        print_r($obj);
+        exit;
     }
 }
