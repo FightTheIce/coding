@@ -123,6 +123,86 @@ class ClassResolver {
         return $results;
     }
 
+    public function methodsMeta() {
+        $results = array();
+
+        $methods = $this->reflection->getMethods();
+        foreach ($methods as $method) {
+            if ($method->isInternal() == true) {
+                continue;
+            }
+
+            $tmp = array(
+                'name'       => '',
+                'access'     => '',
+                'parameters' => array(
+
+                ),
+                'docblock'   => array(
+                    'short' => '',
+                    'long'  => '',
+                    'tags'  => '',
+                ),
+            );
+
+            $tmp['name'] = $method->getName();
+
+            $access = 'UNKNOWN';
+            if ($method->isPublic()) {
+                $access = 'public';
+            }
+
+            if ($method->isPrivate()) {
+                $access = 'private';
+            }
+
+            if ($method->isProtected()) {
+                $access = 'protected';
+            }
+            $tmp['access'] = $access;
+
+            $docblock = $method->getDocBlock();
+            if ($docblock) {
+                $tmp['docblock']['short'] = $docblock->getShortDescription();
+                $tmp['docblock']['long']  = $docblock->getLongDescription();
+                $tmp['docblock']['tags']  = $docblock->getTags();
+            }
+
+            $parameters = $method->getParameters();
+            if (count($parameters) > 0) {
+                foreach ($parameters as $param) {
+                    $paramtmp = array(
+                        'name'         => '',
+                        'type'         => '',
+                        'defaultValue' => '',
+                        'isOptional'   => '',
+                        'docblock'     => '',
+                    );
+
+                    $paramtmp['name'] = $param->getName();
+                    /*
+                    if ($docblock) {
+                    foreach ($tmp['docblock']['tags'] as $tag) {
+
+                    }
+                    }
+                     */
+                    $paramtmp['type'] = $param->getType();
+                    if ($param->isDefaultValueAvailable() == true) {
+                        $paramtmp['defaultValue'] = $param->getDefaultValue();
+                    }
+                    $paramtmp['isOptional'] = $param->isOptional();
+
+                    $tmp['parameters'][] = $paramtmp;
+                }
+            }
+
+            $results[] = $tmp;
+        }
+
+        return $results;
+    }
+
     public function build() {
         $builder = array();
 
@@ -162,6 +242,72 @@ class ClassResolver {
 
             $data      = 'array(' . implode(',', $classMeta['implements']) . ')';
             $builder[] = '$class->getGenerator()->setImplementedInterfaces(' . $data . ');';
+            $builder[] = "";
+        }
+
+        $propertiesMeta = $this->propertiesMeta();
+        foreach ($propertiesMeta as $property) {
+            switch (strtoupper(gettype($property['value']))) {
+            case 'NULL':
+                $builder[] = '$class->newProperty("' . $property['name'] . '",null,"' . $property['access'] . '","' . $property['docblock']['long'] . '");';
+                break;
+
+            case 'ARRAY':
+                if (empty($property['value'])) {
+                    $builder[] = '$class->newProperty("' . $property['name'] . '",[],"' . $property['access'] . '","' . $property['docblock']['long'] . '");';
+                } else {
+                    throw new \ErrorException('I don\'t know how to handle arrays!');
+                }
+                break;
+
+            case 'STRING':
+                $builder[] = '$class->newProperty("' . $property['name'] . '","' . $property['value'] . '","' . $property['access'] . '","' . $property['docblock']['long'] . '");';
+                break;
+
+            default:
+                throw new \ErrorException('I don\'t know how to handle property type: [' . gettype($property['value']) . ']');
+            }
+        }
+
+        if (count($propertiesMeta) > 0) {
+            $builder[] = "";
+        }
+
+        $methodsMeta = $this->methodsMeta();
+        foreach ($methodsMeta as $method) {
+            $builder[] = '$method = $class->newMethod("' . $method['name'] . '","' . $method['access'] . '","' . $method['docblock']['long'] . '");';
+            if (!empty($method['parameters'])) {
+                foreach ($method['parameters'] as $param) {
+                    if ($param['isOptional'] == true) {
+                        //optional
+                        if (empty($param['type'])) {
+                            //unknown
+                            //newOptionalParameterUnknown(string $name, $dv, string $desc)
+                            $builder[] = '$method->newOptionalParameterUnknown("' . $param['name'] . '","' . $param['defaultValue'] . '","' . $method['docblock']['short'] . '");';
+                        } else {
+                            //known
+                            //newOptionalParameter(string $name, $dv, $type, string $desc)
+                            $builder[] = '$method->newOptionalParameter("' . $param['name'] . '","' . $param['defaultValue'] . '","' . $param['type'] . '","' . $method['docblock']['long'] . '");';
+                        }
+                    } else {
+                        //required
+                        if (empty($param['type'])) {
+                            //unknown
+                            //newRequiredParameterUnknown(string $name, string $desc)
+                            $builder[] = '$method->newRequiredParameterUnknown("' . $param['name'] . '","' . $method['docblock']['long'] . '");';
+                        } else {
+                            //known
+                            //newRequiredParameter(string $name, $type, string $desc)
+                            $builder[] = '$method->newRequiredParameter("' . $param['name'] . '","' . $param['type'] . '","' . $method['docblock']['long'] . '");';
+                        }
+                    }
+                }
+            }
+
+            $builder[] = "";
+        }
+
+        if (count($methodsMeta) > 0) {
             $builder[] = "";
         }
 
