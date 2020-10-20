@@ -219,4 +219,48 @@ class ClassBuilder extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(method_exists($this->obj, 'generate'));
     }
 
+    public function test_ClassBuilder_getDescriber() {
+        $this->assertInstanceOf(\FightTheIce\Coding\Describer::class, $this->obj->getDescriber());
+    }
+
+    public function test_ClassBuilder_getProperties() {
+        $this->assertIsArray($this->obj->getProperties());
+
+        $this->obj->newProperty('propertyname', 'defaultValue', 'protected', 'long desc');
+        $this->assertArrayHasKey('propertyname', $this->obj->getProperties());
+
+        $properties = $this->obj->getProperties();
+        $this->assertInstanceOf(\FightTheIce\Coding\PropertyBuilder::class, $properties['propertyname']);
+    }
+
+    public function test_ClassBuilder_getMethods() {
+        $this->assertIsarray($this->obj->getMethods());
+
+        $this->obj->newMethod('methodname', 'public', 'short', 'long');
+        $this->assertArrayHasKey('methodname', $this->obj->getMethods());
+
+        $methods = $this->obj->getMethods();
+        $this->assertInstanceOf(\FightTheIce\Coding\Methodbuilder::class, $methods['methodname']);
+    }
+
+    public function test_ClassBuilder_addClassTag_ParamCheck1() {
+        $this->expectException(\ArgumentCountError::class);
+        $this->obj->addClassTag('one');
+    }
+
+    public function test_ClassBuilder_addClassTag_ParamCheck2() {
+        $this->expectException(\Error::class);
+        $this->obj->addClassTag(new StdClass(), '');
+    }
+
+    public function test_ClassBuilder_addClassTag_ParamCheck3() {
+        $this->expectException(\Error::class);
+        $this->obj->addClassTag('', new StdClass());
+    }
+
+    public function test_ClassBuilder_addClassTag() {
+        $return = $this->obj->addClassTag('name', 'William');
+        $this->assertInstanceOf(\FightTheIce\Coding\ClassBuilder::class, $return);
+    }
+
 }
