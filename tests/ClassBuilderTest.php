@@ -158,7 +158,7 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_ClassBuilder___construct_noparams() {
         $this->expectException(\ArgumentCountError::class);
-        $test = $this->obj->__construct();
+        $test = new \FightTheIce\Coding\ClassBuilder();
     }
 
     /**

@@ -186,7 +186,12 @@ class TestBuilder {
                         $method     = $this->test->newMethod($methodName, 'public', 'Testing method ' . $name . ' with no params');
 
                         $content = '$this->expectException(\ArgumentCountError::class);' . PHP_EOL;
-                        $content = $content . '$test = $this->obj->' . $name . '();';
+                        if ($name == '__construct') {
+                            $content = $content . '$test = new \\' . $this->name . '();';
+                        } else {
+                            $content = $content . '$test = $this->obj->' . $name . '();';
+                        }
+
                         $method->setBody($content);
                     }
                 }
