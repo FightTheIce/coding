@@ -118,7 +118,7 @@ class MethodBuilder {
 
         $this->generator->setParameter($param);
 
-        $this->describer->paramTag($name, [], $desc);
+        $this->describer->paramTag($name, array('ANY'), $desc);
 
         return $this;
     }
