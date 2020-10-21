@@ -29,6 +29,8 @@ class Describer {
      * The generator object - Laminas\Code\Generator\DocBlockGenerator
      *
      * @access protected
+     * @property NULL $generator The generator object -
+     * Laminas\Code\Generator\DocBlockGenerator
      */
     protected $generator = null;
 

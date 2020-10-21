@@ -11,8 +11,7 @@ use Laminas\Code\Generator\TraitGenerator;
  *
  * @namespace FightTheIce\Coding
  */
-class TraitBuilder
-{
+class TraitBuilder {
 
     /**
      * generator
@@ -20,6 +19,7 @@ class TraitBuilder
      * Generator Object
      *
      * @access protected
+     * @property NULL $generator Generator Object
      */
     protected $generator = null;
 
@@ -29,6 +29,7 @@ class TraitBuilder
      * Describer Object
      *
      * @access protected
+     * @property NULL $describer Describer Object
      */
     protected $describer = null;
 
@@ -38,6 +39,7 @@ class TraitBuilder
      * Properties to generate
      *
      * @access protected
+     * @property array $properties Properties to generate
      */
     protected $properties = [
 
@@ -49,6 +51,7 @@ class TraitBuilder
      * Methods to generate
      *
      * @access protected
+     * @property array $methods Methods to generate
      */
     protected $methods = [
 
@@ -60,12 +63,12 @@ class TraitBuilder
      * Class Construct
      *
      * @access public
-     * @param name - A string containg the class name
-     * @param short - A string containing the short description of the class
-     * @param long - A string containing the long description of the class
+     * @method __construct() Class Construct
+     * @param string $name A string containg the class name
+     * @param string $short A string containing the short description of the class
+     * @param string $long A string containing the long description of the class
      */
-    public function __construct(string $name, string $short, string $long)
-    {
+    public function __construct(string $name, string $short, string $long) {
         $this->generator = new TraitGenerator();
         $this->describer = new Describer($short, $long);
 
@@ -85,9 +88,9 @@ class TraitBuilder
      * Get the property generator
      *
      * @access public
+     * @method getGenerator() Get the property generator
      */
-    public function getGenerator()
-    {
+    public function getGenerator() {
         return $this->generator;
     }
 
@@ -97,9 +100,9 @@ class TraitBuilder
      * Get the property describer
      *
      * @access public
+     * @method getDescriber() Get the property describer
      */
-    public function getDescriber()
-    {
+    public function getDescriber() {
         return $this->describer;
     }
 
@@ -109,9 +112,9 @@ class TraitBuilder
      * Get the property properties
      *
      * @access public
+     * @method getProperties() Get the property properties
      */
-    public function getProperties()
-    {
+    public function getProperties() {
         return $this->properties;
     }
 
@@ -121,9 +124,9 @@ class TraitBuilder
      * Get the property methods
      *
      * @access public
+     * @method getMethods() Get the property methods
      */
-    public function getMethods()
-    {
+    public function getMethods() {
         return $this->methods;
     }
 
@@ -133,11 +136,11 @@ class TraitBuilder
      * Add a tag to the class docblock
      *
      * @access public
-     * @param name - A string containing the name of the docblock tag
-     * @param value - A string containing the value of the docblock tag
+     * @method addClassTag() Add a tag to the class docblock
+     * @param string $name A string containing the name of the docblock tag
+     * @param string $value A string containing the value of the docblock tag
      */
-    public function addClassTag(string $name, string $value)
-    {
+    public function addClassTag(string $name, string $value) {
         $this->describer->tag($name, $value);
 
         return $this;
@@ -149,13 +152,13 @@ class TraitBuilder
      * Add a new property to the class
      *
      * @access public
-     * @param name - Name of property
-     * @param dv - default value of property
-     * @param access - access level
-     * @param long - Long Description of property
+     * @method newProperty() Add a new property to the class
+     * @param string $name Name of property
+     * @param ANY $dv default value of property
+     * @param string $access access level
+     * @param string $long Long Description of property
      */
-    public function newProperty(string $name, $dv, string $access, string $long)
-    {
+    public function newProperty(string $name, $dv, string $access, string $long) {
         if (isset($this->properties[$name])) {
             throw new \ErrorException('This property already exists!');
         }
@@ -171,12 +174,12 @@ class TraitBuilder
      * Generate a new method
      *
      * @access public
-     * @param name - Name of method
-     * @param access - access level
-     * @param long - long description
+     * @method newMethod() Generate a new method
+     * @param string $name Name of method
+     * @param string $access access level
+     * @param string $long long description
      */
-    public function newMethod(string $name, string $access, string $long)
-    {
+    public function newMethod(string $name, string $access, string $long) {
         if (isset($this->methods[$name])) {
             throw new \ErrorException('The method already exists!');
         }
@@ -192,11 +195,11 @@ class TraitBuilder
      * Add a use statement
      *
      * @access public
-     * @param name - Name of class
-     * @param alias - Alias
+     * @method uses() Add a use statement
+     * @param string $name Name of class
+     * @param ?string $alias Alias
      */
-    public function uses(string $name, ? string $alias = null)
-    {
+    public function uses(string $name,  ? string $alias = null) {
         $this->generator->addUse($name, $alias);
 
         return $this;
@@ -208,9 +211,9 @@ class TraitBuilder
      * Compile data
      *
      * @access public
+     * @method generate() Compile data
      */
-    public function generate()
-    {
+    public function generate() {
         foreach ($this->properties as $name => $obj) {
             $this->generator->addPropertyFromGenerator($obj->getGenerator());
         }
@@ -221,4 +224,5 @@ class TraitBuilder
 
         return $this->generator->generate();
     }
+
 }

@@ -10,14 +10,6 @@ use Laminas\Code\Generator\ClassGenerator;
  * This class is responsible interacting with Laminas\Code\Generator\ClassGenerator
  *
  * @namespace FightTheIce\Coding
- * @author William Knauss
- * @license  MIT
- * @method  "NOTHING"
- * @param  "NOTHING"
- * @property  "NOTHING"
- * @return VOID
- * @throws "ME"
- * @var SOMETHING
  */
 class ClassBuilder {
 
@@ -27,6 +19,7 @@ class ClassBuilder {
      * Generator Object
      *
      * @access protected
+     * @property NULL $generator Generator Object
      */
     protected $generator = null;
 
@@ -36,6 +29,7 @@ class ClassBuilder {
      * Describer Object
      *
      * @access protected
+     * @property NULL $describer Describer Object
      */
     protected $describer = null;
 
@@ -45,6 +39,7 @@ class ClassBuilder {
      * Properties to generate
      *
      * @access protected
+     * @property array $properties Properties to generate
      */
     protected $properties = [
 
@@ -56,6 +51,7 @@ class ClassBuilder {
      * Methods to generate
      *
      * @access protected
+     * @property array $methods Methods to generate
      */
     protected $methods = [
 
@@ -67,9 +63,10 @@ class ClassBuilder {
      * Class Construct
      *
      * @access public
-     * @param name - A string containg the class name
-     * @param short - A string containing the short description of the class
-     * @param long - A string containing the long description of the class
+     * @method __construct() Class Construct
+     * @param string $name A string containg the class name
+     * @param string $short A string containing the short description of the class
+     * @param string $long A string containing the long description of the class
      */
     public function __construct(string $name, string $short, string $long) {
         $this->generator = new ClassGenerator();
@@ -91,6 +88,7 @@ class ClassBuilder {
      * Get the property generator
      *
      * @access public
+     * @method getGenerator() Get the property generator
      */
     public function getGenerator() {
         return $this->generator;
@@ -102,6 +100,7 @@ class ClassBuilder {
      * Get the property describer
      *
      * @access public
+     * @method getDescriber() Get the property describer
      */
     public function getDescriber() {
         return $this->describer;
@@ -113,6 +112,7 @@ class ClassBuilder {
      * Get the property properties
      *
      * @access public
+     * @method getProperties() Get the property properties
      */
     public function getProperties() {
         return $this->properties;
@@ -124,6 +124,7 @@ class ClassBuilder {
      * Get the property methods
      *
      * @access public
+     * @method getMethods() Get the property methods
      */
     public function getMethods() {
         return $this->methods;
@@ -135,8 +136,9 @@ class ClassBuilder {
      * Add a tag to the class docblock
      *
      * @access public
-     * @param name - A string containing the name of the docblock tag
-     * @param value - A string containing the value of the docblock tag
+     * @method addClassTag() Add a tag to the class docblock
+     * @param string $name A string containing the name of the docblock tag
+     * @param string $value A string containing the value of the docblock tag
      */
     public function addClassTag(string $name, string $value) {
         $this->describer->tag($name, $value);
@@ -150,11 +152,12 @@ class ClassBuilder {
      * Add a new property to the class
      *
      * @access public
-     * @param name - Name of property
-     * @param dv - default value of property
-     * @param access - access level
-     * @param long - Long Description of property
-     * @param getMethod - Should we generate a getProperty method
+     * @method newProperty() Add a new property to the class
+     * @param string $name Name of property
+     * @param ANY $dv default value of property
+     * @param string $access access level
+     * @param string $long Long Description of property
+     * @param bool $getMethod Should we generate a getProperty method
      */
     public function newProperty(string $name, $dv, string $access, string $long, bool $getMethod = false) {
         if (isset($this->properties[$name])) {
@@ -178,9 +181,10 @@ class ClassBuilder {
      * Generate a new method
      *
      * @access public
-     * @param name - Name of method
-     * @param access - access level
-     * @param long - long description
+     * @method newMethod() Generate a new method
+     * @param string $name Name of method
+     * @param string $access access level
+     * @param string $long long description
      */
     public function newMethod(string $name, string $access, string $long) {
         if (isset($this->methods[$name])) {
@@ -198,8 +202,9 @@ class ClassBuilder {
      * Add a use statement
      *
      * @access public
-     * @param name - Name of class
-     * @param alias - Alias
+     * @method uses() Add a use statement
+     * @param string $name Name of class
+     * @param ?string $alias Alias
      */
     public function uses(string $name,  ? string $alias = null) {
         $this->generator->addUse($name, $alias);
@@ -213,7 +218,8 @@ class ClassBuilder {
      * Should this class extend an existing one
      *
      * @access public
-     * @param name - Name of parent class
+     * @method classExtends() Should this class extend an existing one
+     * @param string $name Name of parent class
      */
     public function classExtends(string $name) {
         $this->generator->setExtendedClass($name);
@@ -227,6 +233,7 @@ class ClassBuilder {
      * Generate the class data
      *
      * @access public
+     * @method generate() Generate the class data
      */
     public function generate() {
         $this->generator->setDocBlock($this->describer->getGenerator());
@@ -258,7 +265,8 @@ class ClassBuilder {
      * Returns a method object by name
      *
      * @access public
-     * @param name - Name of method
+     * @method getMethod() Returns a method object by name
+     * @param string $name Name of method
      */
     public function getMethod(string $name) {
         if (!isset($this->methods[$name])) {
@@ -274,7 +282,8 @@ class ClassBuilder {
      * Returns a property object by name
      *
      * @access public
-     * @param name - Name of method
+     * @method getProperty() Returns a property object by name
+     * @param string $name Name of method
      */
     public function getProperty(string $name) {
         if (!isset($this->properties[$name])) {
@@ -283,4 +292,5 @@ class ClassBuilder {
 
         return $this->properties[$name];
     }
+
 }

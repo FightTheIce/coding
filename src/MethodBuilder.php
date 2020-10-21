@@ -22,6 +22,7 @@ class MethodBuilder {
      * Generator Object
      *
      * @access protected
+     * @property NULL $generator Generator Object
      */
     protected $generator = null;
 
@@ -31,6 +32,7 @@ class MethodBuilder {
      * Describer Object
      *
      * @access protected
+     * @property NULL $describer Describer Object
      */
     protected $describer = null;
 
@@ -40,9 +42,10 @@ class MethodBuilder {
      * Class Construct
      *
      * @access public
-     * @param name - A string containing the method name
-     * @param access - The access level
-     * @param long - The long description
+     * @method __construct() Class Construct
+     * @param string $name A string containing the method name
+     * @param string $access The access level
+     * @param string $long The long description
      */
     public function __construct(string $name, string $access, string $long) {
         $this->generator = new MethodGenerator;
@@ -77,6 +80,7 @@ class MethodBuilder {
      * Get the property describer
      *
      * @access public
+     * @method getDescriber() Get the property describer
      */
     public function getDescriber() {
         return $this->describer;
@@ -88,9 +92,10 @@ class MethodBuilder {
      * Add a required parameter
      *
      * @access public
-     * @param name - Name of parameter
-     * @param type - The data type for this parameter
-     * @param desc - The description of the parameter
+     * @method newRequiredParameter() Add a required parameter
+     * @param string $name Name of parameter
+     * @param ANY $type The data type for this parameter
+     * @param string $desc The description of the parameter
      */
     public function newRequiredParameter(string $name, $type, string $desc) {
         $param = new ParameterGenerator($name, $type);
@@ -109,8 +114,10 @@ class MethodBuilder {
      * Add a new required parameter with unknown data type
      *
      * @access public
-     * @param name - Name of parameter
-     * @param desc - Description of parameter
+     * @method newRequiredParameterUnknown() Add a new required parameter with unknown
+     * data type
+     * @param string $name Name of parameter
+     * @param string $desc Description of parameter
      */
     public function newRequiredParameterUnknown(string $name, string $desc) {
         $param = new ParameterGenerator($name);
@@ -129,10 +136,11 @@ class MethodBuilder {
      * Add a new optional parameter
      *
      * @access public
-     * @param name - Name of optional parameter
-     * @param dv - default value of property
-     * @param type - The data type for this parameter
-     * @param desc - Description of parameter
+     * @method newOptionalParameter() Add a new optional parameter
+     * @param string $name Name of optional parameter
+     * @param ANY $dv default value of property
+     * @param ANY $type The data type for this parameter
+     * @param string $desc Description of parameter
      */
     public function newOptionalParameter(string $name, $dv, $type, string $desc) {
         if (is_null($dv)) {
@@ -155,9 +163,10 @@ class MethodBuilder {
      * Add a new optional parameter
      *
      * @access public
-     * @param name - Name of optional parameter
-     * @param dv - default value of property
-     * @param desc - Description of parameter
+     * @method newOptionalParameterUnknown() Add a new optional parameter
+     * @param string $name Name of optional parameter
+     * @param ANY $dv default value of property
+     * @param string $desc Description of parameter
      */
     public function newOptionalParameterUnknown(string $name, $dv, string $desc) {
         if (is_null($dv)) {
@@ -180,7 +189,8 @@ class MethodBuilder {
      * Set the method body
      *
      * @access public
-     * @param body - Body contents
+     * @method setBody() Set the method body
+     * @param string $body Body contents
      */
     public function setBody(string $body) {
         $this->generator->setBody($body);
@@ -194,8 +204,9 @@ class MethodBuilder {
      * Get the contents of an existing method
      *
      * @access public
-     * @param obj - Object that we can grab it from
-     * @param method - Method Name
+     * @method getBodyFromObj() Get the contents of an existing method
+     * @param ANY $obj Object that we can grab it from
+     * @param string $method Method Name
      */
     public function getBodyFromObj($obj, string $method) {
         $class = new ClassReflection($obj);
@@ -216,10 +227,12 @@ class MethodBuilder {
      * Returns the class generator
      *
      * @access public
+     * @method getGenerator() Returns the class generator
      */
     public function getGenerator() {
         $this->generator->setDocBlock($this->describer->getGenerator());
 
         return $this->generator;
     }
+
 }

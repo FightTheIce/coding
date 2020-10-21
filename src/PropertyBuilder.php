@@ -19,6 +19,7 @@ class PropertyBuilder {
      * Generator Object
      *
      * @access protected
+     * @property NULL $generator Generator Object
      */
     protected $generator = null;
 
@@ -28,6 +29,7 @@ class PropertyBuilder {
      * Describer Object
      *
      * @access protected
+     * @property NULL $describer Describer Object
      */
     protected $describer = null;
 
@@ -37,10 +39,11 @@ class PropertyBuilder {
      * Class Construct
      *
      * @access public
-     * @param name - A string containing the method name
-     * @param dv - The data type for this parameter
-     * @param access - Access level
-     * @param long - Long Description
+     * @method __construct() Class Construct
+     * @param string $name A string containing the method name
+     * @param ANY $dv The data type for this parameter
+     * @param string $access Access level
+     * @param string $long Long Description
      */
     public function __construct(string $name, $dv, string $access, string $long) {
         $this->generator = new PropertyGenerator();
@@ -77,6 +80,7 @@ class PropertyBuilder {
      * Get the property describer
      *
      * @access public
+     * @method getDescriber() Get the property describer
      */
     public function getDescriber() {
         return $this->describer;
@@ -88,10 +92,12 @@ class PropertyBuilder {
      * Returns the class generator
      *
      * @access public
+     * @method getGenerator() Returns the class generator
      */
     public function getGenerator() {
         $this->generator->setDocBlock($this->describer->getGenerator());
 
         return $this->generator;
     }
+
 }

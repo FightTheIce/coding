@@ -9,8 +9,7 @@ namespace FightTheIce\Coding;
  *
  * @namespace FightTheIce\Coding
  */
-class TestBuilder
-{
+class TestBuilder {
 
     /**
      * class
@@ -18,6 +17,7 @@ class TestBuilder
      * ClassBuilder Object
      *
      * @access protected
+     * @property string $class ClassBuilder Object
      */
     protected $class = '';
 
@@ -27,6 +27,7 @@ class TestBuilder
      * Fully Qualified Class Name
      *
      * @access protected
+     * @property string $name Fully Qualified Class Name
      */
     protected $name = '';
 
@@ -36,6 +37,7 @@ class TestBuilder
      * Short Name
      *
      * @access protected
+     * @property string $shortName Short Name
      */
     protected $shortName = '';
 
@@ -45,6 +47,7 @@ class TestBuilder
      * Test Generator
      *
      * @access protected
+     * @property NULL $test Test Generator
      */
     protected $test = null;
 
@@ -54,10 +57,10 @@ class TestBuilder
      * Class Construct
      *
      * @access public
-     * @param builder - The generated class builder
+     * @method __construct() Class Construct
+     * @param \FightTheIce\Coding\ClassBuilder $builder The generated class builder
      */
-    public function __construct(\FightTheIce\Coding\ClassBuilder $builder)
-    {
+    public function __construct(\FightTheIce\Coding\ClassBuilder $builder) {
         $this->class = $builder;
         $this->name  = $this->class->getGenerator()->getName();
         $ns          = $this->class->getGenerator()->getNamespaceName();
@@ -81,9 +84,9 @@ class TestBuilder
      * Get the property class
      *
      * @access public
+     * @method getClass() Get the property class
      */
-    public function getClass()
-    {
+    public function getClass() {
         return $this->class;
     }
 
@@ -93,9 +96,9 @@ class TestBuilder
      * Get the property name
      *
      * @access public
+     * @method getName() Get the property name
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -105,9 +108,9 @@ class TestBuilder
      * Get the property shortName
      *
      * @access public
+     * @method getShortname() Get the property shortName
      */
-    public function getShortname()
-    {
+    public function getShortname() {
         return $this->shortName;
     }
 
@@ -117,9 +120,9 @@ class TestBuilder
      * Get the property test
      *
      * @access public
+     * @method getTest() Get the property test
      */
-    public function getTest()
-    {
+    public function getTest() {
         return $this->test;
     }
 
@@ -129,9 +132,9 @@ class TestBuilder
      * Generate the test suite
      *
      * @access public
+     * @method generate() Generate the test suite
      */
-    public function generate()
-    {
+    public function generate() {
         $method = $this->test->newMethod('setUp', 'protected', 'Setup the test');
         if (!empty($this->setup)) {
             $method->setBody($this->setup);
@@ -214,10 +217,11 @@ class TestBuilder
      * Builds the Test setUp method
      *
      * @access public
-     * @param setup - Setup methodlogy
+     * @method buildSetup() Builds the Test setUp method
+     * @param string $setup Setup methodlogy
      */
-    public function buildSetup(string $setup)
-    {
+    public function buildSetup(string $setup) {
         $this->setup = $setup;
     }
+
 }
