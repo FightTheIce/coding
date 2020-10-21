@@ -372,36 +372,65 @@ class ClassResolver {
 
             if (count($method['parameters']) > 0) {
                 foreach ($method['parameters'] as $parameter) {
-                    switch ($parameter['type']) {
-                    case "bool":
-
-                        break;
-
-                    default:
-                        //throw new \ErrorException("unknown datatype: [" . $parameter['type'] . "]");
-                    }
+                    $call = "";
 
                     if ($parameter['isOptional'] == true) {
                         //this is an optional parameter
 
                         if ($parameter['type'] == '#UNKNOWN#') {
                             //newOptionalParameterUnknown(string $name, $dv, string $desc)
-                            $this->addToBuilder('$method->newOptionalParameterUnknown(\'' . $parameter['name'] . '\',\'' . $parameter['defaultValue'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                            $call = 'newOptionalParameterUnknown({name}, {dv}, {desc})';
                         } else {
                             //newOptionalParameter(string $name, $dv, $type, string $desc)
-                            $this->addToBuilder('$method->newOptionalParameter(\'' . $parameter['name'] . '\',\'' . $parameter['defaultValue'] . '\',\'' . $parameter['type'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                            $call = 'newOptionalParameter({name}, {dv}, {type}, {desc})';
                         }
                     } else {
                         //this is a required parameter
 
                         if ($parameter['type'] == '#UNKNOWN#') {
                             //newRequiredParameterUnknown(string $name, string $desc)
-                            $this->addToBuilder('$method->newRequiredParameterUnknown(\'' . $parameter['name'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                            $call = 'newRequiredParameterUnknown({name}, {desc})';
                         } else {
                             //newRequiredParameter(string $name, $type, string $desc)
-                            $this->addToBuilder('$method->newRequiredParameter(\'' . $parameter['name'] . '\',\'' . $parameter['type'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                            $call = 'newRequiredParameter({name}, {type}, {desc})';
                         }
                     }
+
+                    $call         = str_replace('{name}', "'" . $parameter['name'] . "'", $call);
+                    $defaultValue = '#UNKNOWN#';
+                    switch ($parameter['type']) {
+                    case "bool":
+                        if ($parameter['defaultValue'] == true) {
+                            $defaultValue = 'true';
+                        } else {
+                            $defaultValue = 'false';
+                        }
+                        break;
+
+                    case "str":
+                    case "string":
+                        $defaultValue = "'" . $parameter['defaultValue'] . "'";
+                        break;
+
+                    default:
+                        switch ($parameter['type']) {
+                        case '#UNKNOWN#':
+                            break;
+
+                        default:
+                            throw new \ErrorException("unknown datatype: [" . $parameter['type'] . "]");
+                            break;
+                        }
+                    }
+
+                    $call = str_replace('{dv}', $defaultValue, $call);
+
+                    if ($parameter['type'] != '#UNKNOWN#') {
+                        $call = str_replace('{type}', "'" . $parameter['type'] . "'", $call);
+                    }
+
+                    $call = str_replace('{desc}', "'" . $parameter['docblock']['desc'] . "'", $call);
+                    $this->addToBuilder('$method->' . $call . ';');
                 }
 
                 //$this->addToBuilder("");
