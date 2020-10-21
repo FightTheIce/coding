@@ -16,3 +16,7 @@ Thumbs.db
 /.php_cs.cache
 /reports
 /blah.txt
+/blah.php
+/blah2.php
+/meta.txt
+/tagtest.php

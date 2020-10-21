@@ -163,11 +163,28 @@ class ClassResolver {
             }
             $tmp['access'] = $access;
 
-            $docblock = $method->getDocBlock();
+            $docblock  = $method->getDocBlock();
+            $paramTags = array();
             if ($docblock) {
                 $tmp['docblock']['short'] = $docblock->getShortDescription();
                 $tmp['docblock']['long']  = $docblock->getLongDescription();
                 $tmp['docblock']['tags']  = $docblock->getTags();
+
+                //lets find all the parameter tags
+                if (count($tmp['docblock']['tags']) > 0) {
+                    foreach ($tmp['docblock']['tags'] as $tag) {
+                        $paramTMP = array();
+
+                        $type = get_class($tag);
+                        if ($type == 'Laminas\Code\Reflection\DocBlock\Tag\ParamTag') {
+                            $paramTMP['name']  = ltrim($tag->getVariableName(), '$');
+                            $paramTMP['types'] = implode('|', $tag->getTypes());
+                            $paramTMP['desc']  = $tag->getDescription();
+
+                            $paramTags[$paramTMP['name']] = $paramTMP;
+                        }
+                    }
+                }
             }
 
             $parameters = $method->getParameters();
@@ -178,10 +195,17 @@ class ClassResolver {
                         'type'         => '',
                         'defaultValue' => '',
                         'isOptional'   => '',
-                        'docblock'     => '',
+                        'docblock'     => array(
+                            'name'  => '',
+                            'types' => '',
+                            'desc'  => '',
+                        ),
                     );
 
                     $paramtmp['name'] = $param->getName();
+                    if (isset($paramTags[$paramtmp['name']])) {
+                        $paramtmp['docblock'] = $paramTags[$paramtmp['name']];
+                    }
 
                     $paramtmp['type'] = $param->getType();
                     if ($param->isDefaultValueAvailable() == true) {
@@ -288,7 +312,6 @@ class ClassResolver {
         if (count($propertiesMeta) > 0) {
             $this->addToBuilder('//lets generate some properties');
             foreach ($propertiesMeta as $property) {
-                //newProperty(string $name, $dv, string $access, string $long, bool $getMethod = false)
                 $defaultValue = $property['value'];
                 if (empty($defaultValue)) {
                     $defaultValue = null;
