@@ -156,7 +156,7 @@ class Describer {
      * @param ?string $url URL
      * @param ?string $name License Name
      */
-    public function licenseTag( ? string $url = null,  ? string $name = null) {
+    public function licenseTag( ? string $url = null,  ? string $licenseName = null) {
         $tag = new LicenseTag($url, $licenseName);
         $this->generator->setTag($tag);
 

@@ -276,26 +276,8 @@ class ClassResolver {
         if (count($classMeta['docblock']['tags']) > 0) {
             $this->addToBuilder('//add some additional tags to the class docblock');
             foreach ($classMeta['docblock']['tags'] as $tag) {
-                switch (get_class($tag)) {
-                case 'Laminas\Code\Reflection\DocBlock\Tag\GenericTag':
-                    $name    = $tag->getName();
-                    $content = $tag->getContent();
-                    $this->addToBuilder('$class->getDescriber()->tag(\'' . $name . '\',\'' . $content . '\');');
-                    break;
-
-                case 'Laminas\Code\Reflection\DocBlock\Tag\LicenseTag':
-                    $url         = $tag->getUrl();
-                    $licenseName = $tag->getLicenseName();
-                    $this->addToBuilder('$class->getDescriber()->licenseTag(\'' . $url . '\',\'' . $licenseName . '\');');
-                    break;
-
-                default:
-                    print_r($tag);
-                    echo get_class($tag);
-                    echo PHP_EOL;
-                    throw new \ErrorException('BLAH1');
-                    break;
-                }
+                $tagData = $this->extractTagAsGeneric($tag);
+                $this->addToBuilder('$class->getDescriber()->tag(\'' . $tagData['name'] . '\',\'' . $tagData['content'] . '\');');
             }
             $this->addToBuilder("");
         }
@@ -327,7 +309,9 @@ class ClassResolver {
                     foreach ($property['docblock']['tags'] as $tag) {
                         $tagData = $this->extractTagAsGeneric($tag);
                         $this->addToBuilder('$property = $class->getProperty(\'' . $property['name'] . '\');');
-                        $this->addToBuilder('$property->getDescriber()->tag(\'' . $tagData['name'] . '\',\'' . $tagData['content'] . '\');');
+                        $this->addToBuilder('$property->getDescriber()->tag(\'' . $tagData['name'] . '\',\'' . $tagData['content'] . '\'); #in the future this should use $property->getDescriber()->' . strtolower($property['name']) . 'Tag()');
+
+                        $this->addToBuilder("");
                     }
                     $this->addToBuilder("");
                 }
@@ -339,6 +323,10 @@ class ClassResolver {
 
     protected function buildMethodsMeta() {
         $methodsMeta = $this->methodsMeta();
+        foreach ($methodsMeta as $method) {
+            print_r($method);
+            exit;
+        }
     }
 
     protected function addToBuilder(string $str, $includeEmptyLine = false) {

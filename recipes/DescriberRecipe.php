@@ -49,7 +49,7 @@ $method = $class->newMethod('authorTag', 'public', 'Author Tag Generator')
 
 $method = $class->newMethod('licenseTag', 'public', 'License Tag Generator')
     ->newOptionalParameter('url', null, '?string', 'URL')
-    ->newOptionalParameter('name', null, '?string', 'License Name')
+    ->newOptionalParameter('licenseName', null, '?string', 'License Name')
     ->getBodyFromObj($obj, 'licenseTag');
 
 $method = $class->newMethod('methodTag', 'public', 'Method Tag Generator')
