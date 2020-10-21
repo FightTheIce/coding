@@ -2,7 +2,9 @@
 
 namespace FightTheIce\Coding;
 
+use Laminas\Code\Generator\DocBlock\TagManager;
 use Laminas\Code\Reflection\ClassReflection;
+use Laminas\Code\Reflection\DocBlock\Tag\TagInterface;
 
 class ClassResolver {
     protected $reflection      = null;
@@ -180,13 +182,7 @@ class ClassResolver {
                     );
 
                     $paramtmp['name'] = $param->getName();
-                    /*
-                    if ($docblock) {
-                    foreach ($tmp['docblock']['tags'] as $tag) {
 
-                    }
-                    }
-                     */
                     $paramtmp['type'] = $param->getType();
                     if ($param->isDefaultValueAvailable() == true) {
                         $paramtmp['defaultValue'] = $param->getDefaultValue();
@@ -204,115 +200,152 @@ class ClassResolver {
     }
 
     public function build() {
-        $builder = array();
+        //classMeta first
+        $this->buildClassMeta();
 
+        //propertiesMeta second
+        $this->buildPropertiesMeta();
+
+        //methodsMeta third
+        $this->buildMethodsMeta();
+
+        echo '<?php' . PHP_EOL . 'include(\'vendor/autoload.php\');' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $this->builder) . PHP_EOL;
+        echo 'echo \'<?php\'.PHP_EOL.PHP_EOL.$class->generate();';
+    }
+
+    protected function buildClassMeta() {
         $classMeta = $this->classMeta();
-        $builder[] = '$class = new \FightTheIce\Coding\ClassBuilder("' . $classMeta['classname'] . '","' . $classMeta['docblock']['short'] . '","' . $classMeta['docblock']['long'] . '");';
-
-        $builder[] = "";
-
-        if (!empty($classMeta['uses']['classes'])) {
-            foreach ($classMeta['uses']['classes'] as $meta) {
-                if (empty($meta['as'])) {
-                    $builder[] = '$class->uses("' . $meta['use'] . '");';
-                } else {
-                    $builder[] = '$class->uses("' . $meta['use'] . '","' . $meta['as'] . '");';
-                }
-            }
-
-            $builder[] = "";
+        if (!isset($classMeta['classname'])) {
+            throw new \ErrorException('buildClassMeta expects a classname');
         }
 
-        if (!empty($classMeta['uses']['functions'])) {
-            foreach ($classMeta['uses']['functions'] as $meta) {
-                $builder[] = '$class->uses("function ' . $meta . '");';
-            }
+        $this->addToBuilder('//kick off a new class builder');
+        $str = '$class = new \FightTheIce\Coding\ClassBuilder(\'{className}\',\'{docblock_short}\',\'{docblock_long}\');';
+        $str = str_replace('{className}', $classMeta['classname'], $str);
+        $str = str_replace('{docblock_short}', $classMeta['docblock']['short'], $str);
+        $str = str_replace('{docblock_long}', $classMeta['docblock']['long'], $str);
+        $this->addToBuilder($str, true);
 
-            $builder[] = "";
-        }
+        $this->addToBuilder('//if we want to update the class docblock for any reason');
+        $this->addToBuilder('//$class->getDescriber()->getGenerator();', true);
 
         if (!empty($classMeta['extends'])) {
-            $builder[] = '$class->classExtends("' . $classMeta['extends'] . '");';
+            $this->addToBuilder('$class->classExtends(\'' . $classMeta['extends'] . '\');', true);
         }
 
         if (!empty($classMeta['implements'])) {
-            foreach ($classMeta['implements'] as &$implements) {
-                $implements = "'" . $implements . "'";
+            $implementsStr = @var_export($classMeta['implements'], true);
+            if (is_null($implementsStr)) {
+                throw new \ErrorException('Unable to parse implements array.');
             }
 
-            $data      = 'array(' . implode(',', $classMeta['implements']) . ')';
-            $builder[] = '$class->getGenerator()->setImplementedInterfaces(' . $data . ');';
-            $builder[] = "";
+            $implementsStr = str_replace(PHP_EOL, '', $implementsStr);
+            $implementsStr = str_replace('  ', '', $implementsStr);
+            $implementsStr = rtrim($implementsStr, ')');
+            $implementsStr = rtrim($implementsStr, ',');
+            $implementsStr = $implementsStr . ')';
+
+            $this->addToBuilder('//we should build a native way of doing this in the future');
+            $this->addToBuilder('$class->getGenerator()->setImplementedInterfaces(' . $implementsStr . ');', true);
         }
 
-        $propertiesMeta = $this->propertiesMeta();
-        foreach ($propertiesMeta as $property) {
-            switch (strtoupper(gettype($property['value']))) {
-            case 'NULL':
-                $builder[] = '$class->newProperty("' . $property['name'] . '",null,"' . $property['access'] . '","' . $property['docblock']['long'] . '");';
-                break;
-
-            case 'ARRAY':
-                if (empty($property['value'])) {
-                    $builder[] = '$class->newProperty("' . $property['name'] . '",[],"' . $property['access'] . '","' . $property['docblock']['long'] . '");';
+        if (count($classMeta['uses']['classes']) > 0) {
+            $this->addToBuilder('//add the following class uses');
+            foreach ($classMeta['uses']['classes'] as $use) {
+                if (!empty($use['as'])) {
+                    $this->addToBuilder('$class->uses(\'' . $use['use'] . '\',\'' . $use['as'] . '\')');
                 } else {
-                    throw new \ErrorException('I don\'t know how to handle arrays!');
+                    $this->addToBuilder('$class->uses(\'' . $use['use'] . '\');');
                 }
-                break;
-
-            case 'STRING':
-                $builder[] = '$class->newProperty("' . $property['name'] . '","' . $property['value'] . '","' . $property['access'] . '","' . $property['docblock']['long'] . '");';
-                break;
-
-            default:
-                throw new \ErrorException('I don\'t know how to handle property type: [' . gettype($property['value']) . ']');
             }
+            //add an empty line
+            $this->addToBuilder("");
         }
 
+        if (count($classMeta['uses']['functions']) > 0) {
+            $this->addToBuilder('//add the following functions to class');
+            $this->addToBuilder('//we should create a native way of doing this in the future');
+            foreach ($classMeta['uses']['functions'] as $use) {
+                $this->addToBuilder('$class->uses(\'function ' . $use . '\');');
+            }
+            //add an empty line
+            $this->addToBuilder("");
+        }
+
+        //do we have additional docblock tags?
+        if (count($classMeta['docblock']['tags']) > 0) {
+            $this->addToBuilder('//add some additional tags to the class docblock');
+            foreach ($classMeta['docblock']['tags'] as $tag) {
+                switch (get_class($tag)) {
+                case 'Laminas\Code\Reflection\DocBlock\Tag\GenericTag':
+                    $name    = $tag->getName();
+                    $content = $tag->getContent();
+                    $this->addToBuilder('$class->getDescriber()->tag(\'' . $name . '\',\'' . $content . '\');');
+                    break;
+
+                case 'Laminas\Code\Reflection\DocBlock\Tag\LicenseTag':
+                    $url         = $tag->getUrl();
+                    $licenseName = $tag->getLicenseName();
+                    $this->addToBuilder('$class->getDescriber()->licenseTag(\'' . $url . '\',\'' . $licenseName . '\');');
+                    break;
+
+                default:
+                    print_r($tag);
+                    echo get_class($tag);
+                    echo PHP_EOL;
+                    throw new \ErrorException('BLAH1');
+                    break;
+                }
+            }
+            $this->addToBuilder("");
+        }
+    }
+
+    protected function buildPropertiesMeta() {
+        $propertiesMeta = $this->propertiesMeta();
         if (count($propertiesMeta) > 0) {
-            $builder[] = "";
-        }
+            $this->addToBuilder('//lets generate some properties');
+            foreach ($propertiesMeta as $property) {
+                //newProperty(string $name, $dv, string $access, string $long, bool $getMethod = false)
+                $defaultValue = $property['value'];
+                if (empty($defaultValue)) {
+                    $defaultValue = null;
+                    $this->addToBuilder('$class->newProperty(\'' . $property['name'] . '\',null,\'' . $property['access'] . '\',\'' . $property['docblock']['long'] . '\');');
+                } elseif (is_array($defaultValue)) {
+                    $defaultValue = @var_export($defaultValue);
 
-        $methodsMeta = $this->methodsMeta();
-        foreach ($methodsMeta as $method) {
-            $builder[] = '$method = $class->newMethod("' . $method['name'] . '","' . $method['access'] . '","' . $method['docblock']['long'] . '");';
-            if (!empty($method['parameters'])) {
-                foreach ($method['parameters'] as $param) {
-                    if ($param['isOptional'] == true) {
-                        //optional
-                        if (empty($param['type'])) {
-                            //unknown
-                            //newOptionalParameterUnknown(string $name, $dv, string $desc)
-                            $builder[] = '$method->newOptionalParameterUnknown("' . $param['name'] . '","' . $param['defaultValue'] . '","' . $method['docblock']['short'] . '");';
-                        } else {
-                            //known
-                            //newOptionalParameter(string $name, $dv, $type, string $desc)
-                            $builder[] = '$method->newOptionalParameter("' . $param['name'] . '","' . $param['defaultValue'] . '","' . $param['type'] . '","' . $method['docblock']['long'] . '");';
-                        }
-                    } else {
-                        //required
-                        if (empty($param['type'])) {
-                            //unknown
-                            //newRequiredParameterUnknown(string $name, string $desc)
-                            $builder[] = '$method->newRequiredParameterUnknown("' . $param['name'] . '","' . $method['docblock']['long'] . '");';
-                        } else {
-                            //known
-                            //newRequiredParameter(string $name, $type, string $desc)
-                            $builder[] = '$method->newRequiredParameter("' . $param['name'] . '","' . $param['type'] . '","' . $method['docblock']['long'] . '");';
-                        }
+                    if (is_null($defaultValue)) {
+                        throw new \ErrorException('Var_export can\'t handle your array!');
                     }
+                } elseif (is_string($defaultValue)) {
+                    $defaultValue = "'" . $defaultValue . "'";
+                } else {
+                    throw new \ErrorException('Unable to determine datatype for your property.');
+                }
+
+                if (count($property['docblock']['tags']) > 0) {
+                    foreach ($property['docblock']['tags'] as $tag) {
+                        $tagData = $this->extractTagAsGeneric($tag);
+                        $this->addToBuilder('$property = $class->getProperty(\'' . $property['name'] . '\');');
+                        $this->addToBuilder('$property->getDescriber()->tag(\'' . $tagData['name'] . '\',\'' . $tagData['content'] . '\');');
+                    }
+                    $this->addToBuilder("");
                 }
             }
 
-            $builder[] = "";
+            $this->addToBuilder("");
         }
+    }
 
-        if (count($methodsMeta) > 0) {
-            $builder[] = "";
+    protected function buildMethodsMeta() {
+        $methodsMeta = $this->methodsMeta();
+    }
+
+    protected function addToBuilder(string $str, $includeEmptyLine = false) {
+        $this->builder[] = $str;
+        if ($includeEmptyLine == true) {
+            $this->builder[] = "";
         }
-
-        $build = '<?php' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $builder);
-        return $build;
     }
 
     protected function gcm($obj) {
@@ -322,5 +355,27 @@ class ClassResolver {
     protected function pexit($obj) {
         print_r($obj);
         exit;
+    }
+
+    protected function extractTagAsGeneric(TagInterface $tag) {
+        $return = array(
+            'name'    => '',
+            'content' => '',
+        );
+
+        $manager = new TagManager();
+        $manager->initializeDefaultTags();
+        $newTag = $manager->createTagFromReflection($tag);
+        $string = $newTag->generate();
+        $string = ltrim($string, '@');
+        $x      = explode(' ', $string);
+        $name   = $x[0];
+        unset($x[0]);
+        $content = implode(' ', $x);
+
+        $return['name']    = $name;
+        $return['content'] = $content;
+
+        return $return;
     }
 }
