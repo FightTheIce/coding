@@ -207,7 +207,27 @@ class ClassResolver {
                         $paramtmp['docblock'] = $paramTags[$paramtmp['name']];
                     }
 
-                    $paramtmp['type'] = $param->getType();
+                    //$paramtmp['type'] = $param->getType();
+                    $type = $param->getType();
+                    if (is_null($type)) {
+                        $paramtmp['type'] = '#UNKNOWN#';
+                    } else {
+                        $typeClass = get_class($type);
+
+                        switch (get_class($type)) {
+                        case 'ReflectionNamedType':
+                            if (!method_exists($type, 'getName')) {
+                                throw new \ErrorException('getName method does not exists!');
+                            }
+
+                            $paramtmp['type'] = $type->getName();
+                            break;
+
+                        default:
+                            throw new \ErrorException('UNKNOWN type: ' . $typeClass);
+                        }
+                    }
+
                     if ($param->isDefaultValueAvailable() == true) {
                         $paramtmp['defaultValue'] = $param->getDefaultValue();
                     }
@@ -346,9 +366,49 @@ class ClassResolver {
 
     protected function buildMethodsMeta() {
         $methodsMeta = $this->methodsMeta();
+
         foreach ($methodsMeta as $method) {
-            print_r($method);
-            exit;
+            $this->addToBuilder('$method = $class->newMethod(\'' . $method['name'] . '\',\'' . $method['access'] . '\',\'' . $method['docblock']['long'] . '\');');
+
+            if (count($method['parameters']) > 0) {
+                foreach ($method['parameters'] as $parameter) {
+                    switch ($parameter['type']) {
+                    case "bool":
+
+                        break;
+
+                    default:
+                        //throw new \ErrorException("unknown datatype: [" . $parameter['type'] . "]");
+                    }
+
+                    if ($parameter['isOptional'] == true) {
+                        //this is an optional parameter
+
+                        if ($parameter['type'] == '#UNKNOWN#') {
+                            //newOptionalParameterUnknown(string $name, $dv, string $desc)
+                            $this->addToBuilder('$method->newOptionalParameterUnknown(\'' . $parameter['name'] . '\',\'' . $parameter['defaultValue'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                        } else {
+                            //newOptionalParameter(string $name, $dv, $type, string $desc)
+                            $this->addToBuilder('$method->newOptionalParameter(\'' . $parameter['name'] . '\',\'' . $parameter['defaultValue'] . '\',\'' . $parameter['type'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                        }
+                    } else {
+                        //this is a required parameter
+
+                        if ($parameter['type'] == '#UNKNOWN#') {
+                            //newRequiredParameterUnknown(string $name, string $desc)
+                            $this->addToBuilder('$method->newRequiredParameterUnknown(\'' . $parameter['name'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                        } else {
+                            //newRequiredParameter(string $name, $type, string $desc)
+                            $this->addToBuilder('$method->newRequiredParameter(\'' . $parameter['name'] . '\',\'' . $parameter['type'] . '\',\'' . $parameter['docblock']['desc'] . '\');');
+                        }
+                    }
+                }
+
+                //$this->addToBuilder("");
+            }
+
+            //$this->addToBuilder('$method->getBodyFromObj($obj, \'' . $method['name'] . '\');');
+            $this->addToBuilder("");
         }
     }
 
