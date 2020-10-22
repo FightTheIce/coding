@@ -8,15 +8,12 @@ use Laminas\Code\Reflection\DocBlock\Tag\TagInterface;
 
 /**
  * @namespace FightTheIce\Coding
- * @namespace FightTheIce\Coding
  */
 class ClassResolver {
 
     /**
      * reflection
      *
-     * @access protected
-     * @property NULL $reflection
      * @access protected
      * @property NULL $reflection
      */
@@ -27,16 +24,12 @@ class ClassResolver {
      *
      * @access protected
      * @property NULL $objNonConstruct
-     * @access protected
-     * @property NULL $objNonConstruct
      */
     protected $objNonConstruct = null;
 
     /**
      * builder
      *
-     * @access protected
-     * @property NULL $builder
      * @access protected
      * @property NULL $builder
      */

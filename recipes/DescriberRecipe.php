@@ -2,90 +2,110 @@
 
 $path = 'src/Describer.php';
 
-$obj = new FightTheIce\Coding\Describer();
+$obj = new FightTheIce\Coding\Describer("short","long");
 
-$class = new FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\Describer', 'Describer', 'This class is responsible for interacting with the Laminas docblock generator.');
-$class->addClassTag('author', 'William Knauss');
-$class->uses('Laminas\Code\Generator\DocBlockGenerator')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\GenericTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\AuthorTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\LicenseTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\MethodTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\ParamTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\PropertyTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\ReturnTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\ThrowsTag')
-    ->uses('Laminas\Code\Generator\DocBlock\Tag\VarTag');
+//kick off a new class builder
+$class = new \FightTheIce\Coding\ClassBuilder('FightTheIce\Coding\Describer','Describer','This class is responsible for interacting with the Laminas docblock generator.');
 
-$class->newProperty('generator', null, 'protected', 'The generator object - Laminas\Code\Generator\DocBlockGenerator', true);
+//if we want to update the class docblock for any reason
+//$class->getDescriber()->getGenerator();
 
-$method = $class->newMethod("__construct", "public", "Class Construct")
-    ->newOptionalParameter("short", "", "string", "A string containing the short description")
-    ->newOptionalParameter("long", "", "string", "A string containing the long description")
-    ->getBodyFromObj($obj, '__construct');
+//add the following class uses
+$class->uses('Laminas\Code\Generator\DocBlockGenerator');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\AuthorTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\GenericTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\LicenseTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\MethodTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\ParamTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\PropertyTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\ReturnTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\ThrowsTag');
+$class->uses('Laminas\Code\Generator\DocBlock\Tag\VarTag');
 
-$method = $class->newMethod("short", "public", "DocBlock short description")
-    ->newRequiredParameter('desc', 'string', 'A string containg the short description')
-    ->getBodyFromObj($obj, 'short');
+//add some additional tags to the class docblock
+$class->getDescriber()->tag('namespace','FightTheIce\Coding');
+$class->getDescriber()->tag('author','William Knauss');
 
-$method = $class->newMethod('long', 'public', "DocBlock long description")
-    ->newRequiredParameter('desc', 'string', 'A string containing the long description')
-    ->getBodyFromObj($obj, 'long');
+//lets generate some properties
+$class->newProperty('generator',null,'protected','The generator object - Laminas\Code\Generator\DocBlockGenerator');
+$property = $class->getProperty('generator');
+$property->getDescriber()->tag('access','protected'); #in the future this should use $property->getDescriber()->generatorTag()
 
-$method = $class->newMethod('tag', 'public', 'DocBlock Tag Generator')
-    ->newRequiredParameter('name', 'string', 'Tag Name')
-    ->newRequiredParameter('value', 'string', 'Tag Value')
-    ->getBodyFromObj($obj, 'tag');
+$property = $class->getProperty('generator');
+$property->getDescriber()->tag('property','NULL $generator The generator object -   Laminas\Code\Generator\DocBlockGenerator'); #in the future this should use $property->getDescriber()->generatorTag()
 
-$method = $class->newMethod('genericTag', 'public', 'DocBlock Tag Generator')
-    ->newRequiredParameter('name', 'string', 'Tag Name')
-    ->newRequiredParameter('value', 'string', 'Tag Value')
-    ->setBody('return $this->tag($name,$value);');
 
-$method = $class->newMethod('authorTag', 'public', 'Author Tag Generator')
-    ->newOptionalParameter('name', null, '?string', 'A string containing the authors name')
-    ->newOptionalParameter('email', null, '?string', 'A string containing the authors\'s email address')
-    ->getBodyFromObj($obj, 'authorTag');
 
-$method = $class->newMethod('licenseTag', 'public', 'License Tag Generator')
-    ->newOptionalParameter('url', null, '?string', 'URL')
-    ->newOptionalParameter('licenseName', null, '?string', 'License Name')
-    ->getBodyFromObj($obj, 'licenseTag');
+$method = $class->newMethod('__construct','public','Class Construct');
+$method->newOptionalParameter('short', , 'string', 'A string containing the short description');
+$method->newOptionalParameter('long', , 'string', 'A string containing the long description');
+$method->getBodyFromObj($obj, '__construct');
 
-$method = $class->newMethod('methodTag', 'public', 'Method Tag Generator')
-    ->newOptionalParameter('name', null, '?string', 'Method Name')
-    ->newOptionalParameterUnknown('types', array(), 'Method Types')
-    ->newOptionalParameterUnknown('description', null, 'Method Description')
-    ->newOptionalParameterUnknown('isStatic', false, 'Is Method Static?')
-    ->getBodyFromObj($obj, 'methodTag');
+$method = $class->newMethod('getGenerator','public','Get the property generator');
+$method->getBodyFromObj($obj, 'getGenerator');
 
-$method = $class->newMethod('paramTag', 'public', 'Param Tag Generator')
-    ->newRequiredParameter('name', 'string', 'Param Name')
-    ->newOptionalParameterUnknown('types', array(), 'Param Types')
-    ->newOptionalParameterUnknown('description', null, 'Param Description')
-    ->getBodyFromObj($obj, 'paramTag');
+$method = $class->newMethod('short','public','DocBlock short description');
+$method->newRequiredParameter('desc', 'string', 'A string containg the short description');
+$method->getBodyFromObj($obj, 'short');
 
-$method = $class->newMethod('propertyTag', 'public', 'Property Tag Generator')
-    ->newRequiredParameter('name', 'string', 'Property name')
-    ->newOptionalParameterUnknown('types', array(), 'Property types')
-    ->newOptionalParameterUnknown('description', null, 'Property description')
-    ->getBodyFromObj($obj, 'propertyTag');
+$method = $class->newMethod('long','public','DocBlock long description');
+$method->newRequiredParameter('desc', 'string', 'A string containing the long description');
+$method->getBodyFromObj($obj, 'long');
 
-$method = $class->newMethod('returnTag', 'public', 'Return Tag Generator')
-    ->newOptionalParameterUnknown('types', array(), 'Return Types')
-    ->newOptionalParameterUnknown('description', null, 'Return Description')
-    ->getBodyFromObj($obj, 'returnTag');
+$method = $class->newMethod('tag','public','DocBlock Tag Generator');
+$method->newRequiredParameter('name', 'string', 'Tag Name');
+$method->newRequiredParameter('value', 'string', 'Tag Value');
+$method->getBodyFromObj($obj, 'tag');
 
-$method = $class->newMethod('throwsTag', 'public', 'Throws Tag Generator')
-    ->newOptionalParameterUnknown('types', array(), 'Throws Types')
-    ->newOptionalParameterUnknown('description', null, 'Throws Description')
-    ->getBodyFromObj($obj, 'throwsTag');
+$method = $class->newMethod('genericTag','public','DocBlock Tag Generator');
+$method->newRequiredParameter('name', 'string', 'Tag Name');
+$method->newRequiredParameter('value', 'string', 'Tag Value');
+$method->getBodyFromObj($obj, 'genericTag');
 
-$method = $class->newMethod('varTag', 'public', 'Var Tag Generator')
-    ->newRequiredParameter('name', 'string', 'Var Name')
-    ->newOptionalParameterUnknown('types', array(), 'Var Types')
-    ->newOptionalParameterUnknown('description', null, 'Var Description')
-    ->getBodyFromObj($obj, 'varTag');
+$method = $class->newMethod('authorTag','public','Author Tag Generator');
+$method->newOptionalParameter('name', null, 'string', 'A string containing the authors name');
+$method->newOptionalParameter('email', null, 'string', 'A string containing the authors\'s email address');
+$method->getBodyFromObj($obj, 'authorTag');
+
+$method = $class->newMethod('licenseTag','public','License Tag Generator');
+$method->newOptionalParameter('url', null, 'string', 'URL');
+$method->newOptionalParameter('licenseName', null, 'string', '');
+$method->getBodyFromObj($obj, 'licenseTag');
+
+$method = $class->newMethod('methodTag','public','Method Tag Generator');
+$method->newOptionalParameter('name', null, 'string', 'Method Name');
+$method->newOptionalParameterUnknown('types', array (), '');
+$method->newOptionalParameterUnknown('description', null, '');
+$method->newOptionalParameterUnknown('isStatic', false, '');
+$method->getBodyFromObj($obj, 'methodTag');
+
+$method = $class->newMethod('paramTag','public','Param Tag Generator');
+$method->newRequiredParameter('name', 'string', 'Param Name');
+$method->newOptionalParameterUnknown('types', array (), '');
+$method->newOptionalParameterUnknown('description', null, '');
+$method->getBodyFromObj($obj, 'paramTag');
+
+$method = $class->newMethod('propertyTag','public','Property Tag Generator');
+$method->newRequiredParameter('name', 'string', 'Property name');
+$method->newOptionalParameterUnknown('types', array (), '');
+$method->newOptionalParameterUnknown('description', null, '');
+$method->getBodyFromObj($obj, 'propertyTag');
+
+$method = $class->newMethod('returnTag','public','Return Tag Generator');
+$method->newOptionalParameterUnknown('types', array (), '');
+$method->newOptionalParameterUnknown('description', null, '');
+$method->getBodyFromObj($obj, 'returnTag');
+
+$method = $class->newMethod('throwsTag','public','Throws Tag Generator');
+$method->newOptionalParameterUnknown('types', array (), '');
+$method->newOptionalParameterUnknown('description', null, '');
+$method->getBodyFromObj($obj, 'throwsTag');
+
+$method = $class->newMethod('varTag','public','Var Tag Generator');
+$method->newRequiredParameter('name', 'string', 'Var Name');
+$method->newOptionalParameterUnknown('types', array (), '');
+$method->newOptionalParameterUnknown('description', null, '');
+$method->getBodyFromObj($obj, 'varTag');
 
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
