@@ -101,6 +101,34 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_TraitBuilder_hasMethod___construct
+     *
+     * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
+     * __construct
+     *
+     * @access public
+     * @method test_TraitBuilder_hasMethod___construct() Testing that class
+     * FightTheIce\Coding\TraitBuilder has a method by the name of: __construct
+     */
+    public function test_TraitBuilder_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
+     * test_TraitBuilder___construct_noparams
+     *
+     * Testing method __construct with no params
+     *
+     * @access public
+     * @method test_TraitBuilder___construct_noparams() Testing method __construct with
+     * no params
+     */
+    public function test_TraitBuilder___construct_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TraitBuilder();
+    }
+
+    /**
      * test_TraitBuilder_hasMethod_getGenerator
      *
      * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
@@ -154,34 +182,6 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TraitBuilder_hasMethod_getMethods() {
         $this->assertTrue(method_exists($this->obj, 'getMethods'));
-    }
-
-    /**
-     * test_TraitBuilder_hasMethod___construct
-     *
-     * Testing that class FightTheIce\Coding\TraitBuilder has a method by the name of:
-     * __construct
-     *
-     * @access public
-     * @method test_TraitBuilder_hasMethod___construct() Testing that class
-     * FightTheIce\Coding\TraitBuilder has a method by the name of: __construct
-     */
-    public function test_TraitBuilder_hasMethod___construct() {
-        $this->assertTrue(method_exists($this->obj, '__construct'));
-    }
-
-    /**
-     * test_TraitBuilder___construct_noparams
-     *
-     * Testing method __construct with no params
-     *
-     * @access public
-     * @method test_TraitBuilder___construct_noparams() Testing method __construct with
-     * no params
-     */
-    public function test_TraitBuilder___construct_noparams() {
-        $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TraitBuilder();
     }
 
     /**

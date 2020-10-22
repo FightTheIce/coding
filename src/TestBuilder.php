@@ -17,9 +17,9 @@ class TestBuilder {
      * ClassBuilder Object
      *
      * @access protected
-     * @property string $class ClassBuilder Object
+     * @property NULL $class ClassBuilder Object
      */
-    protected $class = '';
+    protected $class = null;
 
     /**
      * name
@@ -27,9 +27,9 @@ class TestBuilder {
      * Fully Qualified Class Name
      *
      * @access protected
-     * @property string $name Fully Qualified Class Name
+     * @property NULL $name Fully Qualified Class Name
      */
-    protected $name = '';
+    protected $name = null;
 
     /**
      * shortName
@@ -37,9 +37,9 @@ class TestBuilder {
      * Short Name
      *
      * @access protected
-     * @property string $shortName Short Name
+     * @property NULL $shortName Short Name
      */
-    protected $shortName = '';
+    protected $shortName = null;
 
     /**
      * test
@@ -58,7 +58,7 @@ class TestBuilder {
      *
      * @access public
      * @method __construct() Class Construct
-     * @param \FightTheIce\Coding\ClassBuilder $builder The generated class builder
+     * @param FightTheIce\Coding\ClassBuilder $builder The generated class builder
      */
     public function __construct(\FightTheIce\Coding\ClassBuilder $builder) {
         $this->class = $builder;

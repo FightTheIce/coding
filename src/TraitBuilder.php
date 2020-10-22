@@ -39,11 +39,9 @@ class TraitBuilder {
      * Properties to generate
      *
      * @access protected
-     * @property array $properties Properties to generate
+     * @property NULL $properties Properties to generate
      */
-    protected $properties = [
-
-    ];
+    protected $properties = null;
 
     /**
      * methods
@@ -51,11 +49,9 @@ class TraitBuilder {
      * Methods to generate
      *
      * @access protected
-     * @property array $methods Methods to generate
+     * @property NULL $methods Methods to generate
      */
-    protected $methods = [
-
-    ];
+    protected $methods = null;
 
     /**
      * __construct
@@ -197,9 +193,9 @@ class TraitBuilder {
      * @access public
      * @method uses() Add a use statement
      * @param string $name Name of class
-     * @param ?string $alias Alias
+     * @param string $alias Alias
      */
-    public function uses(string $name,  ? string $alias = null) {
+    public function uses(string $name, string $alias = null) {
         $this->generator->addUse($name, $alias);
 
         return $this;

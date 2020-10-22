@@ -74,20 +74,6 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * test_PropertyBuilder_hasMethod_getDescriber
-     *
-     * Testing that class FightTheIce\Coding\PropertyBuilder has a method by the name
-     * of: getDescriber
-     *
-     * @access public
-     * @method test_PropertyBuilder_hasMethod_getDescriber() Testing that class
-     * FightTheIce\Coding\PropertyBuilder has a method by the name of: getDescriber
-     */
-    public function test_PropertyBuilder_hasMethod_getDescriber() {
-        $this->assertTrue(method_exists($this->obj, 'getDescriber'));
-    }
-
-    /**
      * test_PropertyBuilder_hasMethod___construct
      *
      * Testing that class FightTheIce\Coding\PropertyBuilder has a method by the name
@@ -113,6 +99,20 @@ class Test extends \PHPUnit\Framework\TestCase {
     public function test_PropertyBuilder___construct_noparams() {
         $this->expectException(\ArgumentCountError::class);
         $test = new \FightTheIce\Coding\PropertyBuilder();
+    }
+
+    /**
+     * test_PropertyBuilder_hasMethod_getDescriber
+     *
+     * Testing that class FightTheIce\Coding\PropertyBuilder has a method by the name
+     * of: getDescriber
+     *
+     * @access public
+     * @method test_PropertyBuilder_hasMethod_getDescriber() Testing that class
+     * FightTheIce\Coding\PropertyBuilder has a method by the name of: getDescriber
+     */
+    public function test_PropertyBuilder_hasMethod_getDescriber() {
+        $this->assertTrue(method_exists($this->obj, 'getDescriber'));
     }
 
     /**

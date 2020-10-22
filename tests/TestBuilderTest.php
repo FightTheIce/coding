@@ -98,6 +98,34 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
+     * test_TestBuilder_hasMethod___construct
+     *
+     * Testing that class FightTheIce\Coding\TestBuilder has a method by the name of:
+     * __construct
+     *
+     * @access public
+     * @method test_TestBuilder_hasMethod___construct() Testing that class
+     * FightTheIce\Coding\TestBuilder has a method by the name of: __construct
+     */
+    public function test_TestBuilder_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
+     * test_TestBuilder___construct_noparams
+     *
+     * Testing method __construct with no params
+     *
+     * @access public
+     * @method test_TestBuilder___construct_noparams() Testing method __construct with
+     * no params
+     */
+    public function test_TestBuilder___construct_noparams() {
+        $this->expectException(\ArgumentCountError::class);
+        $test = new \FightTheIce\Coding\TestBuilder();
+    }
+
+    /**
      * test_TestBuilder_hasMethod_getClass
      *
      * Testing that class FightTheIce\Coding\TestBuilder has a method by the name of:
@@ -151,34 +179,6 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_TestBuilder_hasMethod_getTest() {
         $this->assertTrue(method_exists($this->obj, 'getTest'));
-    }
-
-    /**
-     * test_TestBuilder_hasMethod___construct
-     *
-     * Testing that class FightTheIce\Coding\TestBuilder has a method by the name of:
-     * __construct
-     *
-     * @access public
-     * @method test_TestBuilder_hasMethod___construct() Testing that class
-     * FightTheIce\Coding\TestBuilder has a method by the name of: __construct
-     */
-    public function test_TestBuilder_hasMethod___construct() {
-        $this->assertTrue(method_exists($this->obj, '__construct'));
-    }
-
-    /**
-     * test_TestBuilder___construct_noparams
-     *
-     * Testing method __construct with no params
-     *
-     * @access public
-     * @method test_TestBuilder___construct_noparams() Testing method __construct with
-     * no params
-     */
-    public function test_TestBuilder___construct_noparams() {
-        $this->expectException(\ArgumentCountError::class);
-        $test = new \FightTheIce\Coding\TestBuilder();
     }
 
     /**
