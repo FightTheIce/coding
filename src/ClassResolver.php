@@ -13,8 +13,30 @@ class ClassResolver {
     protected $builder = array();
 
     public function __construct($classObjOrName) {
-        $this->reflection      = new ClassReflection($classObjOrName);
-        $this->objNonConstruct = $this->reflection->newInstanceWithoutConstructor($this->reflection->getName());
+        try {
+            $this->reflection = new ClassReflection($classObjOrName);
+        } catch (\Exception $e) {
+            throw new \ErrorException('Unable to reflection on: [' . $classObjOrName . ']');
+        }
+
+        if ($this->reflection->isInterface() == true) {
+            throw new \ErrorException('Unable to reconstruct interfaces at this time!');
+        }
+
+        if ($this->reflection->isTrait() == true) {
+            throw new \ErrorException('Unable to reconstruct traits at this time!');
+        }
+
+        if ($this->reflection->isAbstract() == true) {
+            throw new \ErrorException('Unable to reconstruct abstractions at this time!');
+        }
+
+        try {
+            $this->objNonConstruct = $this->reflection->newInstanceWithoutConstructor($this->reflection->getName());
+        } catch (\Exception $e) {
+            throw new \ErrorException('Unable to init object without construct!');
+        }
+
     }
 
     public function classMeta() {
@@ -253,8 +275,8 @@ class ClassResolver {
         //methodsMeta third
         $this->buildMethodsMeta();
 
-        echo '<?php' . PHP_EOL . 'include(\'vendor/autoload.php\');' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $this->builder) . PHP_EOL;
-        echo 'echo \'<?php\'.PHP_EOL.PHP_EOL.$class->generate();';
+        //return the builder array as a string
+        return implode(PHP_EOL, $this->builder);
     }
 
     protected function buildClassMeta() {
@@ -278,16 +300,7 @@ class ClassResolver {
         }
 
         if (!empty($classMeta['implements'])) {
-            $implementsStr = @var_export($classMeta['implements'], true);
-            if (is_null($implementsStr)) {
-                throw new \ErrorException('Unable to parse implements array.');
-            }
-
-            $implementsStr = str_replace(PHP_EOL, '', $implementsStr);
-            $implementsStr = str_replace('  ', '', $implementsStr);
-            $implementsStr = rtrim($implementsStr, ')');
-            $implementsStr = rtrim($implementsStr, ',');
-            $implementsStr = $implementsStr . ')';
+            $implementsStr = $this->exportArray($classMeta['implements']);
 
             $this->addToBuilder('//we should build a native way of doing this in the future');
             $this->addToBuilder('$class->getGenerator()->setImplementedInterfaces(' . $implementsStr . ');', true);
@@ -337,15 +350,19 @@ class ClassResolver {
                     $defaultValue = null;
                     $this->addToBuilder('$class->newProperty(\'' . $property['name'] . '\',null,\'' . $property['access'] . '\',\'' . $property['docblock']['long'] . '\');');
                 } elseif (is_array($defaultValue)) {
-                    $defaultValue = @var_export($defaultValue);
-
-                    if (is_null($defaultValue)) {
-                        throw new \ErrorException('Var_export can\'t handle your array!');
-                    }
+                    $defaultValue = $this->exportArray($defaultValue);
                 } elseif (is_string($defaultValue)) {
                     $defaultValue = "'" . $defaultValue . "'";
+                } elseif (is_bool($defaultValue)) {
+                    if ($defaultValue == true) {
+                        $defaultValue = 'true';
+                    } else {
+                        $defaultValue = 'false';
+                    }
+                } elseif (is_int($defaultValue)) {
+                    $defaultValue = (string) $defaultValue;
                 } else {
-                    throw new \ErrorException('Unable to determine datatype for your property.');
+                    throw new \ErrorException('Unable to determine datatype for your property. [' . gettype($defaultValue) . ']');
                 }
 
                 if (count($property['docblock']['tags']) > 0) {
@@ -418,8 +435,49 @@ class ClassResolver {
                             break;
 
                         default:
-                            throw new \ErrorException("unknown datatype: [" . $parameter['type'] . "]");
+                            //throw new \ErrorException("unknown datatype BLAH: [" . $parameter['type'] . "]");
                             break;
+                        }
+                    }
+
+                    if ($defaultValue == '#UNKNOWN#') {
+                        //if the defaultValue is still unknown lets try figuring it out
+                        $type = gettype($parameter['defaultValue']);
+                        switch ($type) {
+                        case 'string':
+                        case 'str':
+                            $defaultValue = "'" . $parameter['defaultValue'] . "'";
+                            break;
+
+                        case 'bool':
+                        case 'boolean':
+                            if ($parameter['defaultValue'] == true) {
+                                $defaultValue = 'true';
+                            } else {
+                                $defaultValue = 'false';
+                            }
+                            break;
+
+                        case 'int':
+                        case 'integer':
+                            $defaultValue = $parameter['defaultValue'];
+                            break;
+
+                        case 'array':
+                            $defaultValue = $this->exportArray($parameter['defaultValue']);
+                            break;
+
+                        case 'null':
+                        case 'NULL':
+                            $defaultValue = 'null';
+                            break;
+
+                        case 'double':
+                            $defaultValue = $parameter['defaultValue'];
+                            break;
+
+                        default:
+                            throw new \ErrorException('UNKNOWN TODDLER: [' . $type . ']');
                         }
                     }
 
@@ -475,6 +533,74 @@ class ClassResolver {
 
         $return['name']    = $name;
         $return['content'] = $content;
+
+        return $return;
+    }
+
+    protected function exportArray(array $arr) {
+        $arrStr = @var_export($arr, true);
+        if (is_null($arrStr)) {
+            throw new \ErrorException('Unable to var_export array.');
+        }
+
+        $arrStr = str_replace(PHP_EOL, '', $arrStr);
+        $arrStr = str_replace('  ', '', $arrStr);
+        $arrStr = rtrim($arrStr, ')');
+        $arrStr = rtrim($arrStr, ',');
+        $arrStr = $arrStr . ')';
+
+        return $arrStr;
+    }
+
+    protected function exportDataTypeAsString($data) {
+        $return = '';
+
+        $type = trim(strtoupper(gettype($data)));
+        switch ($type) {
+        case 'BOOLEAN':
+            if ($data == true) {
+                $return = 'true';
+            } else {
+                $return = 'false';
+            }
+            break;
+
+        case 'INTEGER':
+            $return = $data;
+            break;
+
+        case 'FLOAT':
+            $return = $data;
+            break;
+
+        case 'STRING':
+            $return = $data;
+            break;
+
+        case 'ARRAY':
+            $return = $this->exportArray($data);
+            break;
+
+        case 'OBJECT':
+            throw new \ErrorException('Unable to export type: [object]');
+            break;
+
+        case 'CALLABLE':
+            throw new \ErrorException('Unable to export type: [callable]');
+            break;
+
+        case 'ITERABLE':
+            throw new \ErrorException('Unable to export type: [iterable]');
+            break;
+
+        case 'RESOURCE':
+            throw new \ErrorException('Unable to export type: [resource]');
+            break;
+
+        case 'NULL':
+            $return = 'null';
+            break;
+        }
 
         return $return;
     }
