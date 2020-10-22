@@ -460,7 +460,8 @@ class ClassResolver {
 
             if (count($method['parameters']) > 0) {
                 foreach ($method['parameters'] as $parameter) {
-                    $call = "";
+                    $call         = "";
+                    $defaultValue = $this->exportDataTypeAsString($parameter['defaultValue']);
 
                     if ($parameter['isOptional'] == true) {
                         //this is an optional parameter
@@ -468,9 +469,15 @@ class ClassResolver {
                         if ($parameter['type'] == '#UNKNOWN#') {
                             //newOptionalParameterUnknown(string $name, $dv, string $desc)
                             $call = 'newOptionalParameterUnknown({name}, {dv}, {desc})';
+                            if (empty($defaultValue)) {
+                                throw new \ErrorException('X-1');
+                            }
                         } else {
                             //newOptionalParameter(string $name, $dv, $type, string $desc)
                             $call = 'newOptionalParameter({name}, {dv}, {type}, {desc})';
+                            if (empty($defaultValue)) {
+                                throw new \ErrorException('X-2');
+                            }
                         }
                     } else {
                         //this is a required parameter
@@ -485,8 +492,6 @@ class ClassResolver {
                     }
 
                     $call = str_replace('{name}', "'" . $parameter['name'] . "'", $call);
-
-                    $defaultValue = $this->exportDataTypeAsString($parameter['defaultValue']);
 
                     $call = str_replace('{dv}', $defaultValue, $call);
 
@@ -645,6 +650,10 @@ class ClassResolver {
             break;
 
         case 'STRING':
+            if (empty($data)) {
+                $data = "''";
+            }
+
             $return = $data;
             break;
 
