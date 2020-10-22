@@ -34,6 +34,8 @@ class Describer {
      */
     protected $generator = null;
 
+    protected $tags = array();
+
     /**
      * __construct
      *
@@ -109,8 +111,9 @@ class Describer {
      * @param string $value Tag Value
      */
     public function tag(string $name, string $value) {
-        $tag = new GenericTag($name, $value);
-        $this->generator->setTag($tag);
+        $this->tags[$name] = new GenericTag($name, $value);
+
+        $this->generator->setTag($this->tags[$name]);
 
         return $this;
     }
@@ -140,8 +143,9 @@ class Describer {
      * @param ?string $email A string containing the authors's email address
      */
     public function authorTag( ? string $name = null,  ? string $email = null) {
-        $tag = new AuthorTag($name, $email);
-        $this->generator->setTag($tag);
+        $this->tags['author'] = new AuthorTag($name, $email);
+
+        $this->generator->setTag($this->tags['author']);
 
         return $this;
     }
@@ -157,8 +161,9 @@ class Describer {
      * @param ?string $name License Name
      */
     public function licenseTag( ? string $url = null,  ? string $licenseName = null) {
-        $tag = new LicenseTag($url, $licenseName);
-        $this->generator->setTag($tag);
+        $this->tags['license'] = new LicenseTag($url, $licenseName);
+
+        $this->generator->setTag($this->tags['license']);
 
         return $this;
     }
@@ -176,8 +181,9 @@ class Describer {
      * @param $isStatic Is Method Static?
      */
     public function methodTag( ? string $name = null, $types = [], $description = null, $isStatic = false) {
-        $tag = new MethodTag($name, $types, $description, $isStatic);
-        $this->generator->setTag($tag);
+        $this->tags['method'] = new MethodTag($name, $types, $description, $isStatic);
+
+        $this->generator->setTag($this->tags['method']);
 
         return $this;
     }
@@ -194,8 +200,9 @@ class Describer {
      * @param $description Param Description
      */
     public function paramTag(string $name, $types = [], $description = null) {
-        $tag = new ParamTag($name, $types, $description);
-        $this->generator->setTag($tag);
+        $this->tags['params'][$name] = new ParamTag($name, $types, $description);
+
+        $this->generator->setTag($this->tags['params'][$name]);
 
         return $this;
     }
@@ -212,8 +219,9 @@ class Describer {
      * @param $description Property description
      */
     public function propertyTag(string $name, $types = [], $description = null) {
-        $tag = new PropertyTag($name, $types, $description);
-        $this->generator->setTag($tag);
+        $this->tags['property'] = new PropertyTag($name, $types, $description);
+
+        $this->generator->setTag($this->tags['property']);
 
         return $this;
     }
@@ -229,8 +237,9 @@ class Describer {
      * @param $description Return Description
      */
     public function returnTag($types = [], $description = null) {
-        $tag = new ReturnTag($types, $description);
-        $this->generator->setTag($tag);
+        $this->tags['return'] = new ReturnTag($types, $description);
+
+        $this->generator->setTag($this->tags['return']);
 
         return $this;
     }
@@ -246,8 +255,9 @@ class Describer {
      * @param $description Throws Description
      */
     public function throwsTag($types = [], $description = null) {
-        $tag = new ThrowsTag($types, $description);
-        $this->generator->setTag($tag);
+        $this->tags['throws'][] = new ThrowsTag($types, $description);
+
+        $this->generator->setTag(end($this->tags['throws']));
 
         return $this;
     }
@@ -264,10 +274,29 @@ class Describer {
      * @param $description Var Description
      */
     public function varTag(string $name, $types = [], $description = null) {
-        $tag = new VarTag($name, $types, $description);
-        $this->generator->setTag($tag);
+        $this->tags['var'] = new VarTag($name, $types, $description);
+
+        $this->generator->setTag($this->tags['var']);
 
         return $this;
     }
+
+    /*
+public function generate() {
+foreach ($this->tags as $name => $data) {
+if ($name == 'throws') {
+foreach ($data as $throw) {
+$this->generator->setTag($throw);
+}
+} elseif ($name == 'params') {
+foreach ($data as $paramname => $paramtag) {
+$this->generator->setTag($paramtag);
+}
+} else {
+$this->generator->setTag($data);
+}
+}
+}
+ */
 
 }

@@ -172,6 +172,10 @@ class TestBuilder {
 
         if (count($methods) > 0) {
             foreach ($methods as $name => $obj) {
+                if ($obj->getGenerator()->getVisibility() != 'public') {
+                    continue;
+                }
+
                 $methodName = 'test_' . $this->shortName . '_hasMethod_' . $name;
                 $method     = $this->test->newMethod($methodName, 'public', 'Testing that class ' . $this->name . ' has a method by the name of: ' . $name);
 

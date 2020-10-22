@@ -93,5 +93,5 @@ $method->getBodyFromObj($obj, 'exportDataTypeAsString');
 file_put_contents($path, '<?php' . PHP_EOL . PHP_EOL . $class->generate());
 
 $test = new FightTheIce\Coding\TestBuilder($class);
-$test->buildSetup('$this->obj = new \FightTheIce\Coding\ClassBuilder("class","short","long");');
+$test->buildSetup('$this->obj = new \FightTheIce\Coding\ClassResolver("FightTheIce\Coding\ClassResolver");');
 file_put_contents('tests/ClassBuilderTest.php', '<?php' . PHP_EOL . PHP_EOL . $test->generate());

@@ -1,0 +1,41 @@
+PHPUnit 9.4.2 by Sebastian Bergmann and contributors.
+
+.............F.F.F.F.F.F.......................................  63 / 102 ( 61%)
+.......................................                         102 / 102 (100%)
+
+Time: 00:00.118, Memory: 8.00 MB
+
+There were 6 failures:
+
+1) FightTheIce\Tests\Coding\ClassResolver\Test::test_ClassResolver_addToBuilder_noparams
+Failed asserting that exception of type "Error" matches expected exception "ArgumentCountError". Message was: "Call to protected method FightTheIce\Coding\ClassResolver::addToBuilder() from context 'FightTheIce\Tests\Coding\ClassResolver\Test'" at
+/Users/MacUser/Documents/Code/fti-coding/tests/ClassBuilderTest.php:258
+.
+
+2) FightTheIce\Tests\Coding\ClassResolver\Test::test_ClassResolver_gcm_noparams
+Failed asserting that exception of type "Error" matches expected exception "ArgumentCountError". Message was: "Call to protected method FightTheIce\Coding\ClassResolver::gcm() from context 'FightTheIce\Tests\Coding\ClassResolver\Test'" at
+/Users/MacUser/Documents/Code/fti-coding/tests/ClassBuilderTest.php:287
+.
+
+3) FightTheIce\Tests\Coding\ClassResolver\Test::test_ClassResolver_pexit_noparams
+Failed asserting that exception of type "Error" matches expected exception "ArgumentCountError". Message was: "Call to protected method FightTheIce\Coding\ClassResolver::pexit() from context 'FightTheIce\Tests\Coding\ClassResolver\Test'" at
+/Users/MacUser/Documents/Code/fti-coding/tests/ClassBuilderTest.php:316
+.
+
+4) FightTheIce\Tests\Coding\ClassResolver\Test::test_ClassResolver_extractTagAsGeneric_noparams
+Failed asserting that exception of type "Error" matches expected exception "ArgumentCountError". Message was: "Call to protected method FightTheIce\Coding\ClassResolver::extractTagAsGeneric() from context 'FightTheIce\Tests\Coding\ClassResolver\Test'" at
+/Users/MacUser/Documents/Code/fti-coding/tests/ClassBuilderTest.php:347
+.
+
+5) FightTheIce\Tests\Coding\ClassResolver\Test::test_ClassResolver_exportArray_noparams
+Failed asserting that exception of type "Error" matches expected exception "ArgumentCountError". Message was: "Call to protected method FightTheIce\Coding\ClassResolver::exportArray() from context 'FightTheIce\Tests\Coding\ClassResolver\Test'" at
+/Users/MacUser/Documents/Code/fti-coding/tests/ClassBuilderTest.php:377
+.
+
+6) FightTheIce\Tests\Coding\ClassResolver\Test::test_ClassResolver_exportDataTypeAsString_noparams
+Failed asserting that exception of type "Error" matches expected exception "ArgumentCountError". Message was: "Call to protected method FightTheIce\Coding\ClassResolver::exportDataTypeAsString() from context 'FightTheIce\Tests\Coding\ClassResolver\Test'" at
+/Users/MacUser/Documents/Code/fti-coding/tests/ClassBuilderTest.php:408
+.
+
+FAILURES!
+Tests: 102, Assertions: 102, Failures: 6.
