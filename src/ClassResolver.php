@@ -413,93 +413,50 @@ class ClassResolver {
                         }
                     }
 
-                    $call         = str_replace('{name}', "'" . $parameter['name'] . "'", $call);
-                    $defaultValue = '#UNKNOWN#';
-                    switch ($parameter['type']) {
-                    case "bool":
-                        if ($parameter['defaultValue'] == true) {
-                            $defaultValue = 'true';
-                        } else {
-                            $defaultValue = 'false';
-                        }
-                        break;
+                    $call = str_replace('{name}', "'" . $parameter['name'] . "'", $call);
 
-                    case "str":
-                    case "string":
-                        $defaultValue = "'" . $parameter['defaultValue'] . "'";
-                        break;
-
-                    default:
-                        switch ($parameter['type']) {
-                        case '#UNKNOWN#':
-                            break;
-
-                        default:
-                            //throw new \ErrorException("unknown datatype BLAH: [" . $parameter['type'] . "]");
-                            break;
-                        }
-                    }
-
-                    if ($defaultValue == '#UNKNOWN#') {
-                        //if the defaultValue is still unknown lets try figuring it out
-                        $type = gettype($parameter['defaultValue']);
-                        switch ($type) {
-                        case 'string':
-                        case 'str':
-                            $defaultValue = "'" . $parameter['defaultValue'] . "'";
-                            break;
-
-                        case 'bool':
-                        case 'boolean':
-                            if ($parameter['defaultValue'] == true) {
-                                $defaultValue = 'true';
-                            } else {
-                                $defaultValue = 'false';
-                            }
-                            break;
-
-                        case 'int':
-                        case 'integer':
-                            $defaultValue = $parameter['defaultValue'];
-                            break;
-
-                        case 'array':
-                            $defaultValue = $this->exportArray($parameter['defaultValue']);
-                            break;
-
-                        case 'null':
-                        case 'NULL':
-                            $defaultValue = 'null';
-                            break;
-
-                        case 'double':
-                            $defaultValue = $parameter['defaultValue'];
-                            break;
-
-                        default:
-                            throw new \ErrorException('UNKNOWN TODDLER: [' . $type . ']');
-                        }
-                    }
+                    $defaultValue = $this->exportDataTypeAsString($parameter['defaultValue']);
 
                     $call = str_replace('{dv}', $defaultValue, $call);
 
                     if ($parameter['type'] != '#UNKNOWN#') {
+                        /*
+                        switch (strtoupper($parameter['type'])) {
+                        case 'BOOLEAN':
+                        case 'INTEGER':
+                        case 'FLOAT':
+                        case 'STRING':
+                        case 'ARRAY':
+                        case 'NULL':
+                        break;
+
+                        default:
+                        //if the type is not a basic one then lets add a "use" and use the shortname for the type hint
+                        $x         = explode('\\', $parameter['type']);
+                        $shortName = array_pop($x);
+
+                        if (count($x) > 1) {
+                        $this->addToBuilder('$class->uses(\'' . implode('\\', $x) . '\');');
+
+                        $parameter['type'] = $shortName;
+                        }
+                        break;
+                        }
+                         */
                         $call = str_replace('{type}', "'" . $parameter['type'] . "'", $call);
                     }
 
                     $call = str_replace('{desc}', "'" . $parameter['docblock']['desc'] . "'", $call);
                     $this->addToBuilder('$method->' . $call . ';');
                 }
-
-                //$this->addToBuilder("");
             }
 
-            //$this->addToBuilder('$method->getBodyFromObj($obj, \'' . $method['name'] . '\');');
+            $this->addToBuilder('//$method->getBodyFromObj($obj, \'' . $method['name'] . '\');');
             $this->addToBuilder("");
         }
     }
 
-    protected function addToBuilder(string $str, $includeEmptyLine = false) {
+    protected function addToBuilder(string $str, bool $includeEmptyLine = false) {
         $this->builder[] = $str;
         if ($includeEmptyLine == true) {
             $this->builder[] = "";
@@ -508,6 +465,7 @@ class ClassResolver {
 
     protected function gcm($obj) {
         print_r(get_class_methods($obj));
+
     }
 
     protected function pexit($obj) {
@@ -566,11 +524,11 @@ class ClassResolver {
             break;
 
         case 'INTEGER':
-            $return = $data;
+            $return = (string) $data;
             break;
 
         case 'FLOAT':
-            $return = $data;
+            $return = (string) $data;
             break;
 
         case 'STRING':
@@ -600,6 +558,10 @@ class ClassResolver {
         case 'NULL':
             $return = 'null';
             break;
+        }
+
+        if (!is_string($return)) {
+            throw new \ErrorException('Unable to cast to string!');
         }
 
         return $return;
