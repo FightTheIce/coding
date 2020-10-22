@@ -6,12 +6,42 @@ use Laminas\Code\Generator\DocBlock\TagManager;
 use Laminas\Code\Reflection\ClassReflection;
 use Laminas\Code\Reflection\DocBlock\Tag\TagInterface;
 
+/**
+ * @namespace FightTheIce\Coding
+ */
 class ClassResolver {
-    protected $reflection      = null;
+
+    /**
+     * reflection
+     *
+     * @access protected
+     * @property NULL $reflection
+     */
+    protected $reflection = null;
+
+    /**
+     * objNonConstruct
+     *
+     * @access protected
+     * @property NULL $objNonConstruct
+     */
     protected $objNonConstruct = null;
 
-    protected $builder = array();
+    /**
+     * builder
+     *
+     * @access protected
+     * @property NULL $builder
+     */
+    protected $builder = null;
 
+    /**
+     * __construct
+     *
+     * @access public
+     * @method __construct()
+     * @param ANY $classObjOrName
+     */
     public function __construct($classObjOrName) {
         try {
             $this->reflection = new ClassReflection($classObjOrName);
@@ -36,9 +66,14 @@ class ClassResolver {
         } catch (\Exception $e) {
             throw new \ErrorException('Unable to init object without construct!');
         }
-
     }
 
+    /**
+     * classMeta
+     *
+     * @access public
+     * @method classMeta()
+     */
     public function classMeta() {
         $results = array(
             'classname'  => '',
@@ -98,6 +133,12 @@ class ClassResolver {
         return $results;
     }
 
+    /**
+     * propertiesMeta
+     *
+     * @access public
+     * @method propertiesMeta()
+     */
     public function propertiesMeta() {
         $results = array();
 
@@ -147,6 +188,12 @@ class ClassResolver {
         return $results;
     }
 
+    /**
+     * methodsMeta
+     *
+     * @access public
+     * @method methodsMeta()
+     */
     public function methodsMeta() {
         $results = array();
 
@@ -265,6 +312,12 @@ class ClassResolver {
         return $results;
     }
 
+    /**
+     * build
+     *
+     * @access public
+     * @method build()
+     */
     public function build() {
         //classMeta first
         $this->buildClassMeta();
@@ -279,6 +332,12 @@ class ClassResolver {
         return implode(PHP_EOL, $this->builder);
     }
 
+    /**
+     * buildClassMeta
+     *
+     * @access protected
+     * @method buildClassMeta()
+     */
     protected function buildClassMeta() {
         $classMeta = $this->classMeta();
         if (!isset($classMeta['classname'])) {
@@ -340,6 +399,12 @@ class ClassResolver {
         }
     }
 
+    /**
+     * buildPropertiesMeta
+     *
+     * @access protected
+     * @method buildPropertiesMeta()
+     */
     protected function buildPropertiesMeta() {
         $propertiesMeta = $this->propertiesMeta();
         if (count($propertiesMeta) > 0) {
@@ -381,6 +446,12 @@ class ClassResolver {
         }
     }
 
+    /**
+     * buildMethodsMeta
+     *
+     * @access protected
+     * @method buildMethodsMeta()
+     */
     protected function buildMethodsMeta() {
         $methodsMeta = $this->methodsMeta();
 
@@ -456,6 +527,14 @@ class ClassResolver {
         }
     }
 
+    /**
+     * addToBuilder
+     *
+     * @access protected
+     * @method addToBuilder()
+     * @param string $str
+     * @param bool $includeEmptyLine
+     */
     protected function addToBuilder(string $str, bool $includeEmptyLine = false) {
         $this->builder[] = $str;
         if ($includeEmptyLine == true) {
@@ -463,17 +542,37 @@ class ClassResolver {
         }
     }
 
+    /**
+     * gcm
+     *
+     * @access protected
+     * @method gcm()
+     * @param ANY $obj
+     */
     protected function gcm($obj) {
         print_r(get_class_methods($obj));
-
     }
 
+    /**
+     * pexit
+     *
+     * @access protected
+     * @method pexit()
+     * @param ANY $obj
+     */
     protected function pexit($obj) {
         print_r($obj);
         exit;
     }
 
-    protected function extractTagAsGeneric(TagInterface $tag) {
+    /**
+     * extractTagAsGeneric
+     *
+     * @access protected
+     * @method extractTagAsGeneric()
+     * @param Laminas\Code\Reflection\DocBlock\Tag\TagInterface $tag
+     */
+    protected function extractTagAsGeneric(\Laminas\Code\Reflection\DocBlock\Tag\TagInterface $tag) {
         $return = array(
             'name'    => '',
             'content' => '',
@@ -495,6 +594,13 @@ class ClassResolver {
         return $return;
     }
 
+    /**
+     * exportArray
+     *
+     * @access protected
+     * @method exportArray()
+     * @param array $arr
+     */
     protected function exportArray(array $arr) {
         $arrStr = @var_export($arr, true);
         if (is_null($arrStr)) {
@@ -510,6 +616,13 @@ class ClassResolver {
         return $arrStr;
     }
 
+    /**
+     * exportDataTypeAsString
+     *
+     * @access protected
+     * @method exportDataTypeAsString()
+     * @param ANY $data
+     */
     protected function exportDataTypeAsString($data) {
         $return = '';
 
@@ -566,4 +679,5 @@ class ClassResolver {
 
         return $return;
     }
+
 }
