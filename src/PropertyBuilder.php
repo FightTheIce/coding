@@ -41,7 +41,7 @@ class PropertyBuilder {
      * @access public
      * @method __construct() Class Construct
      * @param string $name A string containing the method name
-     * @param ANY $dv The data type for this parameter
+     * @param mixed $dv The data type for this parameter
      * @param string $access Access level
      * @param string $long Long Description
      */

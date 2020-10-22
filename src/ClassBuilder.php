@@ -154,7 +154,7 @@ class ClassBuilder {
      * @access public
      * @method newProperty() Add a new property to the class
      * @param string $name Name of property
-     * @param ANY $dv default value of property
+     * @param mixed $dv default value of property
      * @param string $access access level
      * @param string $long Long Description of property
      * @param bool $getMethod Should we generate a getProperty method

@@ -94,7 +94,7 @@ class MethodBuilder {
      * @access public
      * @method newRequiredParameter() Add a required parameter
      * @param string $name Name of parameter
-     * @param ANY $type The data type for this parameter
+     * @param mixed $type The data type for this parameter
      * @param string $desc The description of the parameter
      */
     public function newRequiredParameter(string $name, $type, string $desc) {
@@ -138,8 +138,8 @@ class MethodBuilder {
      * @access public
      * @method newOptionalParameter() Add a new optional parameter
      * @param string $name Name of optional parameter
-     * @param ANY $dv default value of property
-     * @param ANY $type The data type for this parameter
+     * @param mixed $dv default value of property
+     * @param mixed $type The data type for this parameter
      * @param string $desc Description of parameter
      */
     public function newOptionalParameter(string $name, $dv, $type, string $desc) {
@@ -165,7 +165,7 @@ class MethodBuilder {
      * @access public
      * @method newOptionalParameterUnknown() Add a new optional parameter
      * @param string $name Name of optional parameter
-     * @param ANY $dv default value of property
+     * @param mixed $dv default value of property
      * @param string $desc Description of parameter
      */
     public function newOptionalParameterUnknown(string $name, $dv, string $desc) {
@@ -205,7 +205,7 @@ class MethodBuilder {
      *
      * @access public
      * @method getBodyFromObj() Get the contents of an existing method
-     * @param ANY $obj Object that we can grab it from
+     * @param mixed $obj Object that we can grab it from
      * @param string $method Method Name
      */
     public function getBodyFromObj($obj, string $method) {

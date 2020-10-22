@@ -40,7 +40,7 @@ class ClassResolver {
      *
      * @access public
      * @method __construct()
-     * @param ANY $classObjOrName
+     * @param mixed $classObjOrName
      */
     public function __construct($classObjOrName) {
         try {
@@ -552,7 +552,7 @@ class ClassResolver {
      *
      * @access protected
      * @method gcm()
-     * @param ANY $obj
+     * @param mixed $obj
      */
     protected function gcm($obj) {
         print_r(get_class_methods($obj));
@@ -563,7 +563,7 @@ class ClassResolver {
      *
      * @access protected
      * @method pexit()
-     * @param ANY $obj
+     * @param mixed $obj
      */
     protected function pexit($obj) {
         print_r($obj);
@@ -626,7 +626,7 @@ class ClassResolver {
      *
      * @access protected
      * @method exportDataTypeAsString()
-     * @param ANY $data
+     * @param mixed $data
      */
     protected function exportDataTypeAsString($data) {
         $return = '';

@@ -34,11 +34,6 @@ class Describer {
      */
     protected $generator = null;
 
-    protected $tags = array(
-        'params' => array(),
-        'throws' => array(),
-    );
-
     /**
      * __construct
      *
@@ -144,10 +139,10 @@ class Describer {
      *
      * @access public
      * @method authorTag() Author Tag Generator
-     * @param ?string $name A string containing the authors name
-     * @param ?string $email A string containing the authors's email address
+     * @param string $name A string containing the authors name
+     * @param string $email A string containing the authors's email address
      */
-    public function authorTag( ? string $name = null,  ? string $email = null) {
+    public function authorTag(string $name = null, string $email = null) {
         if (!isset($this->tags['author'])) {
             $this->tags['author'] = new AuthorTag($name, $email);
 
@@ -164,10 +159,10 @@ class Describer {
      *
      * @access public
      * @method licenseTag() License Tag Generator
-     * @param ?string $url URL
-     * @param ?string $name License Name
+     * @param string $url URL
+     * @param string $licenseName
      */
-    public function licenseTag( ? string $url = null,  ? string $licenseName = null) {
+    public function licenseTag(string $url = null, string $licenseName = null) {
         if (!isset($this->tags['license'])) {
             $this->tags['license'] = new LicenseTag($url, $licenseName);
 
@@ -184,12 +179,12 @@ class Describer {
      *
      * @access public
      * @method methodTag() Method Tag Generator
-     * @param ?string $name Method Name
-     * @param $types Method Types
-     * @param $description Method Description
-     * @param $isStatic Is Method Static?
+     * @param string $name Method Name
+     * @param $types
+     * @param $description
+     * @param $isStatic
      */
-    public function methodTag( ? string $name = null, $types = [], $description = null, $isStatic = false) {
+    public function methodTag(string $name = null, $types = [], $description = null, $isStatic = false) {
         if (!isset($this->tags['method'])) {
             $this->tags['method'] = new MethodTag($name, $types, $description, $isStatic);
 
@@ -207,8 +202,8 @@ class Describer {
      * @access public
      * @method paramTag() Param Tag Generator
      * @param string $name Param Name
-     * @param $types Param Types
-     * @param $description Param Description
+     * @param $types
+     * @param $description
      */
     public function paramTag(string $name, $types = [], $description = null) {
         if (!isset($this->tags['params'][$name])) {
@@ -228,8 +223,8 @@ class Describer {
      * @access public
      * @method propertyTag() Property Tag Generator
      * @param string $name Property name
-     * @param $types Property types
-     * @param $description Property description
+     * @param $types
+     * @param $description
      */
     public function propertyTag(string $name, $types = [], $description = null) {
         if (!isset($this->tags['property'])) {
@@ -248,8 +243,8 @@ class Describer {
      *
      * @access public
      * @method returnTag() Return Tag Generator
-     * @param $types Return Types
-     * @param $description Return Description
+     * @param $types
+     * @param $description
      */
     public function returnTag($types = [], $description = null) {
         if (!isset($this->tags['return'])) {
@@ -268,8 +263,8 @@ class Describer {
      *
      * @access public
      * @method throwsTag() Throws Tag Generator
-     * @param $types Throws Types
-     * @param $description Throws Description
+     * @param $types
+     * @param $description
      */
     public function throwsTag($types = [], $description = null) {
         if (is_array($types)) {
@@ -293,8 +288,8 @@ class Describer {
      * @access public
      * @method varTag() Var Tag Generator
      * @param string $name Var Name
-     * @param $types Var Types
-     * @param $description Var Description
+     * @param $types
+     * @param $description
      */
     public function varTag(string $name, $types = [], $description = null) {
         if (!isset($this->tags['var'])) {
@@ -305,4 +300,5 @@ class Describer {
 
         return $this;
     }
+
 }

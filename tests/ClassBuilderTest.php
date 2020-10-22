@@ -9,8 +9,7 @@ namespace FightTheIce\Tests\Coding\ClassResolver;
  *
  * @namespace FightTheIce\Tests\Coding\ClassResolver
  */
-class Test extends \PHPUnit\Framework\TestCase
-{
+class Test extends \PHPUnit\Framework\TestCase {
 
     /**
      * obj
@@ -30,8 +29,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * @access protected
      * @method setUp() Setup the test
      */
-    protected function setUp() : void
-    {
+    protected function setUp(): void{
         $this->obj = new \FightTheIce\Coding\ClassResolver("FightTheIce\Coding\ClassResolver");
     }
 
@@ -43,8 +41,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * @access public
      * @method getObj() Get the property obj
      */
-    public function getObj()
-    {
+    public function getObj() {
         return $this->obj;
     }
 
@@ -58,9 +55,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasAttribute_reflection() Testing that class
      * FightTheIce\Coding\ClassResolver has an attribute of: reflection
      */
-    public function test_ClassResolver_hasAttribute_reflection()
-    {
-        $this->assertClassHasAttribute('reflection',\FightTheIce\Coding\ClassResolver::class);
+    public function test_ClassResolver_hasAttribute_reflection() {
+        $this->assertClassHasAttribute('reflection', \FightTheIce\Coding\ClassResolver::class);
     }
 
     /**
@@ -73,9 +69,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasAttribute_objNonConstruct() Testing that class
      * FightTheIce\Coding\ClassResolver has an attribute of: objNonConstruct
      */
-    public function test_ClassResolver_hasAttribute_objNonConstruct()
-    {
-        $this->assertClassHasAttribute('objNonConstruct',\FightTheIce\Coding\ClassResolver::class);
+    public function test_ClassResolver_hasAttribute_objNonConstruct() {
+        $this->assertClassHasAttribute('objNonConstruct', \FightTheIce\Coding\ClassResolver::class);
     }
 
     /**
@@ -87,9 +82,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasAttribute_builder() Testing that class
      * FightTheIce\Coding\ClassResolver has an attribute of: builder
      */
-    public function test_ClassResolver_hasAttribute_builder()
-    {
-        $this->assertClassHasAttribute('builder',\FightTheIce\Coding\ClassResolver::class);
+    public function test_ClassResolver_hasAttribute_builder() {
+        $this->assertClassHasAttribute('builder', \FightTheIce\Coding\ClassResolver::class);
     }
 
     /**
@@ -102,9 +96,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasMethod___construct() Testing that class
      * FightTheIce\Coding\ClassResolver has a method by the name of: __construct
      */
-    public function test_ClassResolver_hasMethod___construct()
-    {
-        $this->assertTrue(method_exists($this->obj,'__construct'));
+    public function test_ClassResolver_hasMethod___construct() {
+        $this->assertTrue(method_exists($this->obj, '__construct'));
     }
 
     /**
@@ -116,8 +109,7 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver___construct_noparams() Testing method __construct
      * with no params
      */
-    public function test_ClassResolver___construct_noparams()
-    {
+    public function test_ClassResolver___construct_noparams() {
         $this->expectException(\ArgumentCountError::class);
         $test = new \FightTheIce\Coding\ClassResolver();
     }
@@ -132,9 +124,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasMethod_classMeta() Testing that class
      * FightTheIce\Coding\ClassResolver has a method by the name of: classMeta
      */
-    public function test_ClassResolver_hasMethod_classMeta()
-    {
-        $this->assertTrue(method_exists($this->obj,'classMeta'));
+    public function test_ClassResolver_hasMethod_classMeta() {
+        $this->assertTrue(method_exists($this->obj, 'classMeta'));
     }
 
     /**
@@ -147,9 +138,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasMethod_propertiesMeta() Testing that class
      * FightTheIce\Coding\ClassResolver has a method by the name of: propertiesMeta
      */
-    public function test_ClassResolver_hasMethod_propertiesMeta()
-    {
-        $this->assertTrue(method_exists($this->obj,'propertiesMeta'));
+    public function test_ClassResolver_hasMethod_propertiesMeta() {
+        $this->assertTrue(method_exists($this->obj, 'propertiesMeta'));
     }
 
     /**
@@ -162,9 +152,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasMethod_methodsMeta() Testing that class
      * FightTheIce\Coding\ClassResolver has a method by the name of: methodsMeta
      */
-    public function test_ClassResolver_hasMethod_methodsMeta()
-    {
-        $this->assertTrue(method_exists($this->obj,'methodsMeta'));
+    public function test_ClassResolver_hasMethod_methodsMeta() {
+        $this->assertTrue(method_exists($this->obj, 'methodsMeta'));
     }
 
     /**
@@ -177,10 +166,8 @@ class Test extends \PHPUnit\Framework\TestCase
      * @method test_ClassResolver_hasMethod_build() Testing that class
      * FightTheIce\Coding\ClassResolver has a method by the name of: build
      */
-    public function test_ClassResolver_hasMethod_build()
-    {
-        $this->assertTrue(method_exists($this->obj,'build'));
+    public function test_ClassResolver_hasMethod_build() {
+        $this->assertTrue(method_exists($this->obj, 'build'));
     }
-
 
 }

@@ -59,20 +59,6 @@ class Test extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * test_Describer_hasMethod_getGenerator
-     *
-     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
-     * getGenerator
-     *
-     * @access public
-     * @method test_Describer_hasMethod_getGenerator() Testing that class
-     * FightTheIce\Coding\Describer has a method by the name of: getGenerator
-     */
-    public function test_Describer_hasMethod_getGenerator() {
-        $this->assertTrue(method_exists($this->obj, 'getGenerator'));
-    }
-
-    /**
      * test_Describer_hasMethod___construct
      *
      * Testing that class FightTheIce\Coding\Describer has a method by the name of:
@@ -84,6 +70,20 @@ class Test extends \PHPUnit\Framework\TestCase {
      */
     public function test_Describer_hasMethod___construct() {
         $this->assertTrue(method_exists($this->obj, '__construct'));
+    }
+
+    /**
+     * test_Describer_hasMethod_getGenerator
+     *
+     * Testing that class FightTheIce\Coding\Describer has a method by the name of:
+     * getGenerator
+     *
+     * @access public
+     * @method test_Describer_hasMethod_getGenerator() Testing that class
+     * FightTheIce\Coding\Describer has a method by the name of: getGenerator
+     */
+    public function test_Describer_hasMethod_getGenerator() {
+        $this->assertTrue(method_exists($this->obj, 'getGenerator'));
     }
 
     /**
