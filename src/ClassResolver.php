@@ -451,7 +451,7 @@ class ClassResolver {
                 }
             }
 
-            $this->addToBuilder('//$method->getBodyFromObj($obj, \'' . $method['name'] . '\');');
+            $this->addToBuilder('$method->getBodyFromObj($obj, \'' . $method['name'] . '\');');
             $this->addToBuilder("");
         }
     }
