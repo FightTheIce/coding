@@ -9,6 +9,13 @@ class ClassBuilder {
     protected $generator  = null;
     protected $properties = array();
     protected $implements = array();
+    protected $attributes = array(
+        'standard'  => array(),
+        'static'    => array(),
+        'constants' => array(),
+
+        'names'     => array(),
+    );
 
     public function __construct(string $classname,  ? string $shortDescription = null,  ? string $longDescription = null) {
         $this->describer = new Describer($shortDescription, $longDescription);
@@ -33,6 +40,27 @@ class ClassBuilder {
 
         if ($this->describer->hasData() == true) {
             $this->generator->setDocBlock($this->describer->getGenerator());
+        }
+
+        if (!empty($this->attributes['standard'])) {
+            foreach ($this->attributes['standard'] as $name => $builder) {
+                $builder->generate();
+                $this->generator->addPropertyFromGenerator($builder->getGenerator());
+            }
+        }
+
+        if (!empty($this->attributes['static'])) {
+            foreach ($this->attributes['static'] as $name => $builder) {
+                $builder->generate();
+                $this->generator->addPropertyFromGenerator($builder->getGenerator());
+            }
+        }
+
+        if (!empty($this->attributes['constants'])) {
+            foreach ($this->attributes['constants'] as $name => $builder) {
+                $builder->generate();
+                $this->generator->addPropertyFromGenerator($builder->getGenerator());
+            }
         }
 
         return $this->generator->generate();
@@ -66,5 +94,38 @@ class ClassBuilder {
         $this->implements[] = $interfaceName;
 
         return $this;
+    }
+
+    public function attribute(string $visibility, string $name, $defaultValue = null,  ? string $description = null) {
+        if (isset($this->attributes['names'][$name])) {
+            throw new \ErrorException('Attribute: [' . $name . '] already exists!');
+        }
+        $this->attributes['names'][$name];
+
+        $this->attributes['standard'][$name] = new AttributeBuilder($visibility, $name, $defaultValue, $description);
+
+        return $this->attributes['standard'][$name];
+    }
+
+    public function staticattribute(string $visibility, string $name, $defaultValue = null,  ? string $description = null) {
+        if (isset($this->attributes['names'][$name])) {
+            throw new \ErrorException('Attribute: [' . $name . '] already exists!');
+        }
+        $this->attributes['names'][$name];
+
+        $this->attributes['static'][$name] = new StaticAttributeBuilder($visibility, $name, $defaultValue, $description);
+
+        return $this->attributes['static'][$name];
+    }
+
+    public function constantattribute(string $visibility, string $name, $defaultValue = null,  ? string $description = null) {
+        if (isset($this->attributes['names'][$name])) {
+            throw new \ErrorException('Attribute: [' . $name . '] already exists!');
+        }
+        $this->attributes['names'][$name];
+
+        $this->attributes['constants'][$name] = new ConstantAttributeBuilder($visibility, $name, $defaultValue, $description);
+
+        return $this->attributes['constants'][$name];
     }
 }
