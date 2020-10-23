@@ -17,6 +17,7 @@ class Describer {
     protected $generator          = null;
     protected $allowDuplicateTags = false;
     protected $tags               = array();
+    protected $generated          = '';
 
     public function __construct( ? string $shortDescription = null,  ? string $longDescription = null, bool $allowDuplicateTags = false) {
         $this->generator          = new DocBlockGenerator();
@@ -62,20 +63,6 @@ class Describer {
     }
 
     public function genericTag($name = null, $content = null) {
-        //genric tags may not be author,license,method,param,property,return,throws, or var
-        switch (trim(strtolower($name))) {
-        case 'author' :
-        case 'license' :
-        case 'method' :
-        case 'param' :
-        case 'property':
-        case 'return':
-        case 'throws':
-        case 'var':
-            throw new \ErrorException('Tag: ' . $name . ' must call the correct method');
-            break;
-        }
-
         $this->initTagArray('generic');
 
         if ($this->allowDuplicateTags == false) {
@@ -262,13 +249,18 @@ class Describer {
     }
 
     public function generate() {
-        //lets add all our tags in now
-        foreach ($this->tags as $tagType => $tags) {
-            foreach ($tags as $tag) {
-                $this->getGenerator()->setTag($tag);
+        if (empty($this->generated)) {
+            //lets add all our tags in now
+            foreach ($this->tags as $tagType => $tags) {
+                foreach ($tags as $tag) {
+                    $this->getGenerator()->setTag($tag);
+                }
             }
+
+            $this->generated = $this->getGenerator()->generate();
         }
-        return $this->getGenerator()->generate();
+
+        return $this->generated;
     }
 
     protected function tagMayNotBeUsedWith($otherTags = []) {
@@ -297,10 +289,10 @@ class Describer {
         switch ($visibility) {
         case 'public' :
         case 'private' :
-        case 'protected':
+        case 'protected' :
             break;
 
-        default:
+        default :
             throw new \ErrorException('Visibility must be public, private, or protected');
             break;
         }

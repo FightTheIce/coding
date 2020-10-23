@@ -26,10 +26,13 @@ class ClassBuilder {
 
     public function generate() {
         $this->describer->generate();
-        $this->generator->setDocBlock($this->describer->getGenerator());
 
         if (!empty($this->implements)) {
             $this->generator->setImplementedInterfaces($this->implements);
+        }
+
+        if ($this->describer->hasData() == true) {
+            $this->generator->setDocBlock($this->describer->getGenerator());
         }
 
         return $this->generator->generate();
